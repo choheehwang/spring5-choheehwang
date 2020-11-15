@@ -10,7 +10,8 @@
 <h1>
 	Hello! We always welcome you.
 </h1>
-<P> <c:out value="현재 한국 서버의 시간은 ${serverTime} 입니다."></c:out>
+<P>
+<c:out value="현재 한국 서버의 시간은 ${serverTime} 입니다."></c:out>
 </P>
 <P> 현재 한국 서버의 시간은 ${serverTime} 입니다.
 <script>alert('It is NOT TRUE');</script>
