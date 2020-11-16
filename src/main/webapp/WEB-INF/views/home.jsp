@@ -4,7 +4,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
-	<title>스프링</title>
+	<title>HI, STRANGER</title>
 </head>
 <body>
 <h1>
@@ -14,7 +14,7 @@
 <c:out value="현재 한국 서버의 시간은 ${serverTime} 입니다."></c:out>
 </P>
 <P> 현재 한국 서버의 시간은 ${serverTime} 입니다.
-<script>alert('It is NOT TRUE');</script>
+<script>alert('안녕하세요');</script>
 </P>
 </body>
 </html>
