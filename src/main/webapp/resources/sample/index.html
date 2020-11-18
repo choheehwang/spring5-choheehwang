@@ -11,6 +11,7 @@ span {
 display:block;height:10px;width:50px;background-color:blue;
 margin-bottom:10px;
 }
+#wrap .slider img {width:100%;} /* cascade style sheet 계단형 스타일지정 */
 /* 모바일용 스타일지정 끝 */
 </style>
 <script>
@@ -22,6 +23,7 @@ margin-bottom:10px;
 <body><!-- 문서내용이 들어가는 영역 -->
 <div id="wrap"><!-- 랩핑시킨 영역 -->
 <header>
+<section>
 <!-- 상단 로고, 메뉴 영역 시작 -->
 <h1>LOGO(image)</h1><!-- Title(Headline) 글자를 표시, h1~h6 -->
 <span></span>
@@ -36,12 +38,16 @@ margin-bottom:10px;
 <li>CONTACT US</li>
 </ul>
 <!-- 상단 로고, 메뉴 영역 끝 -->
+</section>
 </header>
-<div><!-- division 영역표시 태그 -->
+<div><!-- division 영역표시 태그, section은 div와 같음 -->
 <!-- 본문 슬라이드 영영 시작 -->
 <!-- img는 이미지를 불러오는 태그 -->
 <!-- 경로에는 상대경로(아래의 ./img/...)와 절대경로(/resource/sample/img/...)가 있음 -->
-<img src="/resources/sample/img/playg.png" style="width:100%" alt="풍선 이미지 입니다">
+<!-- 태그 안 쪽에 지정한 style을 inline-style이라 한다(급할 때만 사용) -->
+<div class="slider">
+<img src="/resources/sample/img/playg.png" alt="풍선 이미지 입니다">
+</div>
 <!-- 본문 슬라이드 영역 끝 -->
 </div>
 <footer>
