@@ -112,4 +112,93 @@ color:#3f51b5;
 .weare-body li p {font-size:14px;}
 /* we are 페이지 끝 */
 
+/* work 영역 시작 */
+.work-section {
+text-align:center;
+margin-top:30px;
+}
+.work-section li img {width:100%;}
+.work-section li a { /*이 부분이 a 태그의 실제 요소*/
+/*a태그가 자리를 차지하지 않는 영역이고, block을 이용하여 자리를 차지하는 영역으로 변경(아래)*/
+display:block;
+width:100%;
+height:100%;
+/*a태그에서 위치를 상대위치로 지정*/
+position:relative;
+}
+/*마우스를 롤오버(갖다대는 거)했을 때 나오는 배경색상, a 태그의 before 가상요소 영역(아래)*/
+.work-section li a::before {
+display:block;
+background:#3f51b5;
+/*이 절대값 위치는 위 a태그에서 지정한 relative 상대위치에 한정해서 절대위치로 지정됨(아래)*/
+position:absolute;
+width:100%;
+height:100%;
+top:0px;
+left:0px;
+content:"";
+opacity:0; 투명도 /*0%이므로 불투명*/
+}
+.work-section li a:hover::before {
+opacity:0.4;
+}
+.work-section .info {
+display:block;/*화면에서 자리를 차지하기 위해서 block을 지정*/
+position:absolute;
+color:#fff;
+text-align:left;
+opacity:0;
+transition:all 0.3s;/*화면전환 옵션*/
+}
+.work-section li a:hover .info{
+opacity:1;
+transform:translateY(20px;) /*모양이 변화할 때 Y세로축으로 20px 이동*/
+}
+.info h2 {
+font-size:26px;
+font-weight:normal;
+}
+.info p {
+font-size:14px;
+padding:10px 0px;
+}
+/* work 영역 끝 */
+
+/*블로그 영역 시작*/
+.blog-section {
+margin-top:30px;
+}
+.blog-section li {
+margin-top:30px;
+}
+.blog-section h1 {
+text-align:center;
+font-size:30px;
+color:#3f51b5;
+}
+.blog-section .container {
+width:90%;
+/*현재 영역을 가운데 정렬할 시 사용(아래)*/
+margin:0 auto;}
+.blog-section li img {
+width:100%;
+}
+.blog-section li time {
+display:block;
+margin:10px 0px;
+font-size:12px;
+color:#767676;
+}
+.blog-section li h2 {
+font-weight:normal;
+line-height:1.6;/*줄간격 단위는 현재 글자크기의 배수*/
+}
+/*reset.css에서 hr태그를 display:none;으로 적용했기 때문에 특별히 .blog 영역에서만 hr 적용*/
+.blog-section hr {
+display:block;
+height:1px;
+background:#3f51b5
+}
+/*블로그 영역 끝*/
+
 /* 모바일용 스타일지정 끝 */
