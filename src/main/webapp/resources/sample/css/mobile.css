@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* 모바일용 스타일지정 시작  */
 
-body {font-size:14px;}
+body {font-size:14px;} /*사용자 css로 적용*/
 
 /* 헤더영역 시작 */
 .header {
