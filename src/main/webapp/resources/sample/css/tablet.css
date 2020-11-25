@@ -47,4 +47,11 @@ margin-left:0px;
 }
 /*we are 영역 끝*/
 
+/*work section 시작*/
+.work-section li {
+float:left; /*세로 배치를 가로 배치로 변경*/
+width:50%;
+}
+/*work section 끝*/
+
 }
