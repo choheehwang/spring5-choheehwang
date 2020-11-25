@@ -1,6 +1,5 @@
 @charset "UTF-8";
 /* 모바일용 스타일지정 시작  */
-
 body {
 	font-size:14px;/*사용자 css로 적용*/
 	background:#fff;
@@ -182,6 +181,7 @@ margin-top:30px;
 text-align:center;
 font-size:30px;
 color:#3f51b5;
+font-weight:normal;
 }
 .blog-section .container {
 width:90%;

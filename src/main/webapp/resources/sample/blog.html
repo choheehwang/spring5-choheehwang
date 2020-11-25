@@ -17,7 +17,17 @@
 <style>
 /*태블릿 PC용 스타일 시작*/
 @media all and (min-width:768px) {
-
+/*blog 영역 시작*/
+.blog-section li {
+float:left; /* 세로 배치가 3개 사진의 가로 배치로 변경 */
+width:31.59722222222%; /* 3개 중 1개의 가로 크기 (242px/768)*100=x% */
+margin-left:2.60416666666%; /* 1개의 여백 크기 (20px/768)*100=x% */
+}
+.blog-section li:first-child {
+margin-left:0px;
+}
+.blog-section hr {display:none;}
+/*blog 영역 끝*/
 }
 /*태블릿 PC용 스타일 끝*/
 </style>
@@ -85,7 +95,7 @@
 </ul>
 </div>
 </section>
-<footer class="footer">
+<footer class="footer float-clear">
 <!-- 하단 로고 영역 시작 -->
 <p>LOGO</p><!-- p태그는 문장영역을 의미하는 paragraph -->
 <!-- 하단 로고 영역 끝 -->
