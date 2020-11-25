@@ -17,7 +17,18 @@
 <style>
 /*태블릿 PC용 스타일 시작*/
 @media all and (min-width:768px) {
-
+/* contact 영역 시작 */
+.input-class, .textarea-class {
+float:left;
+width:47%; /* 47%+47%=94%이므로 밑에 6% 더하면 총 100% */
+}
+.input-class {
+margin-right:6%;
+}
+.contact-section form textarea {
+min-height:150px;
+}
+/* contact 영역 끝 */
 }
 /*태블릿 PC용 스타일 끝*/
 </style>
@@ -63,14 +74,18 @@
 <!-- placeholder: 공간 차지를 하지 않으면서 입력 힌트를 보여주는 역할 -->
 <fieldset>
 <legend>현재 폼의 타이틀 영역입니다.</legend>
+<div class="input-class">
 <label for="name">이름</label>
 <input name="name" id="name" type="text" placeholder="Name">
 <label for="phone">연락처</label>
 <input name="phone" id="phone" type="text" placeholder="Phone">
 <label for="email">이메일</label>
 <input name="email" id="email" type="email" placeholder="E-mail">
+</div>
+<div class="textarea-class">
 <label for="message">메세지</label>
 <textarea name="message" id="message" placeholder="Message"></textarea>
+</div>
 </fieldset>
 <div class="submit-btn">
 <button type="submit">메세지 보내기</button>
