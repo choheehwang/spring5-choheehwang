@@ -4,7 +4,8 @@
 body {
 	font-size:14px;/*사용자 css로 적용*/
 	background:#fff;
-	} 
+	line-height:1.4;
+	}
 /* 헤더영역 시작 */
 .header {
 height:80px;
