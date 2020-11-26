@@ -15,6 +15,7 @@ text-align:left; /* 내부 글자들 좌우 정렬된 것을 왼쪽 정렬로 */
 .weare-header .section-title {
 float:left;
 width:50%;
+text-align:center;
 }
 .weare-header p {
 float:right;
