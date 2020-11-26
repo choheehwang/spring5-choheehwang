@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*media 쿼리: 모든 미디어의 가로크기가 768px 이상이면 아래 스타일 적용*/
 @media all and (min-width:768px) {
-/*테블릿 PC용 헤더 영역 시작*/
+/*테블릿용 헤더 영역 시작*/
 .menu-toggle-btn {display:none;}
 .header .gnb {
 display:block;
@@ -22,7 +22,7 @@ displayLinline-block; /*콘텐츠 내용 크기 만큼만 자리를 차지하게
 color:#3f51b5;
 }
 .header .gnb li a:hover {text-decoration:none;}
-/*테블릿 PC용 헤더 영역 끝*/
+/*테블릿용 헤더 영역 끝*/
 
 /*슬라이드 영역 시작*/
 .carousel-item, .carousel-item img {height:500px;}
