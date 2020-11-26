@@ -6,6 +6,34 @@
 .carousel-item, .carousel-item img {height:700px;}
 /* slide 영역 끝 */
 
+/* we are 영역 시작 */
+.weare-header {
+margin:0 3%; /* 가운데 정렬이면서 좌우 여백이 3% */
+margin-top:30px;
+text-align:left; /* 내부 글자들 좌우 정렬된 것을 왼쪽 정렬로 */
+}
+.weare-header .section-title {
+float:left;
+width:50%;
+}
+.weare-header p {
+float:right;
+width:50%;
+position:relative; /* p태그 내용을 상대 위치로 설정 */
+padding-left:20px; /* 아래 가상 요소가 나타나는 영역을 얿히는 역할 */
+}
+.weare-header p::before {
+/* p태그 앞에 가상 요소로 작대기 하나 만드는 과정, a:hover는 가상 클래스 */
+position:absolute; /* 위아헤더 영역 내에서의 절대 위치 */
+top:7px;
+left:0px;
+width:2px; /* 작대기 가로 크기 */
+height:40px; /* 작대기 세로 크기  */
+background:#ccc; /* 작대기 색상 */
+content:"";
+}
+/* we are 영역 끝 */
+
 
 
 }
