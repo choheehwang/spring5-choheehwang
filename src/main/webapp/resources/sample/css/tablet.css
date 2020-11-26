@@ -59,8 +59,19 @@ width:50%;
 float:left; /* 세로 배치가 3개 사진의 가로 배치로 변경 */
 width:31.59722222222%; /* 3개 중 1개의 가로 크기 (242px/768)*100=x% */
 margin-left:2.60416666666%; /* 1개의 여백 크기 (20px/768)*100=x% */
+height:300px;
+}
+.blog-section li div {
+height:200px;
+overflow:hidden;
+/* border:1px solid red; 디버그용 */
+/* min-height:200px;
+max-height:200px; */
 }
 .blog-section li:first-child {
+margin-left:0px;
+}
+.blog-section li:nth-child(3n+1) {
 margin-left:0px;
 }
 .blog-section hr {display:none;}
