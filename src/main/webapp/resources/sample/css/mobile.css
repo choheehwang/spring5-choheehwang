@@ -5,6 +5,9 @@ body {
 	background:#fff;
 	line-height:1.4;
 	}
+	ul {
+	margin-bottom: inherit !important; /* important: css위치와 상관없이 강제로 적용시키는 것 */
+	}
 /* 헤더영역 시작 */
 .header {
 height:80px;
