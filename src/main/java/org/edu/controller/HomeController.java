@@ -23,7 +23,12 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value="/contact", method=RequestMethod.GET)
+	@RequestMapping(value="/contact", method=RequestMethod.POST)//post방식은 데이터를 전송하는 역할
+	public String contact_send() {
+		//데이터 전송 후에 화면이 글쓰기 상태로 계속 있는 것을 방지하기 위해 페이지 이동이 필요하다.
+		return 
+	}
+	@RequestMapping(value="/contact", method=RequestMethod.GET)//get방식은 폼form 페이지를 보여주는 역할
 	public String contact() {
 		return "sample/contact";
 	}

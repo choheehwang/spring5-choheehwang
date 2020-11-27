@@ -6,7 +6,7 @@
 <section class="contact-section">
 <h1>CONTACT US</h1>
 <div class="container">
-<form name="message_form" action="contact.html" method="post">
+<form name="message_form" action="/contact" method="post">
 <!-- fieldset은 폼이 DB테이블의 필드와 1:1 매칭되는 관계 -->
 <!-- placeholder: 공간 차지를 하지 않으면서 입력 힌트를 보여주는 역할 -->
 <fieldset>
