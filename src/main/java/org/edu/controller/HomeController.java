@@ -23,6 +23,11 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	@RequestMapping(value="/weare", method=RequestMethod.GET)
+	public String weare() {
+		//외부에서 /weare라는 경로에 접근했을 때 sample/weare.jsp와 맵핑시키라는 의미(=쉽게 말해 we are 메뉴 만든 거임)
+		return "sample/weare";
+	}
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	/* RequestMapping은 자바에서 기본적으로 제공하는 class */
 	public String index() {

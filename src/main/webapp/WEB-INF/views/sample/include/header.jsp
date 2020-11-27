@@ -41,7 +41,7 @@
 <header class="header">
 <!-- 상단 로고와 햄버거 메뉴영역 시작 -->
 <h1 class="logo">
-<a href="index.html">LOGO</a><!-- a태그는 페이지이동역할, href헤르프 속성값에 URL을 입력해서 이동 -->
+<a href="/">LOGO</a><!-- a태그는 페이지이동역할, href헤르프 속성값에 URL을 입력해서 이동 -->
 </h1><!-- 헤드라인 글자를 표시 h1~h6 -->
 <div class="menu-toggle-btn">
 <span></span>
@@ -53,11 +53,11 @@
 <nav class="gnb"><!-- gnb:글로벌네이게이션:전체영역메뉴  Global Navigation -->
 <!-- 리스트를 보여주는 태그 ul(UnOrdered List *.~, *.~ ) , ol(Ordered List 1.~, 2.~ ) -->
 <ul>
-<li><a href="index.html">HOME</a></li>
-<li><a href="weare.html">WE ARE</a></li>
-<li><a href="work.html">WORK</a></li>
-<li><a href="blog.html">BLOG</a></li>
-<li><a href="contact.html">CONTACT US</a></li>
+<li><a href="/">HOME</a></li>
+<li><a href="/weare">WE ARE</a></li>
+<li><a href="/work">WORK</a></li>
+<li><a href="/blog">BLOG</a></li>
+<li><a href="/contact">CONTACT US</a></li>
 </ul>
 </nav>
 <!-- 상단 로고와 햄버거 메뉴영역 끝 -->
