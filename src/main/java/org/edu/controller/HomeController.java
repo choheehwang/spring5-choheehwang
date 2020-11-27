@@ -23,6 +23,18 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	@RequestMapping(value="/contact", method=RequestMethod.GET)
+	public String contact() {
+		return "sample/contact";
+	}
+	@RequestMapping(value="/blog", method=RequestMethod.GET)
+	public String blog() {
+		return "sample/blog";
+	}
+	@RequestMapping(value="/work", method=RequestMethod.GET)
+	public String work() {
+		return "sample/work";
+	}
 	@RequestMapping(value="/weare", method=RequestMethod.GET)
 	public String weare() {
 		//외부에서 /weare라는 경로에 접근했을 때 sample/weare.jsp와 맵핑시키라는 의미(=쉽게 말해 we are 메뉴 만든 거임)
