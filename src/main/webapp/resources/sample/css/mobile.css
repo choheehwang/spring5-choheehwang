@@ -6,7 +6,7 @@ body {
 	line-height:1.4;
 	}
 	ul {
-	margin-bottom: inherit !important; /* important: css위치와 상관없이 강제로 적용시키는 것 */
+	margin-bottom: inherit !important; /* important: css위치와 상관없이 강제로 적용시키는 것, 매우 중요한 지식 */
 	}
 /* 헤더영역 시작 */
 .header {
