@@ -21,6 +21,8 @@ character set: unicode(UTF-8), page encoding: unicode(UTF-8)
 - MVC: Model(DB), View(jsp), Controller(controller java class)<br>
  -->
 <%@ include file="./include/header.jsp" %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <section><!-- division디비전이라는 div 영역표시 태그 대신에 사용 -->
 <!-- 본문 슬라이드 영역 시작 -->
