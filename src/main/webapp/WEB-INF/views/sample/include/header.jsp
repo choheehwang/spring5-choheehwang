@@ -56,6 +56,7 @@
 <li><a href="/work">WORK</a></li>
 <li><a href="/blog">BLOG</a></li>
 <li><a href="/contact">CONTACT US</a></li>
+<li><a href="javascript:alert('관리자 페이지 준비중입니다.');">AdminLTE</a></li>
 </ul>
 </nav>
 <!-- 상단 로고와 햄버거 메뉴영역 끝 -->
