@@ -25,8 +25,8 @@ public class HomeController {
 	 */
 	@RequestMapping(value="/contact", method=RequestMethod.POST)//post방식은 데이터를 전송하는 역할
 	public String contact_send() {
-		//데이터 전송 후에 화면이 글쓰기 상태로 계속 있는 것을 방지하기 위해 페이지 이동이 필요하다.
-		return 
+		//데이터 전송 후에 화면이 글쓰기 상태로 계속 있는 것을 방지하기 위해 페이지 이동이 필요, 중복글 방지 및 게시글 테러 방지
+		return "redirect:/blog";
 	}
 	@RequestMapping(value="/contact", method=RequestMethod.GET)//get방식은 폼form 페이지를 보여주는 역할
 	public String contact() {
