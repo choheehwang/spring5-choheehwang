@@ -23,7 +23,21 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	/* RequestMapping은 자바에서 기본적으로 제공하는 class */
+	public String index() {
+	//함수(메소드)의 리턴(출력)형태 지정 메소드명(매개변수) {구현내용} String index () {}
+	//상단 리퀘스트맵핑에서 지정한 경로로 접근을 하게 되면 아래에 있는 인덱스 메소드를 실행하라는 명령
+	//public(공공, 타 클래스에서 접근 가능), private(내부, 현재 홈컨트롤러 클래스에서만 접근 가능)
+	//method 기본 형태: public String index() {}
+	//j query 기본 형태: $(document).ready(function){};
+	//리턴 변환값으로 사용한 스트링 클래스는 문자열을 반환하고
+		//여기서는 index.jsp와 매칭되는 문자열을 반환. 여기서 상대경로 필요.
+		//스프링 MVC 프로젝트에 상대경로 최상위는 views 폴더 최상위 root폴더
+	//index(prefix 접두사, 파일명).jsp(suffix 접미사, 확장자)
+		return "sample/index";//접두사만 반환값으로 넣기
+	}
+	/*@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("환영합니다! 현재 여러분 컴퓨터 언어는 {} 입니다.", locale);
 		System.out.println("위에 Locale 클래스를 사용하는 이유는 다국어 지원때문에 변수로 사용하게 된다.");
@@ -42,6 +56,6 @@ public class HomeController {
 		System.out.println("현재 서버의 시간은" + formattedDate );
 		return "home";//결과적으로 리턴값(출력값)이 home(.jsp 생략됨)에 연동된다.
 		//스프링에서 뷰단으로 데이터 이동(전송)에 대해서 살펴 봄.
-	}
+	}*/
 	
 }
