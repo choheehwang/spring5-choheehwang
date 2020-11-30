@@ -3,7 +3,8 @@
 body {
 	font-size:14px;/*사용자 css로 적용*/
 	background:#fff;
-	line-height:1.4;
+	line-height:1.4 !important;/*!important 추가*/
+	font-family:'Malgun Gothic', dotum, sans-serif !important; /*글꼴고정추가*/
 	}
 	ul {
 	margin-bottom: inherit !important; /* important: css위치와 상관없이 강제로 적용시키는 것, 매우 중요한 지식 */
