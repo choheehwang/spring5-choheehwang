@@ -7,7 +7,7 @@
 <meta charset="UTF-8"><!-- 문서의 언어 인코딩설정  지금은 유니코드로 됨 -->
 <!-- 반응형 작동하기 위해 사용하는 메타 태그(아래) -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<title>반응형홈페이지</title><!-- 문서의 제목을 브라우저상단왼쪽에 표시 -->
+<title>아름다울 휘</title><!-- 문서의 제목을 브라우저상단왼쪽에 표시 -->
 <!-- 외부 자바스크립트 불러오는 태그(아래) -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- j쿼리 코어 -->
 <script src="/resources/sample/js/user.js"></script>
@@ -53,8 +53,8 @@
 <ul>
 <li><a href="/">HOME</a></li>
 <li><a href="/weare">WE ARE</a></li>
-<li><a href="/work">WORK</a></li>
-<li><a href="/blog">BLOG</a></li>
+<li><a href="/work">PRODUCTS</a></li>
+<li><a href="/blog">SNS</a></li>
 <li><a href="/contact">CONTACT US</a></li>
 <li><a href="javascript:alert('관리자 페이지 준비중입니다.');">AdminLTE</a></li>
 </ul>

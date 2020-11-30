@@ -33,13 +33,13 @@ character set: unicode(UTF-8), page encoding: unicode(UTF-8)
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="/resources/sample/img/playg.png" class="d-block w-100" alt="이미지1입니다">
+      <img src="/resources/sample/img/main_1.jpg" class="d-block w-100" alt="이미지1입니다">
     </div>
     <div class="carousel-item">
-      <img src="/resources/sample/img/agirl.jpg" class="d-block w-100" alt="이미지2입니다">
+      <img src="/resources/sample/img/main_2.jpg" class="d-block w-100" alt="이미지2입니다">
     </div>
     <div class="carousel-item">
-      <img src="/resources/sample/img/playg.png" class="d-block w-100" alt="이미지3입니다">
+      <img src="/resources/sample/img/main_3.jpg" class="d-block w-100" alt="이미지3입니다">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
