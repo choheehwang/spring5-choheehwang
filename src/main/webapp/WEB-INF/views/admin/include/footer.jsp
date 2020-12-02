@@ -51,6 +51,19 @@
 <script src="/resources/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/resources/dist/js/pages/dashboard.js"></script>
+<!-- 왼쪽 메뉴 active 클래스 j쿼리 추가 (아래) -->
+<script>
+$(document).ready(function() {
+	//현재 선택된 url값을 가져오는 명령어
+	var current = location.pathname;
+	var current_2 = current.split("/",3)[1];
+	alert(current_2);
+	//active 클래스 추가할 영역은 nav-item의 a태그 영역
+	$(".nav-treeview li a").each(function(){
+		
+	});
+});
+</script>
 </body>
 </html>
 <!-- 관리자단 푸터 끝 -->

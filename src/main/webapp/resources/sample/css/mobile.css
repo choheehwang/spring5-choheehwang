@@ -61,7 +61,8 @@ border-bottom:0px;
 }
 /*가상선택자 : 사용*/
 .header .gnb li:last-child {
-border-bottom:1px solid #303f9f;
+/* border-bottom:1px solid #303f9f; */
+border-bottom:1px solid #000;
 }
 .header .gnb li a {
 display:block;/* 1줄 1글자라도 전체 자리를 차지하는 영역 : ()inline-block 자리를 차지하지만, 본인크기만) */
