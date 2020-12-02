@@ -135,12 +135,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Member list</h1>
+            <h1 class="m-0">Member Write</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Member list</li>
+              <li class="breadcrumb-item active">Member Write</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -154,101 +154,65 @@
       
       <div class="row"> <!-- 부트스트랩의 디자인 클래스 row -->
           <div class="col-12"> <!-- width=100%와 같은 말 -->
-            <div class="card"> <!-- 부트스트랩의 card class = 네모난 디자인 -->
+          
+          <form name="write_form" action="member_list.html" method="post">
+          <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Member search</h3>
-
-                <div class="card-tools">
-                
-                <form name="search_form" action="member_list.html" method="get">
-                  <div class="input-group input-group-sm">
-               <div>
-                 <select class="form-control">
-                 <option value="" selected>-전체-</option>
-                     <option value="user_id" data-select2-id="8">ID</option>
-                     <option value="user_name" data-select2-id="16">NAME</option>
-                 </select>
-                 </div>
-                 
-                    <div>
-                    <input type="text" name="search_keyword" class="form-control float-right" placeholder="Search">
-                    </div>
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                  </form>
-                  
-                </div>
+                <h3 class="card-title">CREATE MEMER</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                  <thead>
-                    <tr class="text-center">
-                      <th>user_id</th> <!-- table head title tag (th) -->
-                      <th>user_name[point]</th>
-                      <th>e-mail</th>
-                      <th>use</th>
-                      <th>regdate</th>
-                      <th>levels</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr onclick="javascript:location.href='member_view.html?user_id=admin';" style="cursor:pointer;" class="text-center">
-                      <td><a href="member_view.html?user_id=admin">admin</a></td>
-                      <td>관리자</td>
-                      <td>admin@abc.com</td>
-                      <td>true</td>
-                      <td>2020-12-01</td>
-                      <td><span class="badge bg-danger">ROLE_ADMIN</span></td>
-                      <!-- 권한 표시 = 부트스트랩 badge class 사용 -->
-                    </tr>
-                    <tr class="text-center">
-                      <td><a href="member_view.html?user_id=user">user</a></td>
-                      <td>사용자</td>
-                      <td>user@abc.com</td>
-                      <td>false</td>
-                      <td>2020-12-01</td>
-                      <td><span class="badge bg-warning">ROLE_USER</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
+              <!-- form start -->
               
-              </div>
-              <!-- /.card -->
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="user_id">user_id</label>
+                    <input type="text" class="form-control" name="user_id" id="user_id" placeholder="Enter user id" required>
+                    <!-- name 없으면 저장이 안 된다 -->
+                    <!-- required는 필수입력값(html5에서 지원)이므로 입력하지 않으면 다음 단계로 넘어가지 않는다 -->
+                  </div>
+                  <div class="form-group">
+                    <label for="user_pw">Password</label>
+                    <input type="password" class="form-control" name="user_pw" id="user_pw" placeholder="Enter password" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="user_name">user_name</label>
+                    <input type="text" class="form-control" name="user_name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">e-mail</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter your e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="point">point</label>
+                    <input type="text" class="form-control" name="point" id="point" placeholder="Enter your point" required>
+                </div>
+                <div class="form-group">
+                    <label for="enabled">enabled</label>
+                    <select class="form-control" name="enabled" id="enabled">
+                    	<option value="0">false</option>
+                    	<option value="1" selected>true</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="levels">enabled</label>
+                    <select class="form-control" name="levels" id="levels">
+                    	<option value="ROLE-ADMIN">ROLE-ADMIN</option>
+                    	<option value="ROLE_USER" selected>ROLE_USER</option>
+                    </select>
+                </div>
+                </div>
+                <!-- /.card-body -->
               
-              <!-- button section 시작 -->
-              <div class="card-body">
-              <a href="member_write.html" class="btn btn-primary float-right">CREATE</a>
-              <!-- 부트스트랩 버튼 디자인 적용 예시 btn-primary, btn은 버튼 모양으로 변경하는 것 (위) -->
-              </div>
-              <!-- button section 끝 -->
-              
-              <!-- paging section 시작 -->
-              <div class="row card-body">
-              <!-- 아래 style="margin:0 auto 빼고, 위 클래스에 pagination justify-content-center m-0을 넣어도 페이징 가운데 정렬 가능 -->
-              <ul class="pagination" style="margin:0 auto;">
-              <li class="paginate_button page-item previous disabled" id="example2_previous">
-              <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-              </li>
-              <!-- 위 이전 게시물 링크 -->
-              <li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-              <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-              <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-              <!-- 아래 다음 게시물 링크 -->
-              <li class="paginate_button page-item next" id="example2_next">
-              <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-              </li>
-              </ul>
-              </div>
-              <!-- paging section 끝 -->
-     
+            </div>
+          
+          <!-- button section 시작 -->
+          <div class="card-body">
+          <a href="member_list.html" class="btn btn-primary float-right mr-1">LIST ALL</a>
+          <button type="submit" class="btn btn-warning float-right mr-1 text-white">SUBMIT</button>
+          <!-- a태그는 link 이동은 되지만 form의 post값을 전송할 수 없으므로 button 태그를 사용 -->
+          </div>
+          <!-- button section 끝 -->
+      	   </form>
           </div>
         </div>
       
