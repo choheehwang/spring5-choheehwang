@@ -3,7 +3,7 @@
 
 <%@ include file="./include/header.jsp" %>
 
-<section class="blog-section">
+<section class="sns-section">
 <h1>SNS</h1>
 <div class="container">
 <ul>
