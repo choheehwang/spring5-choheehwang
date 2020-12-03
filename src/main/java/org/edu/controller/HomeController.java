@@ -69,7 +69,7 @@ public class HomeController {
 		//Data 날짜관련 클래스형 변수 Date를 선언함. date라는 변수 메소드를 사용가능=오브젝트 됐다고도 한다.
 		//Data 변수=실행가능한 변수=클래스형 변수=오브젝트=인스턴스
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		//DateFormat이라는 클래스형 변수가 선언->실행 가능한 변수로 되었다.
+		//DateFormat이라는 클래스형 변수가 선언->실행 가능한 변수
 		String formattedDate = dateFormat.format(date);
 		//변수 실행.
 		//위 변수가 실행되어서 출력된 결과값이 아래 serverTime 변수값으로 jsp파일로 이동
