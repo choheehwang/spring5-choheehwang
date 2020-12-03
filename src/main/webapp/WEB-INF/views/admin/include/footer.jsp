@@ -57,10 +57,19 @@ $(document).ready(function() {
 	//현재 선택된 url값을 가져오는 명령어
 	var current = location.pathname;//current변수 저장소에서 어떤 게시판을 클릭하였는지 내용 확인용
 	var current_2 = current.split("/")[2];
-	alert(current_2);
+	//alert(current_2); 디버그 확인용
 	//active 클래스 추가할 영역은 nav-item의 a태그 영역
 	$(".nav-treeview li a").each(function(){
-		
+		//each function으로 a태그 2개를 찾는 명령어(반복함수:결과가 2개이므로 2번 반복)
+		//$(this)는 현재 함수의 구현대상 본인(a태그 영역)
+		//2개 값 비교: 1. a태그값, 2. current_2값
+		//if( $(this).attr('href').includes(current_2) == true) {}
+		//위 includes function은 크롬에서만 작동되므로 아래 indexOf function으로 대체
+		if( $(this).attr('href').indexOf(current_2) != -1) {
+			$(this).addClass("active");
+		} else {
+			$(this).removeClass("active");
+		}
 	});
 });
 </script>

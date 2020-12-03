@@ -27,6 +27,9 @@
 <div class="submit-btn">
 <button type="submit">메세지 보내기</button>
 </div>
+<div class="map-class">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d101295.10099526815!2d126.9973839417577!3d37.49678662355751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca15a2cc3f2a7%3A0xd2e44a2795272fca!2z6rCV64Ko7Jet!5e0!3m2!1sko!2skr!4v1606957906295!5m2!1sko!2skr" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+</div>
 </form>
 <!-- form태그의 목적은 input, textarea, checkbox, radio,
 select data를 submit(전송)하는 것이 목적 -->
