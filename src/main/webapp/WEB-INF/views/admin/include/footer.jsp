@@ -57,7 +57,7 @@ $(document).ready(function() {
 	//현재 선택된 url값을 가져오는 명령어
 	var current = location.pathname;//current변수 저장소에서 어떤 게시판을 클릭하였는지 내용 확인용
 	var current_2 = current.split("/")[2];
-	//alert(current_2); 디버그 확인용
+	//alert(current_2); //디버그 확인용
 	//active 클래스 추가할 영역은 nav-item의 a태그 영역
 	$(".nav-treeview li a").each(function(){
 		//each function으로 a태그 2개를 찾는 명령어(반복함수:결과가 2개이므로 2번 반복)

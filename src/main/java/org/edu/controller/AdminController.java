@@ -1,8 +1,10 @@
 package org.edu.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 //spring에서 사용 가능한 클래스를 bean이라 한다
 @Controller
 public class AdminController {
@@ -23,8 +25,12 @@ public class AdminController {
 		return "/admin/member/member_write";
 	}
 	
+	//jsp에서 data를 수신하는 명령어 = @RequestParam("key") = request parameter
+	//현재 controller class에서 jsp로 data 송신하는 명령어 = model class 사용
+	//data flow: member_list.jsp->@RequestParam("user_id") 수신-> model 송신-> member_view.jsp
 	@RequestMapping(value="/admin/member/member_view", method=RequestMethod.GET)
-	public String member_view() {
+	public String member_view(@RequestParam("user_id") String user_id,  Model model) {
+		model.addAttribute("user_id2", user_id + " 님");
 		return "/admin/member/member_view";
 	}
 	

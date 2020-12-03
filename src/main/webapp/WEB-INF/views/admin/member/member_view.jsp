@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- jstl: java standard tag library, 표준 태그 라이브러리 -->
 
 
   <!-- 대쉬보드 본문 Content Wrapper. Contains page content -->
@@ -38,7 +40,9 @@
               <div class="card-body">
                 <strong><i class="fas fa-book mr-1"></i> user_id</strong>
                 <p class="text-muted">
-                  admin
+                <!-- jsp에서 자바 변수(저장소)를 사용하는 방법 = Model로 수신한 $ 변수명으로 표시 -->
+                  <%-- ${user_id2}에서 아래 보안 코딩으로 변경 --%>
+                  <c:out value="${user_id2}"></c:out>
                 </p>
                 
                 <hr>
