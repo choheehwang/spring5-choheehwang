@@ -30,7 +30,7 @@
       <div class="row"> <!-- 부트스트랩의 디자인 클래스 row -->
           <div class="col-12"> <!-- width=100%와 같은 말 -->
           
-          <form name="write_form" action="/admin/member_write" method="post">
+          <form name="write_form" action="/admin/member/member_write" method="post">
           <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">CREATE MEMER</h3>
@@ -82,7 +82,7 @@
           
           <!-- button section 시작 -->
           <div class="card-body">
-          <a href="/admin/member_list" class="btn btn-primary float-right mr-1">LIST ALL</a>
+          <a href="/admin/member/member_list" class="btn btn-primary float-right mr-1">LIST ALL</a>
           <button type="submit" class="btn btn-warning float-right mr-1 text-white">SUBMIT</button>
           <!-- a태그는 link 이동은 되지만 form의 post값을 전송할 수 없으므로 button 태그를 사용 -->
           </div>

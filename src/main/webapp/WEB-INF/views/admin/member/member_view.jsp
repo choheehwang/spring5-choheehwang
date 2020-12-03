@@ -66,7 +66,7 @@
               
           <!-- button section 시작 -->
           <div class="card-body">
-          <a href="/admin/member_list" class="btn btn-primary float-right mr-1">LIST ALL</a>
+          <a href="/admin/member/member_list" class="btn btn-primary float-right mr-1">LIST ALL</a>
           <button type="button" class="btn btn-danger float-right mr-1">DELETE</button>
           <button type="button" class="btn btn-warning float-right mr-1 text-white">UPDATE</button>
           <!-- 부트스트랩 버튼 디자인 적용 예시 btn-primary, btn은 버튼 모양으로 변경하는 것 (위) -->

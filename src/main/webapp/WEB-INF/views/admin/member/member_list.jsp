@@ -35,7 +35,7 @@
 
                 <div class="card-tools">
                 
-                <form name="search_form" action="/admin/member_list" method="get">
+                <form name="search_form" action="/admin/member/member_list" method="get">
                   <div class="input-group input-group-sm">
                <div>
                  <select name="search_type" class="form-control">
@@ -73,8 +73,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr onclick="javascript:location.href='/admin/member_view?user_id=admin';" style="cursor:pointer;" class="text-center">
-                      <td><a href="/admin/member_view?user_id=admin">admin</a></td>
+                    <tr onclick="javascript:location.href='/admin/member/member_view?user_id=admin';" style="cursor:pointer;" class="text-center">
+                      <td><a href="/admin/member/member_view?user_id=admin">admin</a></td>
                       <td>관리자</td>
                       <td>admin@abc.com</td>
                       <td>true</td>
@@ -83,7 +83,7 @@
                       <!-- 권한 표시 = 부트스트랩 badge class 사용 -->
                     </tr>
                     <tr class="text-center">
-                      <td><a href="/admin/member_view?user_id=user">user</a></td>
+                      <td><a href="/admin/member/member_view?user_id=user">user</a></td>
                       <td>사용자</td>
                       <td>user@abc.com</td>
                       <td>false</td>
@@ -100,7 +100,7 @@
               
               <!-- button section 시작 -->
               <div class="card-body">
-              <a href="/admin/member_write" class="btn btn-primary float-right">CREATE</a>
+              <a href="/admin/member/member_write" class="btn btn-primary float-right">CREATE</a>
               <!-- 부트스트랩 버튼 디자인 적용 예시 btn-primary, btn은 버튼 모양으로 변경하는 것 (위) -->
               </div>
               <!-- button section 끝 -->
