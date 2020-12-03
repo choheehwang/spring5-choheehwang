@@ -3,11 +3,11 @@
 
 <%@ include file="./include/header.jsp" %>
 
-<section class="products-section"><!-- division디비전이라는 div 영역표시 태그 대신에 사용 -->
+<section class="work-section"><!-- division디비전이라는 div 영역표시 태그 대신에 사용 -->
 <h1 class="section-title">PRODUCTS</h1>
 <ul>
 <li><!-- 아래 a링크의 title속성은 시각장애인들을 위한(웹접근성을 위한) 코딩입니다. -->
-<a href="javascript:;" title="갤러리 게시판2의 이미지1">
+<a href="javascript:;">
 <div class="info">
 <h2>Lemon Detox</h2>
 <p>아름다울 휘의 스테디 셀러 제품으로...</p>
