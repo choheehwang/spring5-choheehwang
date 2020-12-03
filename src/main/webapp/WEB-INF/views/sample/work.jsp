@@ -19,7 +19,7 @@
 <a href="javascript:;">
 <div class="info">
 <h2>Red Beet Detox</h2>
-<p>4대 슈퍼부푸드 중 하나인 레드비트는... </p>
+<p>4대 슈퍼푸드 중 하나인 레드비트는... </p>
 </div>
 <img src="/resources/sample/img/products_2.png" alt="Red Beet Detox">
 </a>

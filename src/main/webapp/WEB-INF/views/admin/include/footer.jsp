@@ -55,8 +55,8 @@
 <script>
 $(document).ready(function() {
 	//현재 선택된 url값을 가져오는 명령어
-	var current = location.pathname;
-	var current_2 = current.split("/",3)[1];
+	var current = location.pathname;//current변수 저장소에서 어떤 게시판을 클릭하였는지 내용 확인용
+	var current_2 = current.split("/")[2];
 	alert(current_2);
 	//active 클래스 추가할 영역은 nav-item의 a태그 영역
 	$(".nav-treeview li a").each(function(){
