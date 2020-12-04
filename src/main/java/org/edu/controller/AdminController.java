@@ -35,8 +35,14 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/admin/member/member_list", method=RequestMethod.GET)
-	public String member_list() {
-		return "admin/member/member_list";
+	public String member_list(Model model) {
+		String[][] members = {
+				{"admin","관리자","admin@abc.com","true","2020-12-04","ROLE_ADMIN"},
+				{"user","사용자","user@abc.com","false","2020-12-04","ROLE_USER"}
+		};
+		//hash data -> {"user_id":"admin","user_name":"관리자",...}
+		model.addAttribute("members", members);
+		return "admin/member/member_list";//member_list.jsp로 members 변수 데이터 전송
 	}
 	
 	@RequestMapping(value="/admin", method=RequestMethod.GET)
