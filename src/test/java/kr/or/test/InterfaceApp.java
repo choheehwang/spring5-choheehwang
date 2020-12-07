@@ -5,6 +5,7 @@ public class InterfaceApp {
 	public static void main(String[] args) {
 		//자바 프로그램은 항상 main() 진입점에서 실행, 웹 프로그램은 해당사항 없음
 		AllCalc allCalc = new AllCalc();//실행 오브젝트 변수 생성
+		//동적바인딩: method를 호출할 때, (5,5) 이렇게 매개변수가 고정되지 않고 동적으로 묶이는 방식
 		allCalc.add(5, 5);
 		allCalc.sub(5, 5);
 		allCalc.mul(5, 5);
