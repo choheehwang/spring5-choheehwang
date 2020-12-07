@@ -17,8 +17,15 @@ public class MemberVO {
 	private Date reg_date;//해결책 사용 시 java.util 패키지를 최우선으로 import하는 것이 좋다
 	private Date update_date;
 	//getters and setters method: jsp<->controller<->DB 중간에 정보를 전달하는 역할
+	
 	public String getUser_id() {
 		return user_id;
+	}
+	@Override
+	public String toString() {
+		return "회원 관리 클래스인 MemberVO [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_email="
+				+ user_email + ", point=" + point + ", enabled=" + enabled + ", levels=" + levels + ", reg_date="
+				+ reg_date + ", update_date=" + update_date + "]";
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
