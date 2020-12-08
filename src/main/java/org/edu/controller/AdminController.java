@@ -1,5 +1,6 @@
 package org.edu.controller;
 
+import org.edu.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,15 @@ public class AdminController {
 				{"user","사용자","user@abc.com","false","2020-12-04","ROLE_USER"}
 		};
 		//hash data -> {"user_id":"admin","user_name":"관리자",...}
+		
+		//members 2차원 배열 변수를 MemberVO 클래스형 오브젝트로(members_array) 변경(아래)
+		MemberVO members_input = new MemberVO();
+		members_input.setUser_id("admin");
+		members_input.setUser_name("찐관리자");
+		members_input.setUser_email("admin@abc.com");
+		members_input.setEnabled(true);
+		members_input.set
+		
 		model.addAttribute("members", members);
 		return "admin/member/member_list";//member_list.jsp로 members 변수 데이터 전송
 	}

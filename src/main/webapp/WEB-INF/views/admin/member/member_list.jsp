@@ -67,21 +67,22 @@
                     <tr class="text-center">
                       <th>user_id</th> <!-- table head title tag (th) -->
                       <th>user_name[point]</th>
-                      <th>e-mail</th>
-                      <th>use</th>
-                      <th>regdate</th>
+                      <th>email</th>
+                      <th>enabled</th>
+                      <th>reg_date</th>
                       <th>levels</th>
                     </tr>
                   </thead>
                   <tbody>
+                  <!-- jstl 표준 core 태그 사용 반복문 Admin controller에서 가져온 members object class 값을 출력 -->
                   <c:forEach items="${members}" var="member">
                   <tr>
-                      <td><a href="/admin/member/member_view?user_id=${member[0]}">${member[0]}</a></td>
-                      <td>${member[1]}</td>
-                      <td>${member[2]}</td>
-                      <td>${member[3]}</td>
-                      <td>${member[4]}</td>
-                      <td><span class="badge bg-danger">${member[5]}</span></td>
+                      <td><a href="/admin/member/member_view?user_id=${member.user_id}">${member.user_id}</a></td>
+                      <td>${member.user_name}[${member.point}]</td>
+                      <td>${member.email}</td>
+                      <td>${member.enabled}</td>
+                      <td>${member.reg_date}</td>
+                      <td><span class="badge bg-danger">${member.levels}</span></td>
                       <!-- 권한 표시 = 부트스트랩 badge class 사용 -->
                   </tr>
                   
