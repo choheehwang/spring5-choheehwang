@@ -10,7 +10,7 @@ public class ExceptionTest {
 	public static void main(String[] args) {
 		//진입 method(실행 method) 구현 내용
 		MemberVO memberVO = new MemberVO();
-		System.out.println("회원 정보 클래스의 멤버변수값 출력 = " + memberVO.getUser_email()
+		System.out.println("회원 정보 클래스의 멤버변수값 출력 = " + memberVO.getEmail()
 		+ memberVO.getLevels() + memberVO.getUser_id()
 		+ memberVO.getUser_name() + memberVO.getUser_pw());
 		

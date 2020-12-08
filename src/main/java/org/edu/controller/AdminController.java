@@ -50,7 +50,15 @@ public class AdminController {
 		};
 		//hash# data 타입:<키(key),값(value)> -> {"user_id":"admin","user_name":"관리자",...}
 		//Map타입이 부모 클래스, HashMap타입이 자식 클래스
-		//Map타입을 상속 받아서,
+		//Map타입을 상속 받아서, HashMap타입의 오브젝트를 생성하는 방식
+		Map<String,Integer> mapTest = new HashMap<String,Integer>();
+		String ageValue = "40";
+		int ageValue2 = 40;
+		mapTest.put("ageValue2", ageValue2);
+		mapTest.put("age", Integer.parseInt(ageValue) );
+		//제네릭 타입을 사용하면, parseInt형변환을 할 필요가 없기 때문에
+		//제네릭 타입의 근본 목적은 데이터 타입에 대해서 명시적인 코딩(코드를 단순화)을 하기 위해서이다
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("user_id", "admin");
 		paramMap.put("user_name", "관리자");
