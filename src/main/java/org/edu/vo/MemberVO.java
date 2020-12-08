@@ -10,7 +10,7 @@ public class MemberVO {
 	private String user_id;//private: class 내부에서만 사용 가능(보안)
 	private String user_pw;
 	private String user_name;
-	private String user_email;
+	private String email;
 	private Integer point;//int 기본형 not null, integer 참조형 enable null
 	private Boolean enabled;//boolean: 논리형
 	private String levels;
@@ -21,12 +21,7 @@ public class MemberVO {
 	public String getUser_id() {
 		return user_id;
 	}
-	@Override
-	public String toString() {
-		return "회원 관리 클래스인 MemberVO [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_email="
-				+ user_email + ", point=" + point + ", enabled=" + enabled + ", levels=" + levels + ", reg_date="
-				+ reg_date + ", update_date=" + update_date + "]";
-	}
+	
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
@@ -42,11 +37,12 @@ public class MemberVO {
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
-	public String getUser_email() {
-		return user_email;
+	
+	public String getEmail() {
+		return email;
 	}
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public Integer getPoint() {
 		return point;
@@ -77,6 +73,13 @@ public class MemberVO {
 	}
 	public void setUpdate_date(Date update_date) {
 		this.update_date = update_date;
+	}
+	
+	@Override
+	public String toString() {
+		return "디버그 MemberVO [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", email="
+				+ email + ", point=" + point + ", enabled=" + enabled + ", levels=" + levels + ", reg_date="
+				+ reg_date + ", update_date=" + update_date + "]";
 	}
 	
 }

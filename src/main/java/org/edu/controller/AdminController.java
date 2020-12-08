@@ -1,5 +1,11 @@
 package org.edu.controller;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.edu.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,17 +48,33 @@ public class AdminController {
 				{"admin","관리자","admin@abc.com","true","2020-12-04","ROLE_ADMIN"},
 				{"user","사용자","user@abc.com","false","2020-12-04","ROLE_USER"}
 		};
-		//hash data -> {"user_id":"admin","user_name":"관리자",...}
+		//hash# data 타입:<키(key),값(value)> -> {"user_id":"admin","user_name":"관리자",...}
+		//Map타입이 부모 클래스, HashMap타입이 자식 클래스
+		//Map타입을 상속 받아서,
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("user_id", "admin");
+		paramMap.put("user_name", "관리자");
+		paramMap.put("age", 40);
+		System.out.println("해시데이터 타입 출력" + paramMap);
 		
 		//members 2차원 배열 변수를 MemberVO 클래스형 오브젝트로(members_array) 변경(아래)
 		MemberVO members_input = new MemberVO();
 		members_input.setUser_id("admin");
 		members_input.setUser_name("찐관리자");
-		members_input.setUser_email("admin@abc.com");
-		members_input.setEnabled(true);
-		members_input.set
-		
-		model.addAttribute("members", members);
+		members_input.setEmail("admin@abc.com");
+		members_input.setEnabled(true); //enabled data형(type)이 boolean형이기 때문에 true, false 두 값만 입력 가능
+		Date toDay = new Date(); //java의 data class를 이용하여 현재 날짜를 가진 toDay변수 생성
+		members_input.setReg_date(toDay); //reg_date data타입이 data형이기 때문에 java 날짜 데이터 입력
+		members_input.setLevels("ROLE_ADMIN");
+		members_input.setPoint(10); //point는 데이터 타입이 integer형이기 때문에 숫자만 입력(큰 따옴표 넣으면 문자로 인식)
+		//위 members_input object에는 2개의 line(record)만 입력되어 있으므로 이 object를 array object에 저장(아래)
+		MemberVO[] members_array = new MemberVO[2]; //class형 array object 생성
+		members_array[0] = members_input;
+		members_array[1] = members_input;
+		//---------------------------------------------------------------------------------
+		List<MemberVO> members_list = Arrays.asList(members_array);
+		System.out.println("List타입의 오브젝트 클래스 내용을 출력" + members_list.toString());
+		model.addAttribute("members", members_list); //members 2차원 배열을 members_array class object로 변경(20.12.08)
 		return "admin/member/member_list";//member_list.jsp로 members 변수 데이터 전송
 	}
 	
