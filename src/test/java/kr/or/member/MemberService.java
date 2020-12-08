@@ -11,5 +11,7 @@ public class MemberService {
 			cnt = cnt + 1;
 			System.out.println(cnt + "번째 레코드는" + member.toString());
 		}
+		//데이터 가공(아래)
+		//CRUD 구현 내용
 	}
 }
