@@ -1,8 +1,147 @@
-#### 20201208(화) 작업예정
-- 파일 입출력 처리 마무리 예정.
+### 기본정보
+- 스프링관리자 AdminLTE템플릿 샘플: https://adminlte.io/themes/v3/pages/forms/general.html
+
+#### 20201210(목) 작업예정
+- 댓글 관련 디자인 추가 후 Ajax 적용
+
+```
+<!-- 댓글 관련 자바스크립트 시작 -->
+<!-- 댓글 리스트 반복문용 JQuery라이브러리 == jstl의 향상된for문 같은 역할 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<!-- 댓글 템플릿(빵틀) 만들기(아래) -->
+<script id="template" type="text/x-handlebars-template">
+{{#each .}}
+	<div class="replyLi" data-rno={{rno}}>
+		<i class="fas fa-comments bg-blue"></i>
+		<div class="timeline-item">
+			<h3 class="timeline-header">{{replyer}}</h3>
+			<div class="timeline-body">{{replytext}}</div>
+			<div class="timeline-footer">
+				<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyModal">Modify</a>
+			</div>
+		</div>
+	</div>
+{{/each}}
+</script>
+<!-- 댓글 템플릿(빵틀) 출력(아래)  -->
+<script>
+var printReplyList = function(replyArr, target, templateObject){
+	var template = Handlebars.compile(templateObject.html());
+	var html = template(replyArr);
+	$(".replyLi").remove();
+	target.after(html);
+}
+</script>
+<script>
+$(document).ready(function(){
+	$("#insertApplyBtn").on("click",function(){
+		$.ajax({
+			type:'get',
+			url:'/resources/board_view.html',
+			dataType:'text',
+			success:function(result){
+				var replyList = [
+					{rno: 1, bno: 15, replytext: "test1", replyer: "test1", regdate: 1607504648000},
+					{rno: 2, bno: 15, replytext: "test2", replyer: "test2", regdate: 1607504648000}
+					];
+				printReplyList(replyList, $(".time-label"), $("#template"));
+			}
+		});
+	});
+});
+</script>
+<!-- 댓글 수정/삭제용 모달팝업창(아래) -->
+<div id="modifyModal" class="modal modal-primary fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="display:block;">
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body" data-rno>
+       <input type="hidden" id="rno" class="form-control">
+	<p><input type="text" id="replytext" class="form-control"></p>
+      </div>
+      <div class="modal-footer">
+	<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
+	<button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+//댓글 리스트에서 댓글 수정버튼 클릭시 모달창 내용에 바인딩 시키는 코딩(아래)
+$(document).ready(function(){
+	//선택한 댓글(template:빵틀)의 데이터를 모달창의 id,클래스에 데이터 바인딩
+	$(".timeline").on("click", ".replyLi", function(event) {
+		var reply = $(this);
+		$("#rno").val(reply.attr("data-rno"));
+		$(".modal-title").html(reply.find(".timeline-header").text());
+		$("#replytext").val(reply.find(".timeline-body").text());
+	});
+});
+</script>
+<!-- 댓글 관련 자바스크립트 끝 -->
+```
+#### 20201209(수) 작업
+- Rest API방식으로 화면을 처리것이 트렌드 입니다.(빅데이터를 시각화하는 데 RestAPI+Ajax 기술사용)
+- Rest: Representation 기존데이터를 가지고, 화면 깜빡임 없이 데이터를 재가공하는 처리.
+- REST API사용되는 기술: 데이터 전송/수신 Ajax기술(프론트-개발자)로 처리. API(서버단기술)
+- Ajax: Asyncronized Javascript and Xml 비동기 통신으로 자바스크립트로 Json(text자료)를 재처리하는 기술. 
+- 스프링관리자 AdminLTE템플릿 폰트어썸아이콘: 아래 템플릿에서 icon메뉴에서 fontAswesome 항목 클릭
+- 스프링관리자 AdminLTE템플릿 샘플: https://adminlte.io/themes/v3/pages/forms/general.html
+- 오후에는 스프링 관리자단에서 [게시물 관리] 메뉴 webapp/resources/html만들고, -> jsp변환 작업이어서 합니다.
+- prefix(jstl), suffix(servlet-context.xml)
+- prefix ,suffix 그냥 경로의 앞부분 뒷부분 생략가능하게 만드는 역할
+- @RequestMapping...반환값에서 prefix(/WEB-INF/views/)가 사용, suffix(.jsp)
+-	...
+-		return "{prefix}admin/board/board_list{suffix}";
+-	...
+- 아래에서 사용된 prefix는 생략가능하다.
+- <beans:property name="prefix" value="/WEB-INF/views/" />
+- 아래에서 사용된 suffix는 생략가능하다.
+- <beans:property name="suffix" value=".jsp" />
+- 전체 틀(아래 읽으시면) : 자바이론 공부하신, 아래 데이터 흐름을 제어하는데 사용.
+- 여러명의 회원 정보(MemberVO-자료형클래스를이용부분)를
+- 전달주고받고(MainControler-메서드,URL호출부분), 
+- 출력(MemberService-비지니스로직부분)하는 메소드 선언하기
+- 미지의 부분 -----------------------------------------
+- 데이터베이스CRUD처리부분(MemberDAO-데이터베이스엑세스부분)
+- -------------------------------------------------
+- for (MemberVO member : members) {// members여러 레코드중 1개의 레코드를 member오브젝트객체로 대입
+- 1번째반복-> members[0]레코드데이터=>MemberVO member객체벼수 =>출력시 member.toString();
+- 2번째반복-> members[1]레코드데이터=>MemberVO member객체변수 =>출력시 member.toString();
+- 3번째반복-> members[2]레코드데이터=>MemberVO member객체변수 =>출력시 member.toString(); 
+- 개인 카톡 면담 12월 화두,(아래 2가지 중 최소 1가지 글을 남겨 주세요, 2개 다 도 가능합니다.^^)
+- 1). 11월9일 부터 시작 이후 1달 가까이 지났으니, 현재 수업 대해서 어떤 분야든 의견 있으신분 말씀해 주세요, 수업에 반영 하도록 하겠습니다.
+- 2). 사람인 취업사이트에서 학생 본인이 일 하고 싶은 회사 1개를 골라서 URL을 남겨 주세요.
+- 서버시간 가져오기 미션 MainController클래스 수행
+- pom.xml 외부라이브러리를 관리하는 메이븐설정파일을 이용해서 외부모듈 가져와 사용하기 목적.-스프링프로젝트에서 메이븐 기본작업 테스트용.
+- Step3(열거형-Enum형 자료형클래스 사용) 를 생성. 
+#### 20201208(화) 작업
+- Step2.java클래스 파일1개를 src/test/java폴더안에 kr.or.member패키지를 만들어서 3개 클래스파일로 분리.
+- 3개의 자바클래스 모여서 1개의프로그램이 됨. 진입점 main메서드 1개만필요
+- erd보고 MemberVO.java 클래스만드시는것  1.
+- 데이터베이스자료를 가공하는(비지니스로직) 서비스클래스 만들기 2.
+- 조건문: if, switch(조건)~case문
+- 반복문: for, forEach(제일많이 사용), while(많이안쓰는 이유, 무한루프로 빠지는 오류가 발생), forEach예,향상된for(member:member_list){구현내용}
+- 연산자: +-x/,=(대입연산자)예, int sum = 3+5;
+- 라이브러리(jar): 오브젝트클래스가 모여있는 패키지(묶음)을 라이브러리 라고 합니다. 
+- 람다식: 자바버전 8부터 지원하는 축소 코딩 방식 입니다. ->애로우화살표로 익명메서드(콜백함수)를 표시 호출시 자동실행을 구현.Lambda 클래스를 만들어서 실습.
+- 자바스크립트에서 콜백함수부분을 => 애로우화살표로 대체해서 축약해서 표시해서 호출시 자동실행을 구현.
+- 람다식은 특별한 로직없어서 논리적인 내용이 없고, 단순히 코드를 생략할때 ->애로우, ()익명함수 이 2개를 사용해서 코드사용을 축소하는데 의미 가 있습니다.
+- 우리나라 스프링에서는 일반적이진 않지만, 외국에서는 많이 사용. 외국소스를 갖다쓸때, 람다식을 볼 줄 알아야 무리없이 외국소스를 가져다 사용할 수 있게 됩니다.
+- 제네릭: Generic 일반적인 변수 타입. Map<String,Integer> mapTest = new HashMap<String,Integer>();
+- 제네릭을 사용하는 이유: 코딩작업시 매개변수의 타입을 제한을 두어서, 값을 입출력 할 때 에러 상황을 미리 확인 하기 위해서.
+- 코드 인스펙트: 코드 분석 -> 코드 생성
+- 회사 자체 솔루션(프레임워크) 기반으로 직원들이 코딩 작업을 하게 됩니다.
+- 선배와 같이 프로젝트 진행 3개월, 6개월 진행하시면, 회사 자체 프레임워크(솔루션)를 이해가 됩니다. 
+- 파일 입출력 처리 마무리 OK.
 - member_list.jsp에서 MemberVO 클래스 테스트 사용 예정(아래).
 - 데이터 타입에 대해서 배열타입과 리스트타입 그리고, 해시타입
-
+- 2차원 배열타입 변수 -> 클래스오브젝트 배열타입 변수으로 변경 -> 클래스오브젝트 List타입 변수로 변경
 ```
 Date toDay = new Date();
 MemberVO m1 = new MemberVO();
