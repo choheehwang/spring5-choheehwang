@@ -115,7 +115,16 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>        
+		</dependency>
+		
+		<!-- 앞으로 추가되는 프로그램 외부 모듈은 아래에 추가 예정 -->
+		<!-- 서버 시간 가져오는 모듈 -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.6</version>
+		</dependency>
+		        
 	</dependencies>
     <build>
     <defaultGoal>install</defaultGoal>
