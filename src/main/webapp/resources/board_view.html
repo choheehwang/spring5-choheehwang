@@ -383,10 +383,12 @@ $(document).ready(function() {
 <script>
 <!-- 댓글 리스트에서 수정 버튼 누를 시 뜨는 팝업창 내용을 동적 변경하는 구현 내용(아래) -->
 $(document).ready(function() {
-	$(".timeline").on("click", ".template-div", function(event) {
+	$(".timeline").on("click", ".template-div", function(event) {//.template-div 댓글 리스트 영역
+		//$(this); 클릭한 댓글에 따라서 this는 첫 번째 댓글이 될 수도 있고 두 번째 댓글이 될 수도 있다.
 		$("#rno").val($(this).attr("data-rno"));
 		$(".modal-title").html(reply.find(".timeline-header").text());
 		$("#replytext").val($(this).find(".timeline-body").text());
+		//마우스 클릭으로 선택한 댓글의 .timeline-body영역의 text문자를 #replytext영역에 값으로 입력
 	})
 });
 </script>
