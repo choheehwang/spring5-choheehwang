@@ -83,7 +83,7 @@
 					  <c:out value="${boardVO.title}"></c:out>[<c:out value="${boardVO.reply_count}"></c:out>]
 					  </a></td>
                       <td><c:out value="${boardVO.writer}"></c:out></td>
-                      <td><fmt:formatDate pattern="yyy=MM-dd HH:mm" value="${boardVO.regdate}"/></td>
+                      <td><fmt:formatDate pattern="yyy-MM-dd HH:mm" value="${boardVO.regdate}"/></td>
                       <td><span class="badge bg-danger">${boardVO.view_count}</span></td>
                       <!-- 조회수 = 부트스트랩 badge class 사용 -->
                     </tr>
@@ -99,7 +99,7 @@
               
               <!-- button section 시작 -->
               <div class="card-body">
-              <a href="board_write.html" class="btn btn-primary float-right">CREATE</a>
+              <a href="/admin/board/board_write" class="btn btn-primary float-right">CREATE</a>
               <!-- 부트스트랩 버튼 디자인 적용 예시 btn-primary, btn은 버튼 모양으로 변경하는 것 (위) -->
               </div>
               <!-- button section 끝 -->

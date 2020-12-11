@@ -6,20 +6,77 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
+import org.edu.util.SecurityCode;
+import org.edu.vo.BoardVO;
 import org.edu.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 //spring에서 사용 가능한 클래스를 bean이라 한다
 @Controller
 public class AdminController {
-
+	//@Inject 방식으로 외부 라이브러리=모듈=클래스=인스턴스 불러오기(아래)
+	@Inject
+	SecurityCode securityCode;
+	
+	@RequestMapping(value="/admin/board/board_write", method=RequestMethod.GET) //URL route
+	public String board_write() throws Exception {
+		return "admin/board/board_write"; //file route
+	}
+	@RequestMapping(value="/admin/board/board_write", method=RequestMethod.POST)
+	public String board_write(MultipartFile file, BoardVO boardVO) throws Exception {
+		//게시물 테러 방지 -> redirect로 이동 처리
+		return "redirect:/admin/board/board_list";
+	}
+	@RequestMapping(value="/admin/board/board_view", method=RequestMethod.GET)
+	public String board_view(@RequestParam("bno") Integer bno, Model model) throws Exception {
+		//jsp로 보낼 더미 데이터를 boardVO에 담아서 보내기(아래)
+		BoardVO boardVO = new BoardVO();
+		boardVO.setBno(1);
+		boardVO.setTitle("첫 번째 게시물 입니다.");
+		String xss_data = "첫 번째 내용 입니다.<br>줄바꿈 테스트 입니다.";
+		boardVO.setContents(securityCode.unscript(xss_data));
+		boardVO.setWriter("admin");
+		Date regdate = new Date();
+		boardVO.setRegdate(regdate);
+		boardVO.setView_count(2);
+		boardVO.setReply_count(0);
+		model.addAttribute("boardVO", boardVO);
+		return "admin/board/board_view";
+	}
 	@RequestMapping(value="/admin/board/board_list", method=RequestMethod.GET)
 	public String board_list(Model model) throws Exception {
-		
+		//테스트용 더미 게시판 데이터 생성(아래)
+		BoardVO input_board = new BoardVO();
+		input_board.setBno(1);
+		input_board.setTitle("첫 번째 게시물 입니다.");
+		input_board.setContents("첫 번째 내용 입니다.<br>줄바꿈 테스트 입니다.");
+		input_board.setWriter("admin");
+		Date regdate = new Date();
+		input_board.setRegdate(regdate);
+		input_board.setView_count(2);
+		input_board.setReply_count(0);
+		BoardVO[] board_array = new BoardVO[2];
+		board_array[0] = input_board;
+		//------------------------------------------
+		BoardVO input_board2 = new BoardVO();
+		input_board2.setBno(2);
+		input_board2.setTitle("두 번째 게시물 입니다.");
+		input_board2.setContents("두 번째 내용 입니다.<br>줄바꿈 테스트 입니다.");
+		input_board2.setWriter("user02");
+		input_board2.setRegdate(regdate);
+		input_board2.setView_count(2);
+		input_board2.setReply_count(0);
+		board_array[1] = input_board2;
+		//------------------------------------------
+		List<BoardVO> board_list = Arrays.asList(board_array); //array 타입을 List 타입으로 변경하는 절차
+		model.addAttribute("board_list", board_list);
 		return "admin/board/board_list";
 	}
 	@RequestMapping(value="/admin/member/member_write", method=RequestMethod.POST)

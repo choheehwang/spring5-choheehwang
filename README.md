@@ -1,5 +1,9 @@
 ### 기본정보
 - 스프링관리자 AdminLTE템플릿 샘플: https://adminlte.io/themes/v3/pages/forms/general.html
+- jsp: class 진입점 필수
+- spring: class 진입점이 arg 아님
+- jsp <c:forEach> = {{#each .}}
+- EL(Express Language)출력: ${boardVO.title} 보안에 취약하므로 c tag 사용하여 EL을 감싸준다
 
 #### 20201210(목) 작업예정
 - 댓글 관련 디자인 추가 후 Ajax 적용
