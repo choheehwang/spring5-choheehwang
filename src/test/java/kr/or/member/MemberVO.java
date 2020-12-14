@@ -35,7 +35,7 @@ public class MemberVO {
 		}
 
 		@Override
-		public String toString() {
+		public String toString() { //멤버 변수 값들이 출력되게끔 리턴값을 설정하는 메소드
 			return "디버그용 MemberVO [name=" + name + ", age=" + age + ", phoneNum=" + phoneNum + "]";
 		}
 
