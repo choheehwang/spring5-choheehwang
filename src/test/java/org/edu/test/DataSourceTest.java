@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,6 +37,62 @@ public class DataSourceTest {
 	
 	@Inject
 	IF_MemberDAO memberDAO;
+	
+	@Inject
+	MemberVO memberVO;
+	
+	public String memberPrimaryKey() {
+		//user create rule: prefix: user_, suffix: 년월일시분초
+		//user create result ex. user_20201215142132
+		Date primaryKey = new Date();
+		SimpleDateFormat newFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		System.out.println("프라이머리키: " + newFormat.format(primaryKey));
+		return "user_" + newFormat.format(primaryKey);
+	}
+	
+	@Test
+	public void updateMember() throws Exception {
+		//CRUD 중 Update test
+		memberVO.setEmail("test@test.com");
+		memberVO.setUser_name("아무개");
+		memberVO.setUser_id("admin");
+		String user_id = memberVO.getUser_id();
+		
+	}
+	
+	@Test
+	public void readMember() throws Exception {
+		//CRUD 중 Read test
+		MemberVO memberVO = new MemberVO();
+		memberVO = memberDAO.readMember("admin");
+		System.out.println("admin에 대한 상세정보입니다.");
+		System.out.println(memberVO.toString());
+	}
+	
+	@Test
+	public void deleteMember() throws Exception {
+		//CRUD 중 Delete test(query->DAO->memberDAO)
+		memberDAO.deleteMember("user_20201215152550549");
+		//삭제 메서드 -> 쿼리 호출
+	}
+	
+	@Test
+	public void insertMember () throws Exception {
+		//CRUD 중 Create test
+		MemberVO memberVO = new MemberVO();
+		String memberIDKey = memberPrimaryKey();
+		memberVO.setUser_id(memberPrimaryKey());
+		memberVO.setUser_pw("1234");
+		memberVO.setUser_name("사용자03");
+		//패스워드 암호화 처리(필수이지만 스프링 시큐리티할 때 처리 예정)
+		memberVO.setEmail("user03@abc.com");
+		memberVO.setPoint(100);
+		memberVO.setEnabled(true);
+		memberVO.setLevels("ROLE_USER");
+		Date reg_date = new Date();
+		memberVO.setReg_date(reg_date); //Mapper query에서 처리로 대체
+		memberDAO.insertMember(memberVO);
+	}
 	
 	@Test
 	public void selectMember() throws Exception {

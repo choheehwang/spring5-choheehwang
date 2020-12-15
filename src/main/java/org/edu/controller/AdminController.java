@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.edu.service.IF_MemberService;
 import org.edu.util.SecurityCode;
 import org.edu.vo.BoardVO;
 import org.edu.vo.MemberVO;
@@ -24,6 +25,9 @@ public class AdminController {
 	//@Inject 방식으로 외부 라이브러리=모듈=클래스=인스턴스 불러오기(아래)
 	@Inject
 	SecurityCode securityCode;
+	
+	@Inject
+	IF_MemberService memberService;
 	
 	@RequestMapping(value="/admin/board/board_write", method=RequestMethod.GET) //URL route
 	public String board_write() throws Exception {
@@ -102,44 +106,38 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/member/member_list", method=RequestMethod.GET)
 	public String member_list(Model model) throws Exception {
-		String[][] members = {
-				{"admin","관리자","admin@abc.com","true","2020-12-04","ROLE_ADMIN"},
-				{"user","사용자","user@abc.com","false","2020-12-04","ROLE_USER"}
-		};
-		//hash# data 타입:<키(key),값(value)> -> {"user_id":"admin","user_name":"관리자",...}
-		//Map타입이 부모 클래스, HashMap타입이 자식 클래스
-		//Map타입을 상속 받아서, HashMap타입의 오브젝트를 생성하는 방식
-		Map<String,Integer> mapTest = new HashMap<String,Integer>();
-		String ageValue = "40";
-		int ageValue2 = 40;
-		mapTest.put("ageValue2", ageValue2);
-		mapTest.put("age", Integer.parseInt(ageValue) );
-		//제네릭 타입을 사용하면, parseInt형변환을 할 필요가 없기 때문에
-		//제네릭 타입의 근본 목적은 데이터 타입에 대해서 명시적인 코딩(코드를 단순화)을 하기 위해서이다
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("user_id", "admin");
-		paramMap.put("user_name", "관리자");
-		paramMap.put("age", 40);
-		System.out.println("해시데이터 타입 출력" + paramMap);
-		
-		//members 2차원 배열 변수를 MemberVO 클래스형 오브젝트로(members_array) 변경(아래)
-		MemberVO members_input = new MemberVO();
-		members_input.setUser_id("admin");
-		members_input.setUser_name("찐관리자");
-		members_input.setEmail("admin@abc.com");
-		members_input.setEnabled(true); //enabled data형(type)이 boolean형이기 때문에 true, false 두 값만 입력 가능
-		Date toDay = new Date(); //java의 data class를 이용하여 현재 날짜를 가진 toDay변수 생성
-		members_input.setReg_date(toDay); //reg_date data타입이 data형이기 때문에 java 날짜 데이터 입력
-		members_input.setLevels("ROLE_ADMIN");
-		members_input.setPoint(10); //point는 데이터 타입이 integer형이기 때문에 숫자만 입력(큰 따옴표 넣으면 문자로 인식)
-		//위 members_input object에는 2개의 line(record)만 입력되어 있으므로 이 object를 array object에 저장(아래)
-		MemberVO[] members_array = new MemberVO[2]; //class형 array object 생성
-		members_array[0] = members_input;
-		members_array[1] = members_input;
-		//---------------------------------------------------------------------------------
-		List<MemberVO> members_list = Arrays.asList(members_array);
-		System.out.println("List타입의 오브젝트 클래스 내용을 출력" + members_list.toString());
+		/*
+		 * String[][] members = {
+		 * {"admin","관리자","admin@abc.com","true","2020-12-04","ROLE_ADMIN"},
+		 * {"user","사용자","user@abc.com","false","2020-12-04","ROLE_USER"} }; //hash#
+		 * data 타입:<키(key),값(value)> -> {"user_id":"admin","user_name":"관리자",...}
+		 * //Map타입이 부모 클래스, HashMap타입이 자식 클래스 //Map타입을 상속 받아서, HashMap타입의 오브젝트를 생성하는 방식
+		 * Map<String,Integer> mapTest = new HashMap<String,Integer>(); String ageValue
+		 * = "40"; int ageValue2 = 40; mapTest.put("ageValue2", ageValue2);
+		 * mapTest.put("age", Integer.parseInt(ageValue) ); //제네릭 타입을 사용하면, parseInt형변환을
+		 * 할 필요가 없기 때문에 //제네릭 타입의 근본 목적은 데이터 타입에 대해서 명시적인 코딩(코드를 단순화)을 하기 위해서이다
+		 * 
+		 * Map<String, Object> paramMap = new HashMap<String, Object>();
+		 * paramMap.put("user_id", "admin"); paramMap.put("user_name", "관리자");
+		 * paramMap.put("age", 40); System.out.println("해시데이터 타입 출력" + paramMap);
+		 * 
+		 * //members 2차원 배열 변수를 MemberVO 클래스형 오브젝트로(members_array) 변경(아래) MemberVO
+		 * members_input = new MemberVO(); members_input.setUser_id("admin");
+		 * members_input.setUser_name("찐관리자"); members_input.setEmail("admin@abc.com");
+		 * members_input.setEnabled(true); //enabled data형(type)이 boolean형이기 때문에 true,
+		 * false 두 값만 입력 가능 Date toDay = new Date(); //java의 data class를 이용하여 현재 날짜를 가진
+		 * toDay변수 생성 members_input.setReg_date(toDay); //reg_date data타입이 data형이기 때문에
+		 * java 날짜 데이터 입력 members_input.setLevels("ROLE_ADMIN");
+		 * members_input.setPoint(10); //point는 데이터 타입이 integer형이기 때문에 숫자만 입력(큰 따옴표 넣으면
+		 * 문자로 인식) //위 members_input object에는 2개의 line(record)만 입력되어 있으므로 이 object를
+		 * array object에 저장(아래) MemberVO[] members_array = new MemberVO[2]; //class형
+		 * array object 생성 members_array[0] = members_input; members_array[1] =
+		 * members_input;
+		 * //---------------------------------------------------------------------------
+		 * ------ List<MemberVO> members_list = Arrays.asList(members_array);
+		 * System.out.println("List타입의 오브젝트 클래스 내용을 출력" + members_list.toString());
+		 */
+		List<MemberVO> members_list = memberService.selectMember();
 		model.addAttribute("members", members_list); //members 2차원 배열을 members_array class object로 변경(20.12.08)
 		return "admin/member/member_list";//member_list.jsp로 members 변수 데이터 전송
 	}
