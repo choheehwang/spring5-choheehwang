@@ -5,7 +5,48 @@
 - jsp <c:forEach> = {{#each .}}
 - EL(Express Language)출력: ${boardVO.title} 보안에 취약하므로 c tag 사용하여 EL을 감싸준다
 
-#### 20201215(화) 작업예정
+### 스프링 작업순서
+- 스프링 HelloWorld MVC 프로젝트 edu.org.controller 제작OK.
+- wamp(만세아이콘)으로 마리아DB 설치, 사용자암호 추가 및 한글처리OK.
+- 워크벤치 설치 및 ERD 작성연습, 샘플DB(edu)임포트 및 리버스 엔지니어링으로 ERD제작OK.
+- 샘플반응형 웹페이지(mobile,tablet,pc용) 및 J쿼리 페이지 작성OK.
+- 스프링 프로젝트 관리자단 AdminLTE기반으로 제작OK.
+- 스프링 테스트 pom.xml 디펜던시 의존성 추가OK.
+- egov3.9버전 -> 3.10으로 업드레이드OK.
+- junit(JavaUnit) 테스트 설정 후 기본 unit유닛(단위)테스트OK.
+- jdbc(JavaDataBaseConnection)사용 pom.xml 의존성 추가OK.
+- Mysql사용 pom.xml 의존성 추가OK.
+- 마이바티스 사용(CRUD쿼리를관리하는툴) pom.xml 의존성 추가OK.
+- junit으로 DB접근 후 관리자단 회원관리 CRUD unit테스트 마무리.(MemberVO 인젝션사용 불가)
+- --------------- 여기까지 ------------------
+- DB 디버그용 드라이버 사용 pom.xml 의존성 추가.
+- 스프링 AOP(관점지향프로그래밍-OOP의 확장기능)기능으로 개발용 디버그출력환경 만들기.
+- 실제 회원관리 화면 CRUD 적용.
+- 실제 게시판 화면 CRUD 적용.
+- 파일업로드 라이브러리 사용 pom.xml 의존성 추가.
+- 게시판 업로드 화면 구현.
+- Json데이터 사용 pom.xml 의존성 추가.
+- 실제 댓글 화면CRUD적용.(우리가 만들어서 제공 Rest-API백엔드단)
+- 사용자단 html(https://miniplugin.github.io/) 소스를 커스터마이징 후 jsp로 만들기.
+- 스프링시큐리티 로그인 구현 pom.xml 의존성 추가(회원가입시 패스워드 암호화 추가).
+- 헤로쿠 클라우드로 배포(Hsql데이터베이스사용).
+- 사용자단 CRUD 구현.
+- 오라클로 마이그레이션 작업.
+- 이후 유효성검사, 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
+
+#### 20201215(화) 작업
+- 인터페이스 영역(메서드명세파일-이름만존재) -implements- 임플리먼트 클래스(메서드구현파일-오버라이드된메서드명구현내용)
+- 메서드명세 메서드명 = 오버라이드된 메서드명
+- 이클립스에서 입력힌트 나오지 않을때 조치
+window> preference> java > editor > content Assist > advanced > 체크 java Non-Type Proposals > Apply버튼클릭.
+- 자바에서 상속이라는 개념도 html css에서 나오는 상속이랑 비슷한 개념인가요?
+- html, css에서 사용되는 상속개념 - 자바(C#)언어에서 차용해서 쓰는 개념입니다.
+- 워크벤치쿼리실행참조->mapper쿼리->DAO클래스호출->Service클래스호출->[컨트롤러호출->jsp]=JUnit테스트
+- ->[DAO클래스호출->Service클래스호출]=1개의 클래스 사용 스프링BOOT방식(소규모프로젝트용)
+- DAO, Service를 2개 클래스로 나눈이유 1, 현업에서 사용되는 솔루션들이 2개로 클래스를 나눈 구조 입니다.
+- 위와 구조를 사용하는 근본적인 이유는, DB엑세스하는 부분은 최소화(1개) - DAO을 호출하는 서비스는 다수(10개)
+- 사용예, selectMember() DAO클래스에 메서드 1개.
+- DAO.selectMember() 호출하는 서비스는 관리자단서비스에서 호출, 사용자단서비스에서 호출 (1:2)
 - JUnit 자바단위테스트 Insert(), Update(), Delete() 회원관리부분 예정.
 
 #### 20201214(월) 작업
