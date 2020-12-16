@@ -40,7 +40,7 @@
                   <div class="input-group input-group-sm">
                <div>
                  <select name="search_type" class="form-control">
-                 <option value="" selected>-전체-</option>
+                 <option value="all" selected>-전체-</option>
                      <option value="user_id" data-select2-id="8">ID</option>
                      <option value="user_name" data-select2-id="16">NAME</option>
                  </select>
@@ -74,6 +74,11 @@
                     </tr>
                   </thead>
                   <tbody>
+                  
+                  <c:if test="${empty members}">
+                  	<tr><td colspan="6" class="text-center">조회된 데이터가 없습니다.</td></tr>
+                  </c:if>
+                  
                   <!-- jstl 표준 core 태그 사용 반복문 Admin controller에서 가져온 members object class 값을 출력 -->
                   <c:forEach items="${members}" var="member">
                   <tr>

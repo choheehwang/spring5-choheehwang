@@ -4,10 +4,31 @@
 memberMapper.xml 역할: 회원 관리에 대한 모든 쿼리를
 Mybatis session factory class에서 모아 관리 
  -->
+ <!-- 
+ user_id = 'admin' where 조건문에서 완전 일치는 '='이다
+ 일부분 일치는 like 쿼리 + 검색어% 사용
+ 앞뒤로 일치는 like 쿼리 + %검색어% 사용
+  -->
 <mapper namespace="memberMapper">
 
 <select id="selectMember" resultType="org.edu.vo.MemberVO">
 select * from tbl_member
+<if test="search_type !='' and search_type !=null">
+	where
+	<if test="search_type == 'all'.toString()">
+		user_id like concat('%',#{search_keyword},'%')
+		or
+		user_name like concat('%',#{search_keyword},'%')
+	</if>
+	
+	<if test="search_type == 'user_id'.toString()">
+		user_id like concat('%',#{search_keyword},'%')
+	</if>
+	
+	<if test="search_type == 'user_name'.toString()">
+		user_name like concat('%',#{search_keyword},'%')
+	</if>
+</if>
 </select>
 
 <insert id="insertMember">
@@ -39,7 +60,9 @@ VALUES (
 UPDATE tbl_member
 SET 
     user_name = #{user_name},
+    <if test="user_pw !=''">
     user_pw = #{user_pw},
+    </if>
     email = #{email},
     point = #{point},
     enabled = #{enabled},

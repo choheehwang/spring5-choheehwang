@@ -13,6 +13,7 @@ public class MemberService {
 			//cnt + 1을 할 경우 결과가 "1"번째 레코드는~ 라는 결과가 나오고
 			//안 했을 경우 "0"번째 레코드는~ 라는 결과가 나오게 되므로 cnt + 1을 해준 것이다
 			System.out.println(cnt + "번째 레코드는 " + member.toString());
+			//클래스형 변수를 호출할 때, toString() 자동 호출된다->확실치 않음 아마도...?
 		}
 	}
 }

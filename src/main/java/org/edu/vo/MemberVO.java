@@ -1,10 +1,13 @@
 package org.edu.vo;
 
 import java.util.Date;
+
+import org.springframework.stereotype.Component;
 /**
  * 회원 정보 관리용 클래스
  * @author 황초희 2020-12-04
  */
+@Component
 public class MemberVO {
 	//member 변수 선언(클래스 전역 변수)
 	private String user_id;//private: class 내부에서만 사용 가능(보안)

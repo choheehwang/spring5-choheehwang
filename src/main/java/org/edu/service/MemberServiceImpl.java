@@ -21,9 +21,9 @@ public class MemberServiceImpl implements IF_MemberService {
 	//IF_MemberDAO interface를 inject해서 memberDAO라는 오브젝트 생성
 	
 	@Override
-	public List<MemberVO> selectMember() throws Exception {
+	public List<MemberVO> selectMember(String search_type, String search_keyword) throws Exception {
 		// 회원정보 조회 DAO class의 method 호출(아래)
-		return memberDAO.selectMember();
+		return memberDAO.selectMember(search_type, search_keyword);
 	}
 
 }

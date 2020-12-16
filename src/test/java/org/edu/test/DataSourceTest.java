@@ -38,8 +38,8 @@ public class DataSourceTest {
 	@Inject
 	IF_MemberDAO memberDAO;
 	
-	@Inject
-	MemberVO memberVO;
+	@Inject //사용하면 안 되는 이유: 클래스상단에 @Controller, @Service, @Repository, @Component 이런 내용만 @Inject합니다.
+	MemberVO memberVO; //기존자바처럼 new MemberVO() 오브젝트를 생성하지 않고, 주입해서 사용. 
 	
 	public String memberPrimaryKey() {
 		//user create rule: prefix: user_, suffix: 년월일시분초
@@ -53,17 +53,22 @@ public class DataSourceTest {
 	@Test
 	public void updateMember() throws Exception {
 		//CRUD 중 Update test
+		//MemberVO memberVO = new MemberVO();
+		memberVO.setUser_name("홍길동");
+		memberVO.setUser_pw(""); //암호를 수정하는 것을 원하지 않는 사람이라 가정
 		memberVO.setEmail("test@test.com");
-		memberVO.setUser_name("아무개");
+		memberVO.setPoint(100);
 		memberVO.setUser_id("admin");
+		memberVO.setEnabled(true);
+		memberVO.setLevels("ROLE_ADMIN");
 		String user_id = memberVO.getUser_id();
-		
+		memberDAO.updateMember(memberVO);
 	}
 	
 	@Test
 	public void readMember() throws Exception {
 		//CRUD 중 Read test
-		MemberVO memberVO = new MemberVO();
+		//MemberVO memberVO = new MemberVO();
 		memberVO = memberDAO.readMember("admin");
 		System.out.println("admin에 대한 상세정보입니다.");
 		System.out.println(memberVO.toString());
@@ -79,7 +84,7 @@ public class DataSourceTest {
 	@Test
 	public void insertMember () throws Exception {
 		//CRUD 중 Create test
-		MemberVO memberVO = new MemberVO();
+		//MemberVO memberVO = new MemberVO();
 		String memberIDKey = memberPrimaryKey();
 		memberVO.setUser_id(memberPrimaryKey());
 		memberVO.setUser_pw("1234");
@@ -96,7 +101,7 @@ public class DataSourceTest {
 	
 	@Test
 	public void selectMember() throws Exception {
-		List<MemberVO> memberList = memberDAO.selectMember();
+		List<MemberVO> memberList = memberDAO.selectMember("user_name","홍길동");
 		System.out.println("회원 리스트 테스트 입니다.");
 		System.out.println("회원 리스트 테스트" + memberList.toString());
 	}
