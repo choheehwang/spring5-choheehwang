@@ -19,7 +19,7 @@ public class OpenAPI {
 	// 외부 연계 역할 메서드
 	public static void serviceAPI() {
 		BufferedReader bufferedReader = null; //HRD-Net에서 전송받은 데이터를 임시저장하는 저장공간
-		String urlStr = "http://www.hrd.go.kr/hrdp/api/apipo/APIPO0101T.do?returnType=XML&srchTraOrganNm=%ED%9C%B4%EB%A8%BC&pageSize=10&srchTraArea1=44&authKey=BReWYFUj0RDZfsrZyK97EQ7bJh0Ka37I&sort=ASC&outType=1&srchTraStDt=20201108&srchTraArea2=44133&pageNum=1&sortCol=TR_STT_DT&srchTraEndDt=20210317&srchTraPattern=N1&srchPart=-99&apiRequstPageUrlAdres=/jsp/HRDP/HRDPO00/HRDPOA60/HRDPOA60_1.jsp&apiRequstIp=49.169.145.116";
+		String urlStr = "http://www.hrd.go.kr/hrdp/api/apipo/APIPO0101T.do?returnType=XML&pageSize=10&srchTraArea1=44&authKey=BReWYFUj0RDZfsrZyK97EQ7bJh0Ka37I&sort=DESC&outType=1&srchTraStDt=20201108&pageNum=1&sortCol=TR_STT_DT&srchTraEndDt=20201231&srchTraPattern=N1&srchPart=-99&apiRequstPageUrlAdres=/jsp/HRDP/HRDPO00/HRDPOA60/HRDPOA60_1.jsp&apiRequstIp=49.169.145.116";
 		try {
 			URL url = new URL(urlStr);
 			try {
@@ -57,7 +57,7 @@ public class OpenAPI {
 	public static void main(String[] args) {
 		//메인 스레드는 1개, 다른 스레드를 추가로 실행할 때는 runnable 메서드를 이용(아래)
 		//추가 스레드를 주기적(스케쥴)으로 실행할 때 실행간격 변수(5초)
-		int sleepSec = 5;
+		int sleepSec = 10;
 		//주기적인 스레드 작업(concurrent 동시작업)을 위한 코딩 -> 변수 new 키워드로 실행 가능한 오브젝트 변수인 exec 변수 생성
 		//final은 현재 클래스에서만 사용하겠다는 명시적인 의미
 		final ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
