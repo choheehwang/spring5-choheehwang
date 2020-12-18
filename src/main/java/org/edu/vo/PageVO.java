@@ -13,12 +13,13 @@ package org.edu.vo;
  *
  */
 public class PageVO {
-	//boolean과 Boolean의 차이: boolean(일반형테이터형변수) / Boolean(대문자로시작-클래스형변수-Null로 입력되었을때 처리하는 로직)
-	private Integer perPageNum; //페이지 당 출력할 게시물 개수값의 변수
+	//boolean과 boolean의 차이: boolean(일반형테이터형변수) / boolean(대문자로시작-클래스형변수-Null로 입력되었을때 처리하는 로직)
+	private int perPageNum; //페이징 목록 개수 변수
+	private int perQueryPageNum; //페이지 당 출력할 게시물 개수값의 변수
 	private Integer page; //jsp에서 사용자가 클릭한 페이지 번호값의 변수
-	private Integer startNo; //쿼리에서 사용될 시작 번호값의 변수
-	private Boolean prev; //페이징에서 이전 페이지가 있을 때 표시값의 변수
-	private Boolean next; //페이징에서 이후 페이지가 있을 때 표시값의 변수
+	private int startNo; //쿼리에서 사용될 시작 번호값의 변수
+	private boolean prev; //페이징에서 이전 페이지가 있을 때 표시값의 변수
+	private boolean next; //페이징에서 이후 페이지가 있을 때 표시값의 변수
 	//위 프리뷰와 넥스트와 같은 변수의 존재 유무 확인 => 계산식 필요 => 계산식 내 변수 3개 필요(아래 변수 3개)
 	private int totalCount; //회원[게시물] 전체 개수값의 변수
 	private int startPage; //jsp 화면에서 보여주는 페이징 리스트 시작 번호
@@ -38,9 +39,9 @@ public class PageVO {
 		//ceil(1/10) =>1.0 0.9 0.8 ...0.1 0.0 -0.1 -0.2 => 1
 		//2 1.9 1.8 .. 1.2 1.1 => 2
 		//ceil(11/10)*10 => 20페이지(tempEnd값)
-		int tempEnd = (int)(Math.ceil(
+		int tempEnd = (int)(Math.ceil
 				(page/(double)this.perPageNum)*this.perPageNum
-				));
+				);
 		//jsp에서 클릭한 페이지번호 예로 1 을 기준으로 끝 페이지를 계산한다(위)
 		//예) < 1 2 3 4 5 6 7 8 9 10 > 페이징 리스트의 시작1 과 끝10 값이 바뀌게 됩니다.
 		//예) < 11 12 13 14 15 16 17 18 19 20(tempEnd) > 시작 11 과 끝 20
@@ -67,10 +68,10 @@ public class PageVO {
 		//예) < 11 12 13 14 15 16 17 18 19 20(tempEnd)  시작 11 과 끝 20
 	}
 	
-	public Integer getPerPageNum() {
+	public int getPerPageNum() {
 		return perPageNum;
 	}
-	public void setPerPageNum(Integer perPageNum) { //강제로 1페이지당 보여줄 개수값을 10개로 지정
+	public void setPerPageNum(int perPageNum) { //강제로 1페이지당 보여줄 개수값을 10개로 지정
 		//perPageNum = 10;
 		this.perPageNum = perPageNum;
 	}
@@ -80,27 +81,27 @@ public class PageVO {
 	public void setPage(Integer page) {
 		this.page = page;
 	}
-	public Integer getStartNo() {
+	public int getStartNo() {
 		//DB쿼리에서 사용 결과값은 시작 인덱스번호(0)를 구하는 계산식(아래)
 		//계산식 = (jsp에서 클릭한페이지번호-1)*페이지당 보여지는 개수
 		//1페이지계산 10[1페이지당출력할개수]x(1[몇번째페이지번호]-1) = 0 1페이지일때
 		//2페이지계산 10x(2-1) = 10[계산결과나온 시작페이지번호] 2페이지일때
-		startNo = perPageNum*(this.page-1); //개발자가 추가한 계산식
+		startNo = perQueryPageNum*(this.page-1); //개발자가 추가한 계산식
 		return startNo;
 	}
-	public void setStartNo(Integer startNo) {
+	public void setStartNo(int startNo) {
 		this.startNo = startNo;
 	}
-	public Boolean getPrev() {
+	public boolean getPrev() {
 		return prev;
 	}
-	public void setPrev(Boolean prev) {
+	public void setPrev(boolean prev) {
 		this.prev = prev;
 	}
-	public Boolean getNext() {
+	public boolean getNext() {
 		return next;
 	}
-	public void setNext(Boolean next) {
+	public void setNext(boolean next) {
 		this.next = next;
 	}
 	public int getTotalCount() {
@@ -134,6 +135,14 @@ public class PageVO {
 	}
 	public void setSearch_keyword(String search_keyword) {
 		this.search_keyword = search_keyword;
+	}
+
+	public int getPerQueryPageNum() {
+		return perQueryPageNum;
+	}
+
+	public void setPerQueryPageNum(int perQueryPageNum) {
+		this.perQueryPageNum = perQueryPageNum;
 	}
 	
 }

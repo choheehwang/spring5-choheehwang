@@ -112,17 +112,26 @@
               <div class="row card-body">
               <!-- 아래 style="margin:0 auto 빼고, 위 클래스에 pagination justify-content-center m-0을 넣어도 페이징 가운데 정렬 가능 -->
               <ul class="pagination" style="margin:0 auto;">
-              <li class="paginate_button page-item previous disabled" id="example2_previous">
-              <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-              </li>
-              <!-- 위 이전 게시물 링크 -->
-              <li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-              <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-              <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-              <!-- 아래 다음 게시물 링크 -->
-              <li class="paginate_button page-item next" id="example2_next">
-              <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-              </li>
+              <c:if test="${pageVO.prev}">
+	              <li class="paginate_button page-item previous" id="example2_previous">
+	              <a href="/admin/member/member_list?page=${pageVO.startPage-1}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+	              </li>
+	              <!-- 위 이전 게시물 링크 -->
+              </c:if>
+              
+              <!-- jstl for문, 고전for문으로 시작값, 종료값. var 변수에서 idx에 인덱스 값이 저장되어 있음 -->
+              <c:forEach begin="${pageVO.startPage}" end="${pageVO.endPage}" var="idx">
+              <!-- 삼항 연산자 (조건문)?참:거짓 -->
+              	<li class='paginate_button page-item <c:out value="${idx==pageVO.page?'active':''}" />'>
+              	<a href="/admin/member/member_list?page=${idx}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">${idx}</a></li>
+              </c:forEach>
+              
+              <c:if test="${pageVO.next}">
+	              <!-- 아래 다음 게시물 링크 -->
+	              <li class="paginate_button page-item next" id="example2_next">
+	              <a href="/admin/member/member_list?page=${pageVO.endPage+1}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+	              </li>
+              </c:if>
               </ul>
               </div>
               <!-- paging section 끝 -->
