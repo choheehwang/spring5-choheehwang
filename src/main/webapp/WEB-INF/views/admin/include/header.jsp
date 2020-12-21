@@ -2,10 +2,16 @@
     pageEncoding="UTF-8"%>
 
 
+
 <!-- 관리자단 헤더 시작 header.jsp -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+if('${msg}' != '') { // EL표기법
+	alert("${msg} (을)를 처리하였습니다.");
+}
+</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>관리자 | Dashboard</title>

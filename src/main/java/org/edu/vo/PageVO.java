@@ -15,9 +15,9 @@ package org.edu.vo;
 public class PageVO {
 	//boolean과 boolean의 차이: boolean(일반형테이터형변수) / boolean(대문자로시작-클래스형변수-Null로 입력되었을때 처리하는 로직)
 	private int perPageNum; //페이징 목록 개수 변수
-	private int perQueryPageNum; //페이지 당 출력할 게시물 개수값의 변수
+	private int queryPerPageNum; //페이지 당 출력할 게시물 개수값의 변수
 	private Integer page; //jsp에서 사용자가 클릭한 페이지 번호값의 변수
-	private int startNo; //쿼리에서 사용될 시작 번호값의 변수
+	private int queryStartNo; //쿼리에서 사용될 시작 번호값의 변수
 	private boolean prev; //페이징에서 이전 페이지가 있을 때 표시값의 변수
 	private boolean next; //페이징에서 이후 페이지가 있을 때 표시값의 변수
 	//위 프리뷰와 넥스트와 같은 변수의 존재 유무 확인 => 계산식 필요 => 계산식 내 변수 3개 필요(아래 변수 3개)
@@ -49,10 +49,10 @@ public class PageVO {
 		//jsp에서 11을 클릭했을 때, (20-10) + 1 = 11 <= startPage 값(위)
 		//20개 페이징*10개 레코드 = 200개의 레코드(회원[게시물])
 		//회원[게시물]이 195개일 경우
-		if(tempEnd*this.perPageNum > this.totalCount) {
-			//클릭한 page 번호로 계산된 회원[게시물]수가 실제 게시물(totalCount)수보다 클 때
+		if(tempEnd*this.queryPerPageNum > this.totalCount) {
+		// if(임시 끝 페이지*쿼리에서 한 페이지당 출력할 개수 > 실제 전체 개수) {
 			this.endPage = (int)Math.ceil(
-					this.totalCount/(double)this.perPageNum
+					this.totalCount/(double)this.queryPerPageNum
 					); //195/10 => [20] 19.9 19.8 ... 19.5
 		} else {
 			//전체 회원[게시물]수가 195일때 page 1을 클릭한 경우 100 > 195
@@ -63,7 +63,7 @@ public class PageVO {
 		//prev, next 구하는 계산식(아래)
 		this.prev = this.startPage != 1;
 		//시작 페이지가 1보다 크면 무조건 이전 페이지가 있다는 뜻(위)
-		this.next = (this.endPage*this.perPageNum < this.totalCount);
+		this.next = (this.endPage*this.queryPerPageNum < this.totalCount);
 		//20*10 < 195 결과는 false이기 때문에 next 꺽쇠가 안 보이게 jsp에서 처리함
 		//예) < 11 12 13 14 15 16 17 18 19 20(tempEnd)  시작 11 과 끝 20
 	}
@@ -81,16 +81,16 @@ public class PageVO {
 	public void setPage(Integer page) {
 		this.page = page;
 	}
-	public int getStartNo() {
+	public int getQueryStartNo() {
 		//DB쿼리에서 사용 결과값은 시작 인덱스번호(0)를 구하는 계산식(아래)
 		//계산식 = (jsp에서 클릭한페이지번호-1)*페이지당 보여지는 개수
 		//1페이지계산 10[1페이지당출력할개수]x(1[몇번째페이지번호]-1) = 0 1페이지일때
 		//2페이지계산 10x(2-1) = 10[계산결과나온 시작페이지번호] 2페이지일때
-		startNo = perQueryPageNum*(this.page-1); //개발자가 추가한 계산식
-		return startNo;
+		queryStartNo = queryPerPageNum*(this.page-1); //개발자가 추가한 계산식
+		return queryStartNo;
 	}
-	public void setStartNo(int startNo) {
-		this.startNo = startNo;
+	public void setQueryStartNo(int startNo) {
+		this.queryStartNo = startNo;
 	}
 	public boolean getPrev() {
 		return prev;
@@ -137,12 +137,12 @@ public class PageVO {
 		this.search_keyword = search_keyword;
 	}
 
-	public int getPerQueryPageNum() {
-		return perQueryPageNum;
+	public int getQueryPerPageNum() {
+		return queryPerPageNum;
 	}
 
-	public void setPerQueryPageNum(int perQueryPageNum) {
-		this.perQueryPageNum = perQueryPageNum;
+	public void setQueryPerPageNum(int perQueryPageNum) {
+		this.queryPerPageNum = perQueryPageNum;
 	}
 	
 }

@@ -82,7 +82,7 @@
                   <!-- jstl 표준 core 태그 사용 반복문 Admin controller에서 가져온 members object class 값을 출력 -->
                   <c:forEach items="${members}" var="member">
                   <tr>
-                      <td><a href="/admin/member/member_view?user_id=${member.user_id}">${member.user_id}</a></td>
+                      <td><a href="/admin/member/member_view?page=${pageVO.page}&user_id=${member.user_id}">${member.user_id}</a></td>
                       <td>${member.user_name}[${member.point}]</td>
                       <td>${member.email}</td>
                       <td>${member.enabled}</td>

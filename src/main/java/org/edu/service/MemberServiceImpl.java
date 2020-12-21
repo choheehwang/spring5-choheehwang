@@ -27,4 +27,22 @@ public class MemberServiceImpl implements IF_MemberService {
 		return memberDAO.selectMember(pageVO);
 	}
 
+	@Override
+	public int countMember(PageVO pageVO) throws Exception {
+		// 검색된 회원의 전체 멤버수 쿼리
+		return memberDAO.countMember(pageVO);
+	}
+
+	@Override
+	public MemberVO readMember(String user_id) throws Exception {
+		// 선택한 회원 상세정보 쿼리
+		return memberDAO.readMember(user_id);
+	}
+
+	@Override
+	public void deleteMember(String user_id) throws Exception {
+		// 선택한 회원 삭제 쿼리
+		memberDAO.deleteMember(user_id);
+	}
+
 }
