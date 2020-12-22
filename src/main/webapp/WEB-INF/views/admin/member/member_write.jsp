@@ -51,7 +51,7 @@
                   </div>
                   <div class="form-group">
                     <label for="user_name">user_name</label>
-                    <input type="text" class="form-control" name="user_name" placeholder="Enter your name" required>
+                    <input type="text" class="form-control" name="user_name" id="user_name" placeholder="Enter your name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">e-mail</label>
