@@ -88,15 +88,32 @@ public class AdminController {
 		return "admin/board/board_list";
 	}
 	@RequestMapping(value="/admin/member/member_write", method=RequestMethod.POST)
-	public String member_write_do() throws Exception {
+	public String member_write(MemberVO memberVO) throws Exception {
 		//아래 GET방식 폼 출력 화면에서 전송된 데이터를 처리하는 바인딩 영역(do)
 		//redirect는 글쓰기 후 새로고침을 이용한 게시판 테러를 방지하는 목적
+		memberService.insertMember(memberVO);
 		return "redirect:/admin/member/member_list";
 	}
 	
 	@RequestMapping(value="/admin/member/member_write", method=RequestMethod.GET)
 	public String member_write() throws Exception {
 		return "/admin/member/member_write";
+	}
+	
+	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.GET)
+	public String member_update(@RequestParam("user_id") String user_id, @ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
+		// GET방식이므로 업데이트 form file만 보여줌
+		MemberVO memberVO = memberService.readMember(user_id);
+		model.addAttribute("memberVO", memberVO);
+		return "admin/member/member_update";
+	}
+	
+	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
+	public String member_update(PageVO pageVO, MemberVO memberVO) throws Exception {
+		// POST방식으로 넘어온 값을 DB 수정 처리
+		memberService.updateMember(memberVO);
+		// redirect 역할: 새로고침했을 때, 위 updateMember method 재실행 방지
+		return "redirect:/admin/member/member_view?page="+pageVO.getPage()+"&user_id=" + memberVO.getUser_id();
 	}
 	
 	@RequestMapping(value="/admin/member/member_delete", method=RequestMethod.POST)

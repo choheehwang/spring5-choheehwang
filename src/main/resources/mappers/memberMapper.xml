@@ -92,4 +92,6 @@ DELETE FROM tbl_member WHERE user_id=#{user_id}
 SELECT * FROM tbl_member WHERE user_id=#{user_id}
 </select>
 
+
+
 </mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../include/header.jsp" %>
 
 
@@ -10,12 +11,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Member Create</h1>
+            <h1 class="m-0">Member Update</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Member Create</li>
+              <li class="breadcrumb-item active">Member Update</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,10 +31,10 @@
       <div class="row"> <!-- 부트스트랩의 디자인 클래스 row -->
           <div class="col-12"> <!-- width=100%와 같은 말 -->
           
-          <form name="write_form" action="/admin/member/member_write" method="post">
+          <form name="update_form" action="/admin/member/member_update" method="post">
           <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">CREATE MEMER</h3>
+                <h3 class="card-title">UPDATE MEMER</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -41,38 +42,39 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="user_id">user_id</label>
-                    <input type="text" class="form-control" name="user_id" id="user_id" placeholder="Enter user id" required>
+                    <input value="${memberVO.user_id}" type="text" class="form-control" name="user_id" id="user_id" placeholder="Enter user id" required readonly>
                     <!-- name 없으면 저장이 안 된다 -->
                     <!-- required는 필수입력값(html5에서 지원)이므로 입력하지 않으면 다음 단계로 넘어가지 않는다 -->
                   </div>
                   <div class="form-group">
                     <label for="user_pw">Password</label>
-                    <input type="password" class="form-control" name="user_pw" id="user_pw" placeholder="Enter password" required>
+                    <!-- html5에서 지원되는 유효성 검사: minlength, maxlength, required, type="email" -->
+                    <input maxlength="10" minlength="5" value="" type="password" class="form-control" name="user_pw" id="user_pw" placeholder="Enter password">
                   </div>
                   <div class="form-group">
                     <label for="user_name">user_name</label>
-                    <input type="text" class="form-control" name="user_name" placeholder="Enter your name" required>
+                    <input value="${memberVO.user_name}" type="text" class="form-control" name="user_name" placeholder="Enter your name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">e-mail</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter your e-mail" required>
+                    <input value="${memberVO.email}" type="email" class="form-control" name="email" id="email" placeholder="Enter your e-mail" required>
                 </div>
                 <div class="form-group">
                     <label for="point">point</label>
-                    <input type="number" class="form-control" name="point" id="point" placeholder="Enter your point" required>
+                    <input value="${memberVO.point}" type="text" class="form-control" name="point" id="point" placeholder="Enter your point" required>
                 </div>
                 <div class="form-group">
                     <label for="enabled">enabled</label>
                     <select class="form-control" name="enabled" id="enabled">
-                    	<option value="0">false</option>
-                    	<option value="1" selected>true</option>
+                    	<option value="0" <c:out value="${(memberVO.enabled=='false')?'selected':''}" /> >false</option>
+                    	<option value="1" <c:out value="${(memberVO.enabled=='true')?'selected':''}" /> >true</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="levels">levels</label>
                     <select class="form-control" name="levels" id="levels">
-                    	<option value="ROLE_ADMIN">ROLE_ADMIN</option>
-                    	<option value="ROLE_USER" selected>ROLE_USER</option>
+                    	<option value="ROLE_ADMIN" <c:out value="${(memberVO.levels=='ROLE_ADMIN')?'selected':''}" /> >ROLE_ADMIN</option>
+                    	<option value="ROLE_USER" <c:out value="${(memberVO.levels=='ROLE_USER')?'selected':''}" /> >ROLE_USER</option>
                     </select>
                 </div>
                 </div>
@@ -82,11 +84,14 @@
           
           <!-- button section 시작 -->
           <div class="card-body">
-          <a href="/admin/member/member_list" class="btn btn-primary float-right mr-1">LIST ALL</a>
-          <button type="submit" class="btn btn-danger float-right mr-1" disabled>SUBMIT</button>
+          <a href="/admin/member/member_list?page=${pageVO.page}" class="btn btn-primary float-right mr-1">LIST ALL</a>
+          <a href="/admin/member/member_view?page=${pageVO.page}&user_id=${memberVO.user_id}" class="btn btn-danger float-right mr-1">BACK</a>
+          <button type="submit" class="btn btn-warning float-right mr-1 text-white">UPDATE</button>
+          
           <!-- a태그는 link 이동은 되지만 form의 post값을 전송할 수 없으므로 button 태그를 사용 -->
           </div>
           <!-- button section 끝 -->
+          <input name="page" type="hidden" value="${pageVO.page}" />
       	   </form>
           </div>
         </div>
@@ -99,30 +104,3 @@
   
 
 <%@ include file="../include/footer.jsp" %>
-
-<script>
-$(document).ready(function() {
-	$("#user_id").bind("blur", function() {
-		//alert("여기까지" + $(this).val()); //디버그용
-		var p_user_id = $(this).val();
-		$.ajax({
-			type:'get',
-			url:'/id_check?user_id='+p_user_id,
-			dataType:'text',
-			success:function(result) {
-				if(result == '0') {
-					alert('사용 가능한 ID 입니다.')
-					$(".btn-danger").attr("disabled",false);
-				}else if(result == '1') {
-					alert('중복 ID가 존재 합니다.');
-					$(".btn-danger").attr("disabled",true);
-				}else {
-					// error message print
-					// alert(result); 개발자용 디버그
-					alert('CAUTION: API server error!')
-				}
-			}
-		});
-	});
-});
-</script>
