@@ -23,7 +23,7 @@ public class DebugAdvice {
 	 * @Around 애노테이션 클래스는 메서드 실행에 직접 관여
 	 * Around class 
 	 */
-	@Around("excecution(* org.edu.controller.AdminController.*(..))")
+	@Around("execution(* org.edu.controller.AdminController.*(..))")
 	public Object timeLog(ProceedingJoinPoint pjp) throws Throwable {
 		logger.debug("AOP 디버그 시작 =================== ");
 		long startTime = System.currentTimeMillis(); // 현재 컴퓨터 시간을 저장하는 변수
@@ -32,6 +32,6 @@ public class DebugAdvice {
 		long endTime = System.currentTimeMillis();
 		logger.debug(pjp.getSignature().getName() + "메서드의 실행 시간은 " + (endTime-startTime));
 		logger.debug("AOP 디버그 끝 =================== ");
-		return null;
+		return result;
 	}
 }
