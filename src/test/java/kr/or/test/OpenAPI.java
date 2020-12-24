@@ -28,7 +28,7 @@ public class OpenAPI {
 		 */
 		BufferedReader bufferedReader = null; // HRD-Net에서 전송받은 데이터를 임시저장하는 저장공간
 		String urlStr = "http://www.hrd.go.kr/hrdp/api/apipo/APIPO0101T.do?returnType=XML&pageSize=10&srchTraArea1=44&authKey=BReWYFUj0RDZfsrZyK97EQ7bJh0Ka37I&sort=DESC&outType=1&srchTraStDt=20201108&pageNum=1&sortCol=TR_STT_DT&srchTraEndDt=20201231&srchTraPattern=N1&srchPart=-99&apiRequstPageUrlAdres=/jsp/HRDP/HRDPO00/HRDPOA60/HRDPOA60_1.jsp&apiRequstIp=49.169.145.116";
-		try { URL url = new URL(urlStr);
+		try { URL url = new URL(urlStr); // try-catch-finally 시작
 			try { HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection(); //형 변환
 				urlConnection.setRequestMethod("GET"); // URL 쿼리 스트링으로 파라미터를 보낸다.
 				bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(),"euc-kr"));
