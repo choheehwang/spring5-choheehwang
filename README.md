@@ -1,38 +1,221 @@
 ### 기본정보
-- 스프링관리자 AdminLTE템플릿 샘플: https://adminlte.io/themes/v3/pages/forms/general.html
-- jsp: class 진입점 필수
-- spring: class 진입점이 arg 아님
-- jsp <c:forEach> = {{#each .}}
-- EL(Express Language)출력: ${boardVO.title} 보안에 취약하므로 c tag 사용하여 EL을 감싸준다
+- 스프링관리자 AdminLTE템플릿 샘플: 
+- https://adminlte.io/themes/v3/pages/forms/general.html
+- https://kimilguk-mysql.herokuapp.com/ (아이디/암호:admin/user02)
+
+### 수업에 대해서
+- 작업 내용의 복습시간은 이후 다른 코딩작업으로 대신하게 됩니다.
+- 예를 들면, 스프링프로젝트에서 관리자단 게시판을 만들면,
+- 나중에, 사용자단 게시판을 만들때 비슷한 과정을 한번 더 하게 됩니다. 이런방식으로 복습을 해서 기술을 익히게 됩니다.
+- 즉, 지금 이해가 않되시는 부분도 코딩작업을 여러번 반복하시게 되면서 기술을 익히게 되는 과정이라고 보시면 됩니다.
+- 그리고, 강의 내용을 녹음 하셔도 괜찮습니다.(단, 대단한 내용은 아니지만, 본인만 보시고, 유통시키지 않았으면 합니다.)
 
 ### 스프링 작업순서
-- 스프링 HelloWorld MVC 프로젝트 edu.org.controller 제작OK.
-- wamp(만세아이콘)으로 마리아DB 설치, 사용자암호 추가 및 한글처리OK.
+- 스프링 HelloWorld MVC 프로젝트 org.edu.controller 제작OK.
+- wamp(만세아이콘)으로 마리아DB(3306포트) 설치, 사용자암호 추가 및 한글처리OK.
 - 워크벤치 설치 및 ERD 작성연습, 샘플DB(edu)임포트 및 리버스 엔지니어링으로 ERD제작OK.
 - 샘플반응형 웹페이지(mobile,tablet,pc용) 및 J쿼리 페이지 작성OK.
-- 스프링 프로젝트 관리자단 AdminLTE기반으로 제작OK.
-- 스프링 테스트 pom.xml 디펜던시 의존성 추가OK.
-- egov3.9버전 -> 3.10으로 업드레이드OK.
+- 스프링 프로젝트 관리자단 AdminLTE(부트스트랩)기반으로 제작OK.
+- 스프링 테스트 pom.xml(외부라이브러리가져다가사용하는 방식) 디펜던시 의존성 추가OK.
+- 메이븐기반 전자정부표준프레임워크 egov3.9버전 -> 3.10으로 업드레이드OK.
 - junit(JavaUnit) 테스트 설정 후 기본 unit유닛(단위)테스트OK.
 - jdbc(JavaDataBaseConnection)사용 pom.xml 의존성 추가OK.
 - Mysql사용 pom.xml 의존성 추가OK.
 - 마이바티스 사용(CRUD쿼리를관리하는툴) pom.xml 의존성 추가OK.
-- junit으로 DB접근 후 관리자단 회원관리 CRUD unit테스트 마무리.(MemberVO 인젝션사용 불가)
+- junit으로 DB접근 후 관리자단 회원관리 CRUD unit테스트 마무리OK.
+- @Component애노테이션사용으로 MemberVO 인젝션사용 가능OK.
+- DB 디버그용 드라이버 사용 pom.xml 의존성 추가 후, log4jdbc.log4j2.properties 추가 OK.
+- 실제 회원관리 화면 CRUD 적용 중 jsp중 member_list(select+검색)처리 후 페이징처리 OK.
+- member_write, member_update, member_delete 만들기 작업OK.
+- 스프링 AOP(관점지향프로그래밍-OOP의 확장기능)기능으로 개발용 디버그출력환경 만들기 시작.
+- pom.xml에 AOP모듈 추가 필수
+- root-context.xml에서 aop태그 추가
 - --------------- 여기까지 ------------------
-- DB 디버그용 드라이버 사용 pom.xml 의존성 추가.
-- 스프링 AOP(관점지향프로그래밍-OOP의 확장기능)기능으로 개발용 디버그출력환경 만들기.
-- 실제 회원관리 화면 CRUD 적용.
 - 실제 게시판 화면 CRUD 적용.
 - 파일업로드 라이브러리 사용 pom.xml 의존성 추가.
 - 게시판 업로드 화면 구현.
-- Json데이터 사용 pom.xml 의존성 추가.
+- Json데이터 사용 pom.xml 의존성 추가.(댓글 Rest-Api에서필요)
 - 실제 댓글 화면CRUD적용.(우리가 만들어서 제공 Rest-API백엔드단)
 - 사용자단 html(https://miniplugin.github.io/) 소스를 커스터마이징 후 jsp로 만들기.
+- 인터셉터(가로채기-Interceptor)클래스를 이용해서, 예외처리를 공통 error.jsp 로 바인딩 처리.
 - 스프링시큐리티 로그인 구현 pom.xml 의존성 추가(회원가입시 패스워드 암호화 추가).
 - 헤로쿠 클라우드로 배포(Hsql데이터베이스사용).
 - 사용자단 CRUD 구현.
+- 웹프로젝트 소스를 스프링프레임워크 버전으로 5.2.5 마이그레이션(버전 업그레이드)
 - 오라클로 마이그레이션 작업.
 - 이후 유효성검사, 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
+
+#### 20201228(월) 작업예정
+- AdminLTE관리자단 게시판CRUD작업시작.
+- 코딩 틈틈히 이론수업(IT강의저장소의 스프링내용)
+- 다음주에 파스타가 살아있으면, 우리작업 결과물 파스타에 배포할 예정이니까, 플레이파크사용가능한지 확인 해 주시기 바랍니다.(모든 학생 다 가능하실때 진행)
+
+#### 20201224(목) 작업
+- V6.0.0과목시작. 
+- 사용자단 홈페이지 퍼블리싱한 결과물을 webapp/resources폴더에 home폴더명으로 생성.
+- 관리자단 /resources 폴더 루트: 관리자단은 디자인변경이 없습니다.
+- 사용자단 /resources/home 폴더에 위치한 이유, 사용자단은 1년마다 리뉴얼합니다.
+- 위와 같은 상황에서 /resources/home2020, /resources/home2021폴더 -> 개발자가 jsp변경예정
+- 사용자홈페이지는 부트스트랩라이브러리(사용자홈페이지용 댓글때문에-우리가만들예정) 추가.
+- 스프링시큐리티에서 사용하는 암호화는 단방향 암호화 입니다.(복호화가 안되는 방식)
+- 통합구현에서 사용된 어댑터(Adapter): 안드로이드 스튜디오 어댑터라는 용어사용.
+- 어댑터: 데이터베이스 -> 어댑터(데이터를 변환하는 기능-스프링의DAO클래스와 비슷) -> 입출력VO클래스 - 화면출력(바이딩).
+- 웹의 3요소(웹표준-HTML5, 웹접근성-장애인접근이가능한콘텐츠제작, 웹호환성-크로스브라우징)
+- 인터셉터(Interceptor-가로채기)클래스를 만들예정: 예외처리를 error.jsp로 공통에러페이지생성해서 바인딩 처리할때.
+- AOP 작동않되었던문제점 2가지처리예정(아래)
+- 1. Controller클래스가 빈으로 등록되는 servlet-context.xml 에도 aop태그 추가
+- 2. DebugAdvice클래스의 logger.debug를 logger.info로 변경 또는, log4.xml설정 debug로 변경
+
+#### 20201223(수) 작업
+- 스프링의 특징3가지 : DI(의존성 주입:Dependency Injection), AOP(관점지향프로그래밍)
+, IoC(제어의 역전 Inversion of Control:개발자가 처리하였던  메모리관리(가비지컬렉션-쓰레기프로그램종료시키기)-개발자가 코딩으로 오브젝트클래스를 종료할 필요없이, 스프링이 대신 처리 하는 기능) IoC예(아래), 개발자편리위주로 변경된 프레임워크 스프링입니다.
+
+```
+Connection conn = null
+Statement stmt = null
+ResultSet rs = null 
+구현내용 마치면 항상 아래 처럼 처리 해줘야 했습니다. 스프링에서 IoC기능으로 개발자가 제어를 하지 않고,스프링이 처리 해 줍니다. 
+rs.close();
+stmt.close();
+conn.close();
+```
+- 스프링 AOP(관점지향프로그래밍-OOP의 확장기능)기능으로 개발용 디버그출력환경 만들기 시작.
+- AOP(Aspect Oriented Programming): 구조화된 OOP의 단점인 복잡도 증가를 줄이는 효과를 기대해서 만든 프로그램 방식 입니다.
+- 즉, OOP자바클래스단에서 제어하던 반복되는 명령을 호출단에서 제어하도록 변경한 내용이 AOP입니다.
+- 예, 인증처리, 디버그와 같은 에러처리를 개발 클래스에서 처리하지않고, 공통클래스 1개 만들어서,
+인증이나, 예외처리(디버그)가 필요할때 마다 호출되는 시스템을 AOP라고 합니다.
+- 예외처리를 AOP로 구현하면서, 기능을 확인해 봅니다.
+- DATABASE폴더에 edu_mysql.sql 더미스키마+데이터 백업작업.
+- 맥OS 워크벤치 백업이 오동작 -> phpMyAdmin 툴변경 내보내기(백업)했습니다.
+- 프로그램에서 데이터크기단위: 8비트단위=2의8제곱=256개=> 왜 데이터크기를 0~255=256개
+- ERD만들기: 발주사의 업무담당자와 미팅(협의)끝난 이후,
+- 발주사(회사,대학,관공서)에서 사용하는 업무서식문서(결제서류,입학원서,입사원서,월급명세서,휴가신청서 등등)를 가지고, ERD를 만들게 됩니다.
+- wamp(만세아이콘)실행.
+- 프로젝트에서 DATABASE폴더 안의 edu_mysql.sql 삭제.
+- 스프링에서 작업시 순서: DataBase > 쿼리 > DAO > Service > Controller > jsp
+- 지금 진행하는 스프링웹프로젝트 워크벤치로 ERD만들고, 
+- 물리DB생성 후 프로지서 사용 더미데이터 입력(게시물관련) 연습예정.(더 자세히는 7번째과목 SQL활용에서 다룹니다.)
+
+#### 20201222(화) 작업
+- 회원관리 CRUD마무리 OK.
+- 오후 문제점: 2가지(ID수정방지기능OK, enalbed값 jsp바인딩-(true|false-enabled)처리 확인) 업데이트 마무리.
+- 회원등록(CRUD중 C) 작업예정.
+- 중복아이디체크(Ajax로 간단한 RestAPI컨트롤러 구성): 중복아이디가 존재한다면, SUBMIT버튼을 비활성화(disabled)
+- 중복아이디가 존재하지 않을때만 SUBMIT버튼이 활성화시키는 Jquery를 사용합니다.
+- 중복아이디체크는 버튼을 사용하지 않고, 아이디 input 항목을 벗어났을때 이벤트를 이용해서 Ajax를 호출할 예정.
+- 한글이 POST시 깨지는 문제: web.xml 에서 한글처리를 위한 UTF-8필터 추가(필수)
+
+```
+<!--  ...한글처리를 위한 UTF-8 필터 추가 -->
+	<filter>
+	  <filter-name>encoding</filter-name>
+	  <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	  <init-param>
+	   <param-name>encoding</param-name>
+	   <param-value>UTF-8</param-value>
+	  </init-param>
+	</filter>	
+	<filter-mapping>
+	  <filter-name>encoding</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+```
+- 회원관리 CRUD는 마무리OK,
+
+#### 20201221(월) 작업
+- 신규페이지 작업시 순서: 쿼리 > DAO > Service > Controller > jsp
+- 리스트, 검색, 페이징 처리OK.
+- 로그4j에 레벨: debug < warn < info 오른쪽 일수록 더 자세한 로그가 출력이 됩니다.
+- 마리아DB실행(만세아이콘)->워크벤치실행->이클립스실행
+- 통합구현 NCS학습모듈 이론 2-1단원.
+- 변수변경1: 쿼리에서 사용되는 시작인덱스 startNo 변수를 queryStartNo 으로 변경예정
+- 변수변경2: 쿼리에서 사용되는 1페이지당출력할개수 perQueryPageNum 변수를 queryPerPageNum 으로 변경예정
+- totalCount가 들어가는 계산식 변경(아래)
+- tempEnd*this.perQueryPageNum > this.totalCount (임시끝페이지x쿼리에서1페이지당출력할개수 > 실제전체개수)
+- this.totalCount/(double)this.queryPerPageNum (실제전체개수/쿼리에서1페이당출력할개수)
+- this.endPage*this.perQueryPageNum < this.totalCount (계산된끝페이지x쿼리에서1페이지당출력할개수 > 실제전체개수)
+- queryStartNo(쿼리시작인덱스) = perQueryPageNum*(this.page-1);//2페이지계산 10x(2-1) = 10[계산결과나온 시작페이지번호]
+- 리스트 출력전 페이징 처리부터 해야 하기 때문에 selectMember호출보다 위로 이동
+- @ModelAttribute("pageVO") 원래 이것을 사용하는 목적은 jsp에서 받을 때 필요 여기선 필요없음
+- log4j.xml 로그 등급 변경 및 dtd(Document Type Define)문서타입정의를 아래로 변경예정
+- 더미데이터 입력: 데이터베이스 프로시저(DB전용프로그램방식) 사용예정.
+
+#### 20201218(금) 작업
+- 조건문 중 삼항 연산자: 
+- (idx==pageVO.page)?'active':'';//전체 3개의 항(부분)으로 만들어져서 삼항연사자라고 합니다.
+- 위 삼항연사자를 풀면 다음과 같음: if(idx==pageVO.page) {'active'}else{''};
+- @ModelAttribute("pageVO")
+- < 1 2 3 4 5 6 7 8 9 10 > 에서 PC에서는
+- < 1 2 3 4 5 > 로 나오는데 모바일에서는 이렇게 표시하는 것이 좋습니다.
+- PageVO클래스 적용하는 순서: 1. PageVO클래스생성 
+- MemberMapper쿼리수정 -> MemberDAO클래스수정 -> MemberService클래스수정 ->
+- -> AdminController클래스수정 -> jsp 화면단 수정.
+- 1페이지계산 5x(1-1) = 0 1페이지일때
+- 2페이지계산 5x(2-1) = 5 2페이지일때
+- SELECT * FROM tbl_board order by bno desc limit 0, 5;# 0-시작인덱스,5-출력할 개수
+- 위 쿼리 결과: 1(0),2(1),3(2),4(3),5(4) 까지 출력 5개 출력
+- SELECT * FROM tbl_board order by bno desc limit 5, 5;# 5-시작인덱스,5-출력할 개수
+- 위 쿼리 결과: 6(5),7(6),8(7),9(8),10(9) 까지 5개 출력
+- 위 로직을 처리하는 PageVO.java 데이터 클래스를 만들겁니다.
+- 연계(인터페이스) 정의서 및 명세서.(11번째 과목에서 작성하시게 됩니다.)
+- 위 명세서는 https://www.gitbook.com/ 여기서 작업해서 만듭니다. 또는 pptx로 만듭니다.
+- PK(식별자): Primary Key(기본키,고유키) 주민번호와 같은 우리나라에서 1개인 값.
+- 테이블에서 고유한 PK: 엔티티에서 유일한 값.
+- 프로그래밍언어활용 채점리뷰 OK.
+- 통합구현 NCS학습모듈 이론 1-2단원 OK.
+- IT분야 먼저해봤다는 것이 중요하고, 그이상 그이하도 아닙니다.(박사, 석사, 고졸이 중요한 것이 아니고, 먼저해본사람이 우수한 기술자가 됩니다.)
+
+#### 20201217(목) 작업
+- ERD제작 후 -> 물리DB(스키마) 생성. -> 물리DB(스키마)에 더미데이터입력(회원,게시물) 프로시저(DB프로그램)를 이용해서. -> DATABASE폴더에 만들어진 DB를 백업(파일명: edu_mysql.sql)
+- PK(프라이머리 키)를 제일 상단에 배치하는 이유: 인덱스 검색(목차검색)을 속도를 빠르게 하기 위해서
+- Mysql에서 엔진: 이노디비(InnoDB-트랜잭션가능), 마이아이삼(MyISAM-트랜잭션불가능)
+- 트랜잭션: 묶어서 처리하는 중간에 에러가 났을때, 롤백(원상복귀)시키는 기능.
+- 위 트랜잭션은 은행사이트에서는 필수.(예, 자금이체를 할때, 계좌번호2개 있습니다. 
+- {본인계좌에서 100만원 인출 -> 전송도중 전송에러 -> 상대편계좌로 100만원 입금않됨}
+- 위 상황에서 트랜잭션으로 {}묶어주면, 본인계좌에서 100만원 인출이 취소(원상복귀)
+
+- 구직자훈련 OpenAPI를 사용한 목적은: URL쿼리스트링으로 (HRD-net시스템의 Rest서버에전송) 보내면, 반환값을 xml을 받습니다.
+- 받은 xml(json)데이터를 화면에 리프리젠테이션 하는 파싱이 목적입니다.(대세기술)
+- 우리는 자바앱까지만 콘솔에서 확인하고, 우리 프로젝트에서는 댓글, 네이버아이디로그인API 사용할때 위 기술이(OAuth인증후) 사용할 예정.
+- 중계시스템(연계시스템): Agent시스템, RestAPI서버(중계시스템)
+- HTML(링크드문서) 다음에 XML(자료를저장한문서) 출시
+- 쿼리 에서 정렬방법: Ascending(ASC오름차순)123456..., Descending(DESC내림차순)...654321
+- 정렬기준: 페이징처리시 bno(게시물번호) 기본정렬기준으로 어제 테스트했음. 예, 최신등록일 order by reg_date DESC
+- HRD-Net의 오픈API 파라미터(URL쿼리스트링) 키값을 확인하는 중 입니다.
+- HRD-Net의 인증(보안)절차는 OAuth(Open Authentication 오픈인증)2.0 를 사용.(페이스북,트위터,네이버아이디로그인,구글로그인 같은 OpenAPI인증을 사용) 로그인 인증은 받았으나, 최고관리자,일반관리자, 시간제학생, 학점은행제학생, 교수, 일반인 등 기관마다 다 틀리기 때문에 권한체크는 개발자가 만들어서 프로젝트를 구성합니다.)
+- 스프링시큐리티와 매칭을 시켜보면, 2가지로 로직이 진행됩니다. Authentication(오센티케이션)인증체크, Authority(오서러티)권한체크(개발자몫).
+- 송신시스템(스프링프로젝트)-중계시스템(RestAPI서버,댓글컨트롤러)-수신시스템(jsp단 Ajax호출)
+- 백엔드개발: 프로젝트10개당(6개월x10=5년) 1개 하드웨어(IoT,아두이노,라즈베리파이)와 연동
+- 자격증에 대해서: 백엔드에서 프로젝트 계약할때 요금책정시 고급기술자30만x2(정보처리기사 or 경력10), 중급기술자20만x3(산업기사 or 경력5년), 초급기술자10만x5(기능사 or 경력1년)
+- 2020년 IT분야 임금단가표: https://www.sw.or.kr/site/sw/ex/board/View.do?cbIdx=304&bcIdx=44509&searchExt1=
+- 프런트개발(웹에이전시): 2주~1달(1년 12개이상)
+- 2교시 과제물 제출.
+- 통합구현과목 시작.
+- 회원관리 CRUD의 Select중에서 PageVO부터 만들기 시작할 예정.(로직확인)
+
+#### 20201216(수) 작업
+- 수의순서: 0,10 -> 10,10 -> 20,10
+- jsp에서 사용가 선택한 페이지번호를 이용해야 페이징처리가 가능.
+- ?page=3&searchType=all&searchKeyword=
+- PageVO클래스만들때, get 페이지번호, set 계산식을 적용 쿼리에 limit변수 첫번째 값으로 넣어줌.
+- GET page=위 URL쿼리스트링의 페이지 번호;
+- 1페이지계산 10x(1-1) = 0 1페이지일때
+- 2페이지계산 10x(2-1) = 10 2페이지일때
+- 3페이지계산 10x(10-1) = 90 10페이지일때
+- SELECT * FROM tbl_board
+- order by bno desc
+- limit [SET으로 받은 계산된 변수값], 10;
+- ---------------------------------
+- 데이터 정렬에 사용되는 기준값 위에서는 bno(게시판번호)
+- Order By 데이터정렬에 상용되는 키워드(예약어)
+- 정렬은 오름차순(Ascending)낮은수->높은수 : 옛글부터 보여준다.
+- 내림차순(Descending) 높은수->낮은수 : 최신글부터 보여준다.
+- ---------------------------------------------------
+- src/test/java 에서 kr.or.member 패키지 내의 MemberService.java 내에서 마지막 줄인 System.out.println(cnt + "번째 레코드는 " + member.toString()); 여기서 .toString()을 한 이유가 member라는 변수 안에 글자랑 숫자가 섞여서 .toString으로 문자형으로 변환해주는 건 알겠는데요 그럼 .toString을 빼면 오류가 나야하지않나요? 빼도 왜 오류가 안 나는지 모르겠어요
+
+- 인터페이스(책 목차 5개) - 임플리먼트클래스(책 내용 5개) 관계: 1대1 원칙)
+- DB 디버그용 드라이버(실행쿼리가 콘솔화면 나오도록-개발자가 실행확인을 편리하게함) 사용 pom.xml 의존성 추가.
+- 의존성 추가 후 root-context.xml에서 jdbc드라이버설정을 변경하면, 아래 콘솔창에서 쿼리가 보이고, 전송자료들을 확인할 수 있어서, 개발할때 필수 입니다.
 
 #### 20201215(화) 작업
 - 인터페이스 영역(메서드명세파일-이름만존재) -implements- 임플리먼트 클래스(메서드구현파일-오버라이드된메서드명구현내용)
