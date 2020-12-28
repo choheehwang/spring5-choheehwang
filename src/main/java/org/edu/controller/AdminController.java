@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.edu.service.IF_BoardService;
 import org.edu.service.IF_MemberService;
 import org.edu.util.SecurityCode;
 import org.edu.vo.BoardVO;
@@ -30,6 +31,9 @@ public class AdminController {
 	SecurityCode securityCode;
 	
 	@Inject
+	IF_BoardService boardService;
+	
+	@Inject
 	IF_MemberService memberService;
 	
 	@RequestMapping(value="/admin/board/board_write", method=RequestMethod.GET) //URL route
@@ -43,48 +47,67 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/admin/board/board_view", method=RequestMethod.GET)
-	public String board_view(@RequestParam("bno") Integer bno, Model model) throws Exception {
-		//jsp로 보낼 더미 데이터를 boardVO에 담아서 보내기(아래)
-		BoardVO boardVO = new BoardVO();
-		boardVO.setBno(1);
-		boardVO.setTitle("첫 번째 게시물 입니다.");
-		String xss_data = "첫 번째 내용 입니다.<br>줄바꿈 테스트 입니다.";
+	public String board_view(@ModelAttribute("pageVO") PageVO pageVO, @RequestParam("bno") Integer bno, Model model) throws Exception {
+		/*
+		 * //jsp로 보낼 더미 데이터를 boardVO에 담아서 보내기(아래) BoardVO boardVO = new BoardVO();
+		 * boardVO.setBno(1); boardVO.setTitle("첫 번째 게시물 입니다."); String xss_data =
+		 * "첫 번째 내용 입니다.<br>줄바꿈 테스트 입니다.";
+		 * boardVO.setContents(securityCode.unscript(xss_data));
+		 * boardVO.setWriter("admin"); Date reg_date = new Date();
+		 * boardVO.setReg_date(reg_date); boardVO.setView_count(2);
+		 * boardVO.setReply_count(0);
+		 */
+		BoardVO boardVO = boardService.readBoard(bno);
+		// secure cording 시작
+		String xss_data = boardVO.getContents();
 		boardVO.setContents(securityCode.unscript(xss_data));
-		boardVO.setWriter("admin");
-		Date reg_date = new Date();
-		boardVO.setReg_date(reg_date);
-		boardVO.setView_count(2);
-		boardVO.setReply_count(0);
+		// secure cording 끝
+		// 첨부파일 리스트 값을 가져와서, 세로데이터를 가로데이터로 변환
+		List<String> files = boardService.readAttach(bno);
+		String[] save_file_names = new String[files.size()];
+		int cnt = 0;
+		for(String save_file_name:files) { // 세로 데이터를 가로 데이터로 변경하는 로직
+			save_file_names[cnt] = save_file_name;
+			cnt = cnt + 1;
+		}
+		boardVO.setSave_file_names(save_file_names);
+		//model.addAttribute("save_file_names", files);
 		model.addAttribute("boardVO", boardVO);
 		return "admin/board/board_view";
 	}
 	@RequestMapping(value="/admin/board/board_list", method=RequestMethod.GET)
-	public String board_list(Model model) throws Exception {
-		//테스트용 더미 게시판 데이터 생성(아래)
-		BoardVO input_board = new BoardVO();
-		input_board.setBno(1);
-		input_board.setTitle("첫 번째 게시물 입니다.");
-		input_board.setContents("첫 번째 내용 입니다.<br>줄바꿈 테스트 입니다.");
-		input_board.setWriter("admin");
-		Date reg_date = new Date();
-		input_board.setReg_date(reg_date);
-		input_board.setView_count(2);
-		input_board.setReply_count(0);
-		BoardVO[] board_array = new BoardVO[2];
-		board_array[0] = input_board;
-		//------------------------------------------
-		BoardVO input_board2 = new BoardVO();
-		input_board2.setBno(2);
-		input_board2.setTitle("두 번째 게시물 입니다.");
-		input_board2.setContents("두 번째 내용 입니다.<br>줄바꿈 테스트 입니다.");
-		input_board2.setWriter("user02");
-		input_board2.setReg_date(reg_date);
-		input_board2.setView_count(2);
-		input_board2.setReply_count(0);
-		board_array[1] = input_board2;
-		//------------------------------------------
-		List<BoardVO> board_list = Arrays.asList(board_array); //array 타입을 List 타입으로 변경하는 절차
+	public String board_list(@ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
+		/*
+		 * //테스트용 더미 게시판 데이터 생성(아래) BoardVO input_board = new BoardVO();
+		 * input_board.setBno(1); input_board.setTitle("첫 번째 게시물 입니다.");
+		 * input_board.setContents("첫 번째 내용 입니다.<br>줄바꿈 테스트 입니다.");
+		 * input_board.setWriter("admin"); Date reg_date = new Date();
+		 * input_board.setReg_date(reg_date); input_board.setView_count(2);
+		 * input_board.setReply_count(0); BoardVO[] board_array = new BoardVO[2];
+		 * board_array[0] = input_board; //------------------------------------------
+		 * BoardVO input_board2 = new BoardVO(); input_board2.setBno(2);
+		 * input_board2.setTitle("두 번째 게시물 입니다.");
+		 * input_board2.setContents("두 번째 내용 입니다.<br>줄바꿈 테스트 입니다.");
+		 * input_board2.setWriter("user02"); input_board2.setReg_date(reg_date);
+		 * input_board2.setView_count(2); input_board2.setReply_count(0); board_array[1]
+		 * = input_board2; //------------------------------------------ List<BoardVO>
+		 * board_list = Arrays.asList(board_array); //array 타입을 List 타입으로 변경하는 절차
+		 */
+		
+		// selectMember마이바티스쿼리를 실행하기전에 set이 발생해야 변수값이 할당(아래)
+		if(pageVO.getPage() == null) { //int면 null에서 에러나서 pageVO의 page 변수형을 Integer로 변경
+		pageVO.setPage(1);
+		}
+		pageVO.setPerPageNum(8); //리스트 하단에 보이는 페이징 번호의 개수
+		pageVO.setQueryPerPageNum(10); //한 페이지당 보여줄 게시물수 10명으로 강제 정함
+		//검색된 전체 게시물수 구하기 호출(아래)
+		int countBoard = 0;
+		countBoard = boardService.countBoard(pageVO);
+		pageVO.setTotalCount(countBoard); //전체 게시물수를 구한 변수값을 매개변수로 입력
+		
+		List<BoardVO> board_list = boardService.selectBoard(pageVO);
 		model.addAttribute("board_list", board_list);
+		//model.addAttribute("pageVO", pageVO); // @ModelAttribute으로 대체
 		return "admin/board/board_list";
 	}
 	@RequestMapping(value="/admin/member/member_write", method=RequestMethod.POST)

@@ -55,7 +55,7 @@
                 
                 <hr>
                 <strong><i class="far fa-save mr-1"></i> attach</strong>
-                <p class="text-muted"><a href="#">File Download</a></p>
+                <p class="text-muted"><a href="#">${boardVO.save_file_names[0]}File Download</a></p>
 				
               </div>
               <!-- /.card-body -->
@@ -63,9 +63,9 @@
               
           <!-- button section 시작 -->
           <div class="card-body">
-          <a href="/admin/board/board_list" class="btn btn-primary float-right mr-1">LIST ALL</a>
+          <a href="/admin/board/board_list?page=${pageVO.page}" class="btn btn-primary float-right mr-1">LIST ALL</a>
           <button class="btn btn-danger float-right mr-1">DELETE</button>
-          <a href="/admin/board/board_write?bno=${boardVO.bno}" class="btn btn-warning float-right mr-1 text-white">UPDATE</a>
+          <a href="/admin/board/board_write?page=${pageVO.page}&bno=${boardVO.bno}" class="btn btn-warning float-right mr-1 text-white">UPDATE</a>
           <!-- 부트스트랩 버튼 디자인 적용 예시 btn-primary, btn은 버튼 모양으로 변경하는 것 (위) -->
           </div>
           <!-- button section 끝 -->
