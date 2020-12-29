@@ -11,7 +11,7 @@ public class BoardVO {
 	//멤버 변수 선언
 	private Integer bno; //Int는 null로 냅두면 에러나서 Integer로 변경
 	private String title;
-	private String contents;
+	private String content;
 	private String writer;
 	private Date reg_date;
 	private Date update_date;
@@ -22,7 +22,7 @@ public class BoardVO {
 	
 	@Override
 	public String toString() {
-		return "디버그 BoardVO [bno=" + bno + ", title=" + title + ", contents=" + contents + ", writer=" + writer
+		return "디버그 BoardVO [bno=" + bno + ", title=" + title + ", contents=" + content + ", writer=" + writer
 				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", view_count=" + view_count
 				+ ", reply_count=" + reply_count + "]";
 	}
@@ -39,11 +39,11 @@ public class BoardVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContents() {
-		return contents;
+	public String getContent() {
+		return content;
 	}
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getWriter() {
 		return writer;

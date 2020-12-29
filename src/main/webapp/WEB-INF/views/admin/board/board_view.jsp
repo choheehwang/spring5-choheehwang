@@ -46,7 +46,7 @@
                 <hr>
                 <strong><i class="fas fa-map-marker-alt mr-1"></i> contents</strong>
                 <p class="text-muted">
-                	${boardVO.contents}
+                	${boardVO.content}
                 </p>
 
                 <hr>
@@ -55,7 +55,10 @@
                 
                 <hr>
                 <strong><i class="far fa-save mr-1"></i> attach</strong>
-                <p class="text-muted"><a href="#">${boardVO.save_file_names[0]}File Download</a></p>
+                <p class="text-muted"><a href="#">
+                ${boardVO.save_file_names[0]}
+                -File Download-
+                ${boardVO.save_file_names[1]}</a></p>
 				
               </div>
               <!-- /.card-body -->

@@ -52,15 +52,15 @@ public class AdminController {
 		 * //jsp로 보낼 더미 데이터를 boardVO에 담아서 보내기(아래) BoardVO boardVO = new BoardVO();
 		 * boardVO.setBno(1); boardVO.setTitle("첫 번째 게시물 입니다."); String xss_data =
 		 * "첫 번째 내용 입니다.<br>줄바꿈 테스트 입니다.";
-		 * boardVO.setContents(securityCode.unscript(xss_data));
+		 * boardVO.setContent(securityCode.unscript(xss_data));
 		 * boardVO.setWriter("admin"); Date reg_date = new Date();
 		 * boardVO.setReg_date(reg_date); boardVO.setView_count(2);
 		 * boardVO.setReply_count(0);
 		 */
 		BoardVO boardVO = boardService.readBoard(bno);
 		// secure cording 시작
-		String xss_data = boardVO.getContents();
-		boardVO.setContents(securityCode.unscript(xss_data));
+		String xss_data = boardVO.getContent();
+		boardVO.setContent(securityCode.unscript(xss_data));
 		// secure cording 끝
 		// 첨부파일 리스트 값을 가져와서, 세로데이터를 가로데이터로 변환
 		List<String> files = boardService.readAttach(bno);
