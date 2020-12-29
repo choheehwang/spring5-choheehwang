@@ -36,13 +36,37 @@ public class AdminController {
 	@Inject
 	IF_MemberService memberService;
 	
+	@RequestMapping(value="/admin/board/board_update", method=RequestMethod.GET)
+	public String board_update(@RequestParam("bno") Integer bno, @ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
+		BoardVO boardVO = boardService.readBoard(bno);
+		model.addAttribute("boardVO", boardVO);
+		return "admin/board/board_update";
+	}
+	@RequestMapping(value="/admin/board/board_update", method=RequestMethod.POST)
+	public String board_update(RedirectAttributes rdat, MultipartFile file, BoardVO boardVO, PageVO pageVO) throws Exception {
+		boardService.updateBoard(boardVO);
+		// 첨부파일 수정 미처리
+		rdat.addFlashAttribute("msg", "수정");
+		return "redirect:/admin/board/board_view?page="+pageVO.getPage()+"&bno="+boardVO.getBno();
+	}
+	
+	@RequestMapping(value="/admin/board/board_delete",method=RequestMethod.POST)
+	public String board_delete(RedirectAttributes rdat, PageVO pageVO, @RequestParam("bno") Integer bno) throws Exception {
+		boardService.deleteBoard(bno);
+		rdat.addFlashAttribute("msg", "삭제");
+		return "redirect:/admin/board/board_list?page=" + pageVO.getPage();
+	}
+	
 	@RequestMapping(value="/admin/board/board_write", method=RequestMethod.GET) //URL route
 	public String board_write() throws Exception {
 		return "admin/board/board_write"; //file route
 	}
 	@RequestMapping(value="/admin/board/board_write", method=RequestMethod.POST)
-	public String board_write(MultipartFile file, BoardVO boardVO) throws Exception {
+	public String board_write(RedirectAttributes rdat, MultipartFile file, BoardVO boardVO) throws Exception {
 		//게시물 테러 방지 -> redirect로 이동 처리
+		boardService.insertBoard(boardVO);
+		// 첨부파일 등록 미처리
+		rdat.addFlashAttribute("msg", "저장");
 		return "redirect:/admin/board/board_list";
 	}
 	

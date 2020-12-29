@@ -11,12 +11,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Board Write</h1>
+            <h1 class="m-0">Board Update</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Board Write</li>
+              <li class="breadcrumb-item active">Board Update</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,10 +31,10 @@
       <div class="row"> <!-- 부트스트랩의 디자인 클래스 row -->
           <div class="col-12"> <!-- width=100%와 같은 말 -->
           
-          <form name="write_form" action="/admin/board/board_write" method="post" encType="multipart/form-data">
+          <form name="update_form" action="/admin/board/board_update" method="post" encType="multipart/form-data">
           <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">CREATE BOARD</h3>
+                <h3 class="card-title">UPDATE BOARD</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -42,19 +42,19 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter the title" required>
+                    <input type="text" value="${boardVO.title}" class="form-control" name="title" id="title" placeholder="Enter the title" required>
                     <!-- name 없으면 저장이 안 된다 -->
                     <!-- required는 필수입력값(html5에서 지원)이므로 입력하지 않으면 다음 단계로 넘어가지 않는다 -->
                   </div>
                   
                   <div class="form-group">
                     <label for="content">Content</label>
-                    <textarea rows="5" name="content" id="content" class="form-control"></textarea>
+                    <textarea rows="5" name="content" id="content" class="form-control">${boardVO.content}</textarea>
                 </div>
                 
                 <div class="form-group">
                     <label for="writer">writer</label>
-                    <input type="text" class="form-control" name="writer" id="writer" placeholder="Enter the writer" required>
+                    <input type="text" value="${boardVO.writer}" class="form-control" name="writer" id="writer" placeholder="Enter the writer" required>
                 </div>
                 
                 <div class="form-group" style="margin-bottom:0px;">
@@ -73,11 +73,13 @@
           
           <!-- button section 시작 -->
           <div class="card-body">
-          <a href="/admin/board/board_list" class="btn btn-primary float-right mr-1">LIST ALL</a>
+          <a href="/admin/board/board_list?page=${pageVO.page}" class="btn btn-primary float-right mr-1">LIST ALL</a>
           <button type="submit" class="btn btn-danger float-right mr-1 text-white">SUBMIT</button>
           <!-- a태그는 link 이동은 되지만 form의 post값을 전송할 수 없으므로 button 태그를 사용 -->
           </div>
           <!-- button section 끝 -->
+          <input type="hidden" name="bno" value="${boardVO.bno}">
+      	  <input type="hidden" name="page" value="${pageVO.page}">
       	   </form>
           </div>
         </div>

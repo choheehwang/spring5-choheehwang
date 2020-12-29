@@ -53,22 +53,25 @@
                 <strong><i class="fas fa-pencil-alt mr-1"></i> writer</strong>
                 <p class="text-muted"><c:out value="${boardVO.writer}"></c:out></p>
                 
-                <hr>
-                <strong><i class="far fa-save mr-1"></i> attach</strong>
-                <p class="text-muted"><a href="#">
-                ${boardVO.save_file_names[0]}
-                -File Download-
-                ${boardVO.save_file_names[1]}</a></p>
+                <c:if test="${boardVO.save_file_names[0] != null}">
+	                <hr>
+	                <strong><i class="far fa-save mr-1"></i> attach</strong>
+	                <p class="text-muted"><a href="#">
+	                ${boardVO.save_file_names[0]}-File Download-
+	                </a>
+	                </p>
+                </c:if>
+                
 				
               </div>
               <!-- /.card-body -->
               </div>
-              
+          
           <!-- button section 시작 -->
           <div class="card-body">
           <a href="/admin/board/board_list?page=${pageVO.page}" class="btn btn-primary float-right mr-1">LIST ALL</a>
-          <button class="btn btn-danger float-right mr-1">DELETE</button>
-          <a href="/admin/board/board_write?page=${pageVO.page}&bno=${boardVO.bno}" class="btn btn-warning float-right mr-1 text-white">UPDATE</a>
+          <button class="btn btn-danger float-right mr-1" id="btn_board_delete">DELETE</button>
+          <a href="/admin/board/board_update?page=${pageVO.page}&bno=${boardVO.bno}" class="btn btn-warning float-right mr-1 text-white">UPDATE</a>
           <!-- 부트스트랩 버튼 디자인 적용 예시 btn-primary, btn은 버튼 모양으로 변경하는 것 (위) -->
           </div>
           <!-- button section 끝 -->
@@ -248,3 +251,21 @@ $(document).ready(function() {
 	  </div>
 	</div>
 	<!-- Modal 끝-->
+
+<!-- 게시물 삭제 버튼 클릭 시 액션(아래) -->
+<form name="action_form">
+	<input type="hidden" name="bno" value="${boardVO.bno}">
+	<input type="hidden" name="page" value="${pageVO.page}">
+</form>
+<script>
+$(document).ready(function(){
+	$("#btn_board_delete").on("click",function(){
+		//aleart("debug");
+		if(confirm("삭제하시겠습니까?")) {
+			$('form[name="action_form"]').attr("method","post");
+			$('form[name="action_form"]').attr("action","/admin/board/board_delete");
+			$('form[name="action_form"]').submit();
+		}
+	});
+});
+</script>
