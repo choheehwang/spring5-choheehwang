@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import org.edu.service.IF_BoardService;
 import org.edu.service.IF_MemberService;
+import org.edu.util.CommonController;
 import org.edu.util.SecurityCode;
 import org.edu.vo.BoardVO;
 import org.edu.vo.MemberVO;
@@ -35,6 +36,9 @@ public class AdminController {
 	
 	@Inject
 	IF_MemberService memberService;
+	
+	@Inject
+	CommonController commonController;
 	
 	@RequestMapping(value="/admin/board/board_update", method=RequestMethod.GET)
 	public String board_update(@RequestParam("bno") Integer bno, @ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
@@ -63,9 +67,15 @@ public class AdminController {
 	}
 	@RequestMapping(value="/admin/board/board_write", method=RequestMethod.POST)
 	public String board_write(RedirectAttributes rdat, MultipartFile file, BoardVO boardVO) throws Exception {
-		//게시물 테러 방지 -> redirect로 이동 처리
+		// 게시물 테러 방지 -> redirect로 이동 처리
+		// 첨부파일 미등록 시 게시글DB만 저장, 첨부파일 등록시 게시글+첨부파일DB 저장
+		if(file.getOriginalFilename() != "") { // 첨부파일 등록 시 실행
+			String[] save_file_names = commonController.fileUpload(file); // 폴더에 저장
+			boardVO.setSave_file_names(save_file_names); // UUID로 생성된 유니크한 파일명
+			String[] real_file_names = new String[] {file.getOriginalFilename()}; // "한글파일명.jpg"
+			boardVO.setReal_file_names(real_file_names);
+		}
 		boardService.insertBoard(boardVO);
-		// 첨부파일 등록 미처리
 		rdat.addFlashAttribute("msg", "저장");
 		return "redirect:/admin/board/board_list";
 	}
