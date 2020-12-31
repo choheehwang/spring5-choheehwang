@@ -49,7 +49,7 @@
                   
                   <div class="form-group">
                     <label for="content">Content</label>
-                    <textarea rows="5" name="content" id="content" class="form-control">${boardVO.content}</textarea>
+                    <textarea rows="5" name="content" id="content" class="form-control"><c:out value="${boardVO.content}" /></textarea>
                 </div>
                 
                 <div class="form-group">
@@ -64,8 +64,15 @@
                 <div class="custom-file">
                     <input type="file" name="file" class="custom-file-input" id="customFile">
                     <label class="custom-file-label" for="customFile" style="color:#999;">Choose file</label>
-                  </div>
-
+                </div>
+				<c:if test="${boardVO.save_file_names[0] != null}">
+	                <hr>
+	                <strong><i class="far fa-save mr-1"></i> attach</strong>
+	                <p class="text-muted"><a href="/download?save_file_name=${boardVO.save_file_names[0]}&real_file_name=${boardVO.real_file_names[0]}">
+	                ${boardVO.real_file_names[0]}-File Download-
+	                </a>
+	                </p>
+                </c:if>
                 </div>
                 <!-- /.card-body -->
               
@@ -73,7 +80,7 @@
           
           <!-- button section 시작 -->
           <div class="card-body">
-          <a href="/admin/board/board_list?page=${pageVO.page}" class="btn btn-primary float-right mr-1">LIST ALL</a>
+          <a href="/admin/board/board_view?page=${pageVO.page}%bno=${boardVO.bno}" class="btn btn-primary float-right mr-1">Board View</a>
           <button type="submit" class="btn btn-danger float-right mr-1 text-white">SUBMIT</button>
           <!-- a태그는 link 이동은 되지만 form의 post값을 전송할 수 없으므로 button 태그를 사용 -->
           </div>

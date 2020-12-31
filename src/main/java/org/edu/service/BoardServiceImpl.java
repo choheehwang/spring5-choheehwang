@@ -1,5 +1,6 @@
 package org.edu.service;
 
+import java.util.HashMap;
 import java.util.List;
 import javax.inject.Inject;
 import org.edu.dao.IF_BoardDAO;
@@ -35,7 +36,7 @@ public class BoardServiceImpl implements IF_BoardService {
 	}
 
 	@Override
-	public List<String> readAttach(Integer bno) throws Exception {
+	public List<HashMap<String,Object>> readAttach(Integer bno) throws Exception {
 		// bno 번호에 해당하는 첨부파일 조회 query DAO 연결(아래)
 		return boardDAO.readAttach(bno);
 	}
@@ -57,9 +58,12 @@ public class BoardServiceImpl implements IF_BoardService {
 			index = index + 1;
 		}
 	}
-
+	
+	@Transactional
 	@Override
 	public void deleteBoard(Integer bno) throws Exception {
+		// 첨부파일 삭제 query DAO 연결(아래)
+		boardDAO.deleteAttachAll(bno);
 		// 게시물 삭제 query DAO 연결(아래)
 		boardDAO.deleteBoard(bno);
 	}
@@ -68,6 +72,19 @@ public class BoardServiceImpl implements IF_BoardService {
 	public void updateBoard(BoardVO boardVO) throws Exception {
 		// 게시물 수정 query DAO 연결(아래)
 		boardDAO.updateBoard(boardVO);
+		Integer bno = boardVO.getBno();
+		String[] save_file_names = boardVO.getSave_file_names();
+		String[] real_file_names = boardVO.getReal_file_names();
+		// 첨부파일이 여러 개일 경우
+		int index = 0;
+		String real_file_name = "";
+		if(save_file_names == null) { return; }
+		for(String save_file_name:save_file_names) { // 첨부파일 개수만큼 반복
+			real_file_name = real_file_names[index];
+			boardDAO.updateAttach(save_file_name, real_file_name, bno);
+			index = index + 1;
+		}
+		
 	}
 
 }

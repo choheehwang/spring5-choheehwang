@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../include/header.jsp" %>
 
   <!-- 대쉬보드 본문 Content Wrapper. Contains page content -->
@@ -56,9 +57,24 @@
                 <c:if test="${boardVO.save_file_names[0] != null}">
 	                <hr>
 	                <strong><i class="far fa-save mr-1"></i> attach</strong>
-	                <p class="text-muted"><a href="#">
-	                ${boardVO.save_file_names[0]}-File Download-
+	                <p class="text-muted">
+	                <a href="/download?save_file_name=${boardVO.save_file_names[0]}&real_file_name=${boardVO.real_file_names[0]}">
+	                ${boardVO.real_file_names[0]}-File Download-
 	                </a>
+	                <c:set var="fileNameArray" value="${fn:split(boardVO.save_file_names[0], '.')}" />
+	                <c:set var="extName" value="${fileNameArray[fn:length(fileNameArray)-1]}" />
+	                
+	                <!-- 이미지 파일인지 일반 파일인지 비교, result = true, false -->
+	                <c:choose> 
+	                	<c:when test="${fn:containsIgnoreCase(checkImgArray,extName)}">
+	                		<img style="width:100%;" src="/download?save_file_name=${boardVO.save_file_names[0]}&real_file_name=${boardVO.real_file_names[0]}">
+	                	</c:when>
+	                	<c:otherwise>
+	                		<c:out value="${checkImgArray}" />
+	                		<!-- 사용자 홈페이지 메인화면 최근 게시물 미리보기 이미지 없을 때 사용 예정 -->
+	                	</c:otherwise>
+	                </c:choose>
+	                
 	                </p>
                 </c:if>
                 
