@@ -213,9 +213,9 @@
 			error:function(result) {
 				alert("RestAPI 서버에 문제가 발생하였습니다. 다음에 이용해주십시오.");
 			}
-		}); */
+		});
 	});
-});
+}); */
 </script>
 
 <!-- 화면 재구현(representation) 함수(아래) -->
