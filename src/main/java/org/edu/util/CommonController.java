@@ -10,10 +10,13 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.edu.dao.IF_BoardDAO;
 import org.edu.service.IF_MemberService;
+import org.edu.vo.BoardVO;
 import org.edu.vo.MemberVO;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +35,9 @@ public class CommonController {
 	
 	@Inject
 	IF_MemberService memberService;
+	
+	@Inject
+	IF_BoardDAO boardDAO; // 첨부 파일 개별 삭제용 인젝트
 	
 	/**
 	 * 첨부파일의 확장자 비교하여 이미지 파일과 일반 파일 구분하여 확인하는 List 변수
@@ -59,8 +65,7 @@ public class CommonController {
 	public void setUploadPath(String uploadPath) {
 		this.uploadPath = uploadPath;
 	}
-	
-	//
+
 	@RequestMapping(value="/download", method=RequestMethod.GET)
 	@ResponseBody // 현재 페이지에 구현결과를 전송 받음
 	public FileSystemResource download(
@@ -76,18 +81,18 @@ public class CommonController {
 	}
 	
 	// 파일 업로드-xml에서 지정한 폴더에 실제 파일을 저장하는 method 구현(아래)
-	public String[] fileUpload(MultipartFile file) throws IOException {
+	public String fileUpload(MultipartFile file) throws IOException {
 		String realFileName = file.getOriginalFilename(); // jsp에서 전송한 파일명 -> 확장자를 구하는 용도
 		// 폴더에 저장할 PK용 파일명 생성(아래)
 		UUID uid = UUID.randomUUID(); // 유니크 아이디 생성 -> 폴더에 저장할 파일명으로 사용
 		//String saveFileName = uid.toString() + "." + realFileName.split("\\.")[1];
 		String saveFileName = uid.toString() + "." + StringUtils.getFilenameExtension(realFileName);
 		// split(regex); => regular expression(정규표현식)
-		String[] files = new String[] {saveFileName}; // string으로 형 변환
+		// String[] files = new String[] {saveFileName}; // string으로 형 변환
 		byte[] fileData = file.getBytes(); // jsp폼에서 전송된 파일이 fileData변수(메모리)에 저장
 		File target = new File(uploadPath, saveFileName); // 파일 저장하기 바로 전 설정 저장
 		FileCopyUtils.copy(fileData, target); // 실제로 target폴더에 파일로 저장되는 method = 업로드 종료
-		return files;
+		return saveFileName;
 	}
 	
 	
@@ -107,7 +112,26 @@ public class CommonController {
 		}
 		return result;
 	}
-
+	
+	@Transactional
+	@RequestMapping(value="/file_delete", method=RequestMethod.POST)
+	@ResponseBody 
+	public String file_delete(@RequestParam("save_file_name") String save_file_name) {
+		String result = "";
+		try {
+			boardDAO.deleteAttach(save_file_name);
+			// 실제 폴더에서 파일 삭제(아래)
+			File target = new File(uploadPath, save_file_name);
+			if(target.exists()) {
+				target.delete();//폴더에서 기존 첨부 파일 삭제
+			}
+			result = "success";
+		} catch (Exception e) {
+			result = "fail : " + e.toString();
+		}
+		return result;
+	}
+	
 	public ArrayList<String> getCheckImgArray() {
 		return checkImgArray;
 	}

@@ -51,10 +51,12 @@ public class BoardServiceImpl implements IF_BoardService {
 		// 첨부파일이 여러 개일 경우
 		int index = 0;
 		String real_file_name = "";
-		if(save_file_names == null) { return; }
+		if(save_file_names == null) { return; } // 배열 첨부파일 없으면 반복문 X
 		for(String save_file_name:save_file_names) { // 첨부파일 개수만큼 반복
-			real_file_name = real_file_names[index];
-			boardDAO.insertAttach(save_file_name, real_file_name);
+			if(save_file_name != null) {//첨부파일배열에서 배열값이 있는경우만
+				real_file_name = real_file_names[index];
+				boardDAO.insertAttach(save_file_name, real_file_name);
+			}
 			index = index + 1;
 		}
 	}
@@ -79,12 +81,12 @@ public class BoardServiceImpl implements IF_BoardService {
 		int index = 0;
 		String real_file_name = "";
 		if(save_file_names == null) { return; }
-		for(String save_file_name:save_file_names) { // 첨부파일 개수만큼 반복
-			real_file_name = real_file_names[index];
-			boardDAO.updateAttach(save_file_name, real_file_name, bno);
-			index = index + 1;
+		for(String save_file_name:save_file_names) { // 첨부 파일 개수 만큼 반복
+			if(save_file_name != null) {
+				real_file_name = real_file_names[index];
+				boardDAO.updateAttach(save_file_name, real_file_name, bno);
+				index = index + 1;
+			}
 		}
-		
 	}
-
 }

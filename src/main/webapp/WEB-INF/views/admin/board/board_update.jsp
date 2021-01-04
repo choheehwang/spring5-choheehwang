@@ -60,27 +60,34 @@
                 <div class="form-group" style="margin-bottom:0px;">
                 <label>attach</label>
                 </div>
-                
+                <c:forEach var="index" begin="0" end="1">
+                <!--  -->
+                <div class="div_file_delete">
                 <div class="custom-file">
-                    <input type="file" name="file" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile" style="color:#999;">Choose file</label>
+                <input type="file" name="file" class="custom-file-input" id="customFile_${index}">
+                <label class="custom-file-label" for="customFile_${index}" style="color:#999;">Choose file${index}</label>
                 </div>
-				<c:if test="${boardVO.save_file_names[0] != null}">
-	                <hr>
-	                <strong><i class="far fa-save mr-1"></i> attach</strong>
-	                <p class="text-muted"><a href="/download?save_file_name=${boardVO.save_file_names[0]}&real_file_name=${boardVO.real_file_names[0]}">
-	                ${boardVO.real_file_names[0]}-File Download-
+				<c:if test="${boardVO.save_file_names[index] != null}">
+	                <strong><i class="far fa-save mr-1"></i>attach</strong>
+	                <p class="text-muted"><a href="/download?save_file_name=${boardVO.save_file_names[index]}&real_file_name=${boardVO.real_file_names[index]}">
+	                ${boardVO.real_file_names[index]}-File Download-
 	                </a>
+	                &nbsp;
+	                <input type="hidden" name="save_file_name" value="${boardVO.save_file_names[index]}">
+	                <button type="button" class="btn btn-info btn_file_delete">delete</button>
 	                </p>
                 </c:if>
+                <hr>
                 </div>
-                <!-- /.card-body -->
+                </c:forEach>
+             </div>
+             <!-- /.card-body -->
               
             </div>
           
           <!-- button section 시작 -->
           <div class="card-body">
-          <a href="/admin/board/board_view?page=${pageVO.page}%bno=${boardVO.bno}" class="btn btn-primary float-right mr-1">Board View</a>
+          <a href="/admin/board/board_view?page=${pageVO.page}&bno=${boardVO.bno}" class="btn btn-primary float-right mr-1">Board View</a>
           <button type="submit" class="btn btn-danger float-right mr-1 text-white">SUBMIT</button>
           <!-- a태그는 link 이동은 되지만 form의 post값을 전송할 수 없으므로 button 태그를 사용 -->
           </div>
@@ -134,4 +141,32 @@ $(document).ready(function(){
 	});
 }); // textarea 중 content아이디영역을 섬머노트에디터로 변경처리 함수실행
 
+</script>
+
+<script>
+$(document).ready(function() {
+	$(".btn_file_delete").on("click", function() {
+		if(confirm("선택한 첨부파일을 삭제하시겠습니까?")) {
+			//alert("디버그");
+			var click_element = $(this); // 현재 클릭한 element(삭제 버튼)를 가리킨다
+			var save_file_name = click_element.parent().find('input[name=save_file_name]').val();
+			//alert("디버그: 삭제할 파일명은: " + save_file_name); return false;
+			$.ajax({
+				type:"post",
+				url:"/file_delete?save_file_name="+save_file_name,
+				dataType:"text",
+				success:function(result) {
+					if(result=="success") {
+						click_element.parents(".div_file_delete").remove();
+					}
+				},
+				error:function(result) {
+					alert("RestAPI 접근 실패");
+					//click_element.parents(".div_file_delete").remove(); //디버그
+				}
+			});
+		} // confirm end
+		
+	});
+});
 </script>

@@ -52,33 +52,34 @@
 
                 <hr>
                 <strong><i class="fas fa-pencil-alt mr-1"></i> writer</strong>
-                <p class="text-muted"><c:out value="${boardVO.writer}"></c:out></p>
-                
-                <c:if test="${boardVO.save_file_names[0] != null}">
+                <p class="text-muted">
+                <c:out value="${boardVO.writer}">
+                </c:out>
+                </p>
+                <c:forEach var="index" begin="0" end="2">
+                <c:if test="${boardVO.save_file_names[index] != null}">
 	                <hr>
-	                <strong><i class="far fa-save mr-1"></i> attach</strong>
+	                <strong><i class="far fa-save mr-1"></i>attach${index}</strong>
 	                <p class="text-muted">
-	                <a href="/download?save_file_name=${boardVO.save_file_names[0]}&real_file_name=${boardVO.real_file_names[0]}">
-	                ${boardVO.real_file_names[0]}-File Download-
+	                <a href="/download?save_file_name=${boardVO.save_file_names[index]}&real_file_name=${boardVO.real_file_names[index]}">
+	                ${boardVO.real_file_names[index]}-File Download${index}-
 	                </a>
-	                <c:set var="fileNameArray" value="${fn:split(boardVO.save_file_names[0], '.')}" />
+	                <c:set var="fileNameArray" value="${fn:split(boardVO.save_file_names[index], '.')}" />
 	                <c:set var="extName" value="${fileNameArray[fn:length(fileNameArray)-1]}" />
 	                
 	                <!-- 이미지 파일인지 일반 파일인지 비교, result = true, false -->
 	                <c:choose> 
 	                	<c:when test="${fn:containsIgnoreCase(checkImgArray,extName)}">
-	                		<img style="width:100%;" src="/download?save_file_name=${boardVO.save_file_names[0]}&real_file_name=${boardVO.real_file_names[0]}">
+	                		<img style="width:100%;" src="/download?save_file_name=${boardVO.save_file_names[index]}&real_file_name=${boardVO.real_file_names[index]}">
 	                	</c:when>
 	                	<c:otherwise>
 	                		<c:out value="${checkImgArray}" />
 	                		<!-- 사용자 홈페이지 메인화면 최근 게시물 미리보기 이미지 없을 때 사용 예정 -->
 	                	</c:otherwise>
 	                </c:choose>
-	                
 	                </p>
                 </c:if>
-                
-				
+                </c:forEach>
               </div>
               <!-- /.card-body -->
               </div>
@@ -115,7 +116,7 @@
          <div class="timeline">
          	 <!-- .time-label before 위치 -->
 	         <div class="time-label">
-	         <span class="bg-red">Reply List [1] </span>
+	         <span class="bg-red" id="btn_reply_list" style="cursor:pointer;">Reply List [1] </span>
 	         </div>
 	         <!-- .time-label after 위치 -->
 	         
@@ -193,6 +194,30 @@
 </div>
 {{/each}}
 </script>
+
+<script>
+/* $(document).ready(function() {
+	$("#btn_reply_list").on("click", function() {
+		//alert("디버그");
+		$.getJSON(
+			"/reply/reply_list/101/1",
+			
+		); */
+		/* $.ajax({
+			type:"get",
+			url:"/reply_list",
+			dataType:"text",
+			success:function(result) { // result는 댓글 목록을 jason data로 받는다
+				// 빵틀에 result data를 binding하여 출력
+			},
+			error:function(result) {
+				alert("RestAPI 서버에 문제가 발생하였습니다. 다음에 이용해주십시오.");
+			}
+		}); */
+	});
+});
+</script>
+
 <!-- 화면 재구현(representation) 함수(아래) -->
 <script>
 var printReplyList = function(data, target, templateObject) {
