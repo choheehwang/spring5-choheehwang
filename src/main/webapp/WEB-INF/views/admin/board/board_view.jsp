@@ -183,7 +183,7 @@
  <i class="fas fa-envelope bg-blue"></i>
  <div class="timeline-item">
 	<h3 class="timeline-header">{{replyer}}</h3>
-	<div class="timeline-body">{{replytext}}</div>
+	<div class="timeline-body">{{reply_text}}</div>
 	<div class="timeline-footer">
 	  <!-- Button trigger modal -->
 	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#replyModal">
@@ -195,29 +195,6 @@
 {{/each}}
 </script>
 
-<script>
-/* $(document).ready(function() {
-	$("#btn_reply_list").on("click", function() {
-		//alert("디버그");
-		$.getJSON(
-			"/reply/reply_list/101/1",
-			
-		); */
-		/* $.ajax({
-			type:"get",
-			url:"/reply_list",
-			dataType:"text",
-			success:function(result) { // result는 댓글 목록을 jason data로 받는다
-				// 빵틀에 result data를 binding하여 출력
-			},
-			error:function(result) {
-				alert("RestAPI 서버에 문제가 발생하였습니다. 다음에 이용해주십시오.");
-			}
-		});
-	});
-}); */
-</script>
-
 <!-- 화면 재구현(representation) 함수(아래) -->
 <script>
 var printReplyList = function(data, target, templateObject) {
@@ -227,6 +204,35 @@ var printReplyList = function(data, target, templateObject) {
 	target.after(html); //target은 .time-label class 영역을 가리킴
 };
 
+</script>
+
+<!-- 댓글 리스트 버튼 클릭 시 Ajax RestAPI controller 호출(아래) -->
+<script>
+$(document).ready(function() {
+	$("#btn_reply_list").on("click", function() {
+		//alert("디버그");
+		$.ajax({
+			type:"post",
+			url:"/reply/reply_list/${boardVO.bno}",
+			dataType:"json", // 받을 때 json으로 받음
+			success:function(result) { // result는 댓글 목록을 jason data로 받는다
+				//alert("디버그" + result);
+				if(typeof result=="undefinded" || result=="" || result==null) {
+					alert('조회된 값이 없습니다.');
+				}else{
+				// 빵틀에 result data를 binding하여 출력
+				// console.log(result);
+				// var result = JSON.parse(result);//텍스트자료를 제이슨 자료로 변환.
+				// console.log("여기까지" + jsonData.replyList);//디버그용 
+				printReplyList(result.replyList, $(".time-label"), $("#template"));//화면에 출력하는 구현함수를 호출하면 실행
+				}
+			},
+			error:function(result) {
+				alert("RestAPI 서버에 문제가 발생하였습니다. 다음에 이용해주십시오.");
+			}
+		});
+	});
+});
 </script>
 
 <!-- 댓글 등록 버튼 action 처리(아래) -->
@@ -245,8 +251,8 @@ $(document).ready(function() {
 				//html이므로 result값을 이용할 수가 없어 댓글 더미데이터 생성
 				result = [
 					//{rno:댓글 번호, bno:게시물 번호, replytext:"첫 번째 댓글", replyer:"admin", regdate:타임스탬프}
-					{rno:1, bno:15, replytext:"첫 번째 댓글", replyer:"user02", regdate:1601234512345},//1st comment data
-					{rno:2, bno:15, replytext:"두 번째 댓글", replyer:"admin", regdate:1601234512345}//2st comment data
+					{rno:1, bno:15, reply_text:"첫 번째 댓글", replyer:"user02", reg_date:1601234512345},//1st comment data
+					{rno:2, bno:15, reply_text:"두 번째 댓글", replyer:"admin", reg_date:1601234512345}//2st comment data
 				];//위 url이 공공데이터일 때, 이 데이터를 화면에 구현하면 빅데이터의 시각화라고 부른다.
 				//printReplyList(빅데이터, 출력할 타겟 위치, 빅데이터를 가진 바인딩된 템플릿 화면)
 				printReplyList(result, $(".time-label"), $("#template"));
