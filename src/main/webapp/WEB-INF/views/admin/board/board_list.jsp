@@ -79,6 +79,7 @@
                       <td>
                       <!-- ${boardVO.bno} 대신에 보기 편한 넘버링으로 변환(아래) -->
                       ${pageVO.totalCount-(pageVO.page*pageVO.queryPerPageNum)+pageVO.queryPerPageNum-status.index}
+                      [${boardVO.bno}]
                       </td>
                       <!-- 아래 a 링크는 리스트가 늘어날수록 동적으로 bno값이 변하게 됨, 개발자가 jsp 처리 -->
                       <td><a href="/admin/board/board_view?page=${pageVO.page}&bno=${boardVO.bno}">

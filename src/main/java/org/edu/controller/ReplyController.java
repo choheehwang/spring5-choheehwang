@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.edu.dao.IF_ReplyDAO;
+import org.edu.vo.PageVO;
 import org.edu.vo.ReplyVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,18 @@ public class ReplyController {
 	private IF_ReplyDAO replyDAO;
 	
 	//댓글 리스트 method
-	@RequestMapping(value="/reply/reply_list/{bno}", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> reply_list(@PathVariable("bno") Integer bno) {
+	@RequestMapping(value="/reply/reply_list/{bno}/{page}", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> reply_list(@PathVariable("bno") Integer bno, @PathVariable("page") Integer page) throws Exception {
+		// 페이징 계산식 처리 start
+		PageVO pageVO = new PageVO();
+		pageVO.setPage(page); // 조건은 ajax로 호출 시 페이지 변수는 반드시 보내야함
+		pageVO.setPerPageNum(3); // 현재 페이지 하단에 보이는 페이징 번호 개수
+		pageVO.setQueryPerPageNum(5); // 페이징당 보여줄 댓글 개수
+		int replyCount = replyDAO.selectReplyCount(bno);
+		pageVO.setTotalCount(replyCount);
+		// 페이징 계산식 처리 end
+		// 현재 게시물 댓글 전체 개수 구하기: MySQL 게시물 관리 테이블에 있는 reply_count를 가져다 쓸 것
+		
 		System.out.println("디버그: PathVariable 변수는 " + bno);
 		ResponseEntity<Map<String, Object>> result = null;
 		
@@ -53,12 +64,13 @@ public class ReplyController {
 		// resultMap.put("replyList", dummyMapList);
 		// ----------------------------------------------
 		try {
-			List<ReplyVO> replyList = replyDAO.selectReply(bno);
+			List<ReplyVO> replyList = replyDAO.selectReply(bno, pageVO);
 			if(replyList.isEmpty()) {
 				// result = null;
 				result = new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.NO_CONTENT);
 			}else {
 				resultMap.put("replyList", replyList);
+				resultMap.put("pageVO", pageVO);
 				// resultMap을 JSON data를 반환하려면 jackson-databind 모듈 필수
 				result = new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
 			}
@@ -70,12 +82,13 @@ public class ReplyController {
 	}
 	
 	// 댓글 삭제 method
-	@RequestMapping(value="/reply/reply_delete/{rno}", method=RequestMethod.DELETE)
-	public ResponseEntity<String> reply_delete(@PathVariable("rno") Integer rno) {
+	@RequestMapping(value="/reply/reply_delete/{bno}/{rno}", method=RequestMethod.DELETE)
+	public ResponseEntity<String> reply_delete(@PathVariable("bno") Integer bno, @PathVariable("rno") Integer rno) {
 		ResponseEntity<String> result = null;
 		try {
 			replyDAO.deleteReply(rno);
 			result = new ResponseEntity<String> ("success", HttpStatus.OK);
+			replyDAO.updateCountReply(bno);
 		} catch (Exception e) {
 			result = new ResponseEntity<String> (HttpStatus.BAD_REQUEST);
 		}
@@ -106,6 +119,7 @@ public class ReplyController {
 		try {
 			replyDAO.insertReply(replyVO);
 			result = new ResponseEntity<String>("success", HttpStatus.OK);
+			replyDAO.updateCountReply(replyVO.getBno());
 		} catch (Exception e) {
 			result = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}

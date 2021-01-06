@@ -98,7 +98,7 @@
          <div class="card-header">
            <h5 class="card-title">Add New Reply</h5>
            </div>
-           <form action="#" name="reply_form" method="post">
+           <form action="board_view.html" name="reply_form" method="post">
            
          <div class="card-body">
            <div class="form-group">
@@ -116,7 +116,7 @@
          <div class="timeline">
          	 <!-- .time-label before 위치 -->
 	         <div class="time-label">
-	         <span class="bg-red" id="btn_reply_list" style="cursor:pointer;">Reply List [1] </span>
+	         <span class="bg-red" id="btn_reply_list" style="cursor:pointer;">Reply List[${boardVO.reply_count}]&nbsp;&nbsp;</span>
 	         </div>
 	         <!-- .time-label after 위치 -->
 	         
@@ -139,22 +139,25 @@
          </div><!-- //.timeline -->
          
          <!-- paging section 시작 -->
-         <div class="row card-body">
-         <!-- 아래 style="margin:0 auto 빼고, 위 클래스에 pagination justify-content-center m-0을 넣어도 페이징 가운데 정렬 가능 -->
-         <ul class="pagination" style="margin:0 auto;">
-         <li class="paginate_button page-item previous disabled" id="example2_previous">
-         <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-         </li>
-         <!-- 위 이전 게시물 링크 -->
-         <li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-         <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-         <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-         <!-- 아래 다음 게시물 링크 -->
-         <li class="paginate_button page-item next" id="example2_next">
-         <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-         </li>
-         </ul>
-         </div>
+         <div class="pagination justify-content-center">
+		         <ul class="pagination pageVO">
+		         <!-- 
+		         <li class="paginate_button page-item previous disabled" id="example2_previous">
+			     <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+			     </li>
+			         
+		                     위 이전 게시물 링크
+		         <li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+		         <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+		         <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+		         
+		       	  아래 다음 게시물 링크
+		         <li class="paginate_button page-item next" id="example2_next">
+		         <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+		         </li>
+		          -->
+	         </ul>
+	         </div>
          <!-- paging section 끝 -->
          
          </form>
@@ -170,11 +173,12 @@
   <!-- /.content-wrapper -->
 
 <%@ include file="../include/footer.jsp" %>
+<input type="hidden" id="reply_page" value="1">
 <!-- html에서 jsp로 옮길 때 댓글영역 같은 경우 footer 상단에 위치해야하나, 디자인이 안 먹힐 경우 하단에 위치시킨다.  -->
-
 <!-- 자바 스크립트용 #template eliment 제작(아래) jstl의 향상된 for문과 같은 역할 -->
 <!-- 외부코어(아래) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
 <!-- 댓글템플릿(빵틀) 만들기(아래) -->
 <%-- jsp <c:forEach> = {{#each .}} --%>
 <script id="template" type="text/x-handlebars-template">
@@ -195,6 +199,40 @@
 {{/each}}
 </script>
 
+<!-- pageVO를 파싱하는 함수(아래) -->
+<script type="text/javascript">
+var printPageVO = function(pageVO, target) {
+	var paging = "";
+	if(pageVO.prev) {
+		paging = paging +
+		'<li class="paginate_button page-item previous disabled" id="example2_previous"><a href="'+(pageVO.startPage-1)+'" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>';
+	}
+	//pageVO를 target영역에 페이징 번호파싱-반복문사용(아래)
+	for(var cnt=pageVO.startPage;cnt<=pageVO.endPage;cnt++) {
+		var active = (cnt == pageVO.page)?"active":"";
+		paging = paging +
+		'<li class="paginate_button page-item '+active+'"><a href="'+cnt+'" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">'+cnt+'</a></li>';
+	}
+	if(pageVO.next) {
+	//이후 댓글 링크-pageVO.next(아래)
+	'<li class="paginate_button page-item next" id="example2_next"><a href="'+(pageVO.endPage+1)+'" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>';
+	}
+	target.html(paging);
+}
+</script>
+
+<script>
+$(document).ready(function(){
+	$(".pageVO").on("click", "li a", function(event){
+		event.preventDefault(); // a 태그의 기본 기능인 이동기능을 금지하는 명령
+		var page = $(this).attr("href"); // 현재 클릭한 페이지 값 저장
+		// alert(page); // 디버그
+		$("#reply_page").val(page);
+		$("#btn_reply_list").click();
+	});
+});
+</script>
+
 <!-- 화면 재구현(representation) 함수(아래) -->
 <script>
 var printReplyList = function(data, target, templateObject) {
@@ -210,10 +248,11 @@ var printReplyList = function(data, target, templateObject) {
 <script>
 $(document).ready(function() {
 	$("#btn_reply_list").on("click", function() {
-		//alert("디버그");
+		var page = $("#reply_page").val();
+		// alert("선택한 페이지 값은" + page + "입니다."); // 디버그
 		$.ajax({
 			type:"post",
-			url:"/reply/reply_list/${boardVO.bno}",
+			url:"/reply/reply_list/${boardVO.bno}/"+page,
 			dataType:"json", // 받을 때 json으로 받음
 			success:function(result) { // result는 댓글 목록을 jason data로 받는다
 				//alert("디버그" + result);
@@ -225,6 +264,7 @@ $(document).ready(function() {
 				// var result = JSON.parse(result);//텍스트자료를 제이슨 자료로 변환.
 				// console.log("여기까지" + jsonData.replyList);//디버그용 
 				printReplyList(result.replyList, $(".time-label"), $("#template"));//화면에 출력하는 구현함수를 호출하면 실행
+				printPageVO(result.pageVO, $(".pageVO"));
 				}
 			},
 			error:function(result) {
