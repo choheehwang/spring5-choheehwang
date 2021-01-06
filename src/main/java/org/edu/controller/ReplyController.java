@@ -12,6 +12,7 @@ import org.edu.vo.ReplyVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,13 +69,46 @@ public class ReplyController {
 		return result;
 	}
 	
+	// 댓글 삭제 method
+	@RequestMapping(value="/reply/reply_delete/{rno}", method=RequestMethod.DELETE)
+	public ResponseEntity<String> reply_delete(@PathVariable("rno") Integer rno) {
+		ResponseEntity<String> result = null;
+		try {
+			replyDAO.deleteReply(rno);
+			result = new ResponseEntity<String> ("success", HttpStatus.OK);
+		} catch (Exception e) {
+			result = new ResponseEntity<String> (HttpStatus.BAD_REQUEST);
+		}
+		return result;
+	}
+	
+	// 댓글 수정 method
+	@RequestMapping(value="/reply/reply_update", method=RequestMethod.PATCH)
+	public ResponseEntity<String> reply_update(@RequestBody ReplyVO replyVO) {
+		ResponseEntity<String> result = null;
+		try {
+			replyDAO.updateReply(replyVO);
+			result = new ResponseEntity<String> ("success", HttpStatus.OK);
+		} catch (Exception e) {
+			result = new ResponseEntity<String> (HttpStatus.BAD_REQUEST);
+		}
+		return result;
+	}
+	
+	
 	//댓글 입력 method
 	@RequestMapping(value="/reply/reply_write", method=RequestMethod.POST)
-	public ResponseEntity<String> reply_write() {
-		ResponseEntity<String> responseEntity = 
-				new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		//ResponseEntity는 json text를 반환하는데, text-body:"SUCCESS", 전송상태: HttpStatus.OK(200)
-		//error message; 전송내용 text-body:e.getMessage(), 전송상태: HttpStatus.BAD_REQUEST(400)
-		return responseEntity;
+	public ResponseEntity<String> reply_write(@RequestBody ReplyVO replyVO) {
+		// ResponseEntity<String> responseEntity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		// ResponseEntity는 json text를 반환하는데, text-body:"SUCCESS", 전송상태: HttpStatus.OK(200)
+		// error message; 전송내용 text-body:e.getMessage(), 전송상태: HttpStatus.BAD_REQUEST(400)
+		ResponseEntity<String> result = null;
+		try {
+			replyDAO.insertReply(replyVO);
+			result = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			result = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		return result; // ResponseEntity 클래스형 String 값을 ajax로 호출한 페이지에 반환하는 역할
 	}
 }
