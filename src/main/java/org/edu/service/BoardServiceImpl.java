@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.inject.Inject;
 import org.edu.dao.IF_BoardDAO;
+import org.edu.dao.IF_ReplyDAO;
 import org.edu.vo.BoardVO;
 import org.edu.vo.PageVO;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service // 스프링 빈으로 사용하기 위해 애노테이션으로 명시
 public class BoardServiceImpl implements IF_BoardService {
+	
+	@Inject
+	private IF_ReplyDAO replyDAO;
 	
 	@Inject // DAO class를 주입 받아서 사용 변수 생성
 	private IF_BoardDAO boardDAO;
@@ -66,6 +70,7 @@ public class BoardServiceImpl implements IF_BoardService {
 	public void deleteBoard(Integer bno) throws Exception {
 		// 첨부파일 삭제 query DAO 연결(아래)
 		boardDAO.deleteAttachAll(bno);
+		replyDAO.deleteReplyAll(bno);
 		// 게시물 삭제 query DAO 연결(아래)
 		boardDAO.deleteBoard(bno);
 	}
