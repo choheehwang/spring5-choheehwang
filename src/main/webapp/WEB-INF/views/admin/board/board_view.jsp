@@ -458,7 +458,7 @@ $(document).ready(function() {
 <script>
 $(document).ready(function(){
 	$("#btn_board_delete").on("click",function(){
-		//aleart("debug");
+		// aleart("debug");
 		if(confirm("삭제하시겠습니까?")) {
 			$('form[name="action_form"]').attr("method","post");
 			$('form[name="action_form"]').attr("action","/admin/board/board_delete");
