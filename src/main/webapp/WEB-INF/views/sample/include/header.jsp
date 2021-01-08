@@ -51,12 +51,12 @@
 <nav class="gnb"><!-- gnb:글로벌네이게이션:전체영역메뉴  Global Navigation -->
 <!-- 리스트를 보여주는 태그 ul(UnOrdered List *.~, *.~ ) , ol(Ordered List 1.~, 2.~ ) -->
 <ul>
+<li><a href="/sample">Sample HOME</a></li>
+<li><a href="/sample/weare">WE ARE</a></li>
+<li><a href="/sample/work">PRODUCTS</a></li>
+<li><a href="/sample/blog">SNS</a></li>
+<li><a href="/sample/contact">CONTACT US</a></li>
 <li><a href="/">HOME</a></li>
-<li><a href="/weare">WE ARE</a></li>
-<li><a href="/work">PRODUCTS</a></li>
-<li><a href="/blog">SNS</a></li>
-<li><a href="/contact">CONTACT US</a></li>
-<li><a href="/admin">AdminLTE</a></li>
 </ul>
 </nav>
 <!-- 상단 로고와 햄버거 메뉴영역 끝 -->

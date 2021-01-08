@@ -15,32 +15,60 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	// 사용자 홈페이지 회원 마이페이지 접근 mapping
+	@RequestMapping(value="/member/mypage", method=RequestMethod.GET)
+	public String mypage() throws Exception {
+		
+		return "home/member/mypage";
+	}
+	
+	// 사용자 홈페이지 회원가입 접근 mapping
+	@RequestMapping(value="/join", method=RequestMethod.GET)
+	public String join() throws Exception {
+		
+		return "home/join";
+	}
+	
+	// 사용자 홈페이지 로그인 접근 mapping
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String login() throws Exception {
+		
+		return "home/login";
+	}
+	
+	// 사용자 홈페이지 루트(최상위) 접근  mapping
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String home() throws Exception{
+		
+		return "home/home";
+	}
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value="/contact", method=RequestMethod.POST)//post방식은 데이터를 전송하는 역할
+	@RequestMapping(value="/sample/contact", method=RequestMethod.POST)//post방식은 데이터를 전송하는 역할
 	public String contact_send() {
 		//데이터 전송 후에 화면이 글쓰기 상태로 계속 있는 것을 방지하기 위해 페이지 이동이 필요, 중복글 방지 및 게시글 테러 방지
-		return "redirect:/sns";
+		return "redirect:/sample/sns";
 	}
-	@RequestMapping(value="/contact", method=RequestMethod.GET)//get방식은 폼form 페이지를 보여주는 역할
+	@RequestMapping(value="/sample/contact", method=RequestMethod.GET)//get방식은 폼form 페이지를 보여주는 역할
 	public String contact() {
 		return "sample/contact";
 	}
-	@RequestMapping(value="/blog", method=RequestMethod.GET)
+	@RequestMapping(value="/sample/blog", method=RequestMethod.GET)
 	public String blog() {
 		return "sample/blog";
 	}
-	@RequestMapping(value="/work", method=RequestMethod.GET)
+	@RequestMapping(value="/sample/work", method=RequestMethod.GET)
 	public String work() {
 		return "sample/work";
 	}
-	@RequestMapping(value="/weare", method=RequestMethod.GET)
+	@RequestMapping(value="/sample/weare", method=RequestMethod.GET)
 	public String weare() {
 		//외부에서 /weare라는 경로에 접근했을 때 sample/weare.jsp와 맵핑시키라는 의미(=쉽게 말해 we are 메뉴 만든 거임)
 		return "sample/weare";
 	}
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(value="/sample", method=RequestMethod.GET)
 	/* RequestMapping은 자바에서 기본적으로 제공하는 class */
 	public String index() {
 	//함수(메소드)의 리턴(출력)형태 지정 메소드명(매개변수) {구현내용} String index () {}
