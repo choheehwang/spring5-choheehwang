@@ -7,8 +7,12 @@
 - 작업 내용의 복습시간은 이후 다른 코딩작업으로 대신하게 됩니다.
 - 예를 들면, 스프링프로젝트에서 관리자단 게시판을 만들면,
 - 나중에, 사용자단 게시판을 만들때 비슷한 과정을 한번 더 하게 됩니다. 이런방식으로 복습을 해서 기술을 익히게 됩니다.
-- 즉, 지금 이해가 않되시는 부분도 코딩작업을 여러번 반복하시게 되면서 기술을 익히게 되는 과정이라고 보시면 됩니다.
+- 즉, 지금 이해가 안 되시는 부분도 코딩작업을 여러번 반복하시게 되면서 기술을 익히게 되는 과정이라고 보시면 됩니다.
 - 그리고, 강의 내용을 녹음 하셔도 괜찮습니다.(단, 대단한 내용은 아니지만, 본인만 보시고, 유통시키지 않았으면 합니다.)
+
+#### 톰캣 서버 강제 종료시키기
+- netstat -ano | findstr 8080 : 특정 포트로 검색
+- taskkill /F /PID 포트번호(위에서출력된 제일오른쪽번호 : PID를 통해 작동중인 프로그램 종료)
 
 ### 스프링 작업순서
 - 스프링 HelloWorld MVC 프로젝트 org.edu.controller 제작OK.
@@ -30,23 +34,282 @@
 - 스프링 AOP(관점지향프로그래밍-OOP의 확장기능)기능으로 개발용 디버그출력환경 만들기 시작.
 - pom.xml에 AOP모듈 추가 필수
 - root-context.xml에서 aop태그 추가
-- --------------- 여기까지 ------------------
-- 실제 게시판 화면 CRUD 적용.
-- 트랜잭션 @Tansactional추가: root-context.xml에서 dataSource에 트랜잭션 설정추가필수
-- 파일업로드 라이브러리 사용 pom.xml 의존성 추가.
-- 게시판 업로드 화면 구현.
-- Json데이터 사용 pom.xml 의존성 추가.(댓글 Rest-Api에서필요)
-- 실제 댓글 화면CRUD적용.(우리가 만들어서 제공 Rest-API백엔드단)
-- 사용자단 html(https://miniplugin.github.io/) 소스를 커스터마이징 후 jsp로 만들기.
-- 인터셉터(가로채기-Interceptor)클래스를 이용해서, 예외처리를 공통 error.jsp 로 바인딩 처리.
+- 관리자단 실제 게시판 화면 CRUD 적용OK.
+- 트랜잭션 @Tansactional추가: root-context.xml에서 dataSource에 트랜잭션 설정추가필수OK.
+- 파일업로드 라이브러리 사용 pom.xml 의존성 추가OK.
+- 관리자단 게시판 업로드 화면 구현OK.
+- 댓글에서 Json데이터 사용 pom.xml 의존성 추가.(댓글 Rest-Api에서필요)
+- 보통 jackson, Gson 외부라이브러리를 사용할때는 pom.xml에 모듈을 추가해야 하지만,
+- Rest컨트롤러 클래스안에 ResponseEntity<String>를 사용해서 Json데이터로 반환합니다.
+- 그래서, pom.xml 모듈추가 없가없이 작업 진행 합니다.X(잘못된 정보)
+- jackson-databind 모듈추가했음.
+- 실제 댓글 화면CRUD적용.(우리가 만들어서 제공 Rest-API백엔드단)OK.
+- 사용자단 html(https://miniplugin.github.io/) 소스를 커스터마이징 후 jsp로 만들기OK.
+- 인터셉터(가로채기-Interceptor)클래스를 이용해서, 예외처리를 공통 spring_error.jsp 로 바인딩 처리OK.
+---------------------- 작업중 ------------------------------
 - 스프링시큐리티 로그인 구현 pom.xml 의존성 추가(회원가입시 패스워드 암호화 추가).
-- 헤로쿠 클라우드로 배포(Hsql데이터베이스사용).
+- web.xml에 스프링시큐리티 설정 추가.
+--------------------------------------------------------------------
 - 사용자단 CRUD 구현.
+- 헤로쿠 클라우드로 배포(Hsql데이터베이스사용).
 - 웹프로젝트 소스를 스프링프레임워크 버전으로 5.2.5 마이그레이션(버전 업그레이드)
 - 오라클로 마이그레이션 작업.
-- 이후 유효성검사, 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
+- 이후 유효성검사(객체검증), 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
 
-#### 20201229(화) 작업예정
+#### 20210112(화) 작업예정
+- 메이븐 업데이트 하신 분들 프로젝트 context-root경로 / 로 변경해 주세요^^
+- 스프링시큐리티 설정(security-context.xml)내용 추가
+- 로그인 페이지 및 로그인 클래스 구현(세션처리)
+- -----------------------------------------------------
+- 사용자단, 게시판/RestApi댓글 CRUD처리.
+- 사용자단, 유효성 검사 기능을 포함해서 마이페이지+회원가입 프로그램처리.
+- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
+- 헤로쿠(URL)에 배포(HsqlDB로 배포, 메이븐 외부 라이브러리 추가필수 pom.xml수정)
+
+#### 20210111(월) 작업
+- 이론은 ch12 시작 예정.
+- ch11: DTO(DataTansperObject) = DAO(DataAccessObject)
+- 웹프로그램이 작동되는 순서: 
+- 톰캣(server,web,context 3개xml 순서대로 실행) 
+- -> 스프링시작 순서 : web.xml:404 file not fount,500,400 에러표시)
+- -> root-context -> servlet-context(여기서부터 스프링에러표시)
+- 사용자단 html을 jsp로 변경 처리: board폴더부분 jsp 변환.
+- 공통error.jsp 추가(인터셉터 클래스 이용)
+- 인터셉터하는 목적: 스프링에서 에러가 발생시 에러내용을 가로채서 개발자가 만든 error.jsp로 출력하는 목적.
+- 스프링시큐리티 적용한 로그인 처리(필수기술).
+- web.xml에서 웹필터기능 추가가 필요한 이유: web.xml은 스프링 서블렛 진입전에 실행되는 기능이기 때문에, 스프링 보안에서  스프링 서블렛프로그램(스프링웹프로젝트)실행전에 인증과 권한을 URL기반으로 체크하기 위해서 필터기능이 필요합니다.
+- 스프링 시큐리티 필터기능말고, 대표적인 필터기능솔루션은 글작성시 욕설방지기능 필터 기능으로 작성.
+- 스프링 시큐리티 2가지 기능: 인증기능(로그인체크기능-암호화), 권한기능(권한체크)
+- 네이아이디로그인(SSO)RestAPI는 인증만 가능하기 때문에, 사용이 가능. 권한은 개발자 코드로 부여.
+- ----------------- 2월 3일까지(위 과제물 제출) ---------------------
+- 위 과정이 끝나면, 위 프로젝트, Mysql(마리아DB)로 작성된 소스를 오라클로 마이그레이션(오라클설치및 사용자생성 및 암호추가)
+- 문서작업(완료보고서작업) : 이력서 제출서 사용.
+- IoT(노드MCU보드:아두이노계열)로 임베디드 프로그램 실습.(코로나19상황일때 일주일정도 실습 나와서 합니다. 라즈베리파이 임베디드 리눅스 프로그램=팀작업X-개인작업으로 전환)
+- 안드로이드 스튜디오를 이용해서 안드로이드앱1 제작 후 IoT장비와 통신
+- 안드로이드앱2 제작 후 위 스프링프로젝트외 RestApi통신 회원 정보 조회 및 삭제 처리 기능 실습.
+- 위 앱 제작 실습시 스프링프로젝트 RestAPI서버 컨트롤러 제작 실습을 합니다.
+- 입사지원 시간(사람인 사이트에 이력서 제출): 취업활동.
+- Ps.앱(임베디드)분야 취업하시기에는 1달로 부족합니다. 임베디드 분야로 취업을 원하시는 학생은 개인적으로 더 공부 하셔야 합니다. 그래도, 이과목을 공부하시는 이유는 스프링(자바)에서 일하시다가 임베디드쪽의 일을 하시게 되기 때문에, 그 때 사용하시라고 기술을 배우시게 됩니다.
+ - pom.xml 메이븐(프로그램배포-패키징)에서 관리하는 외부라이브러리 설정 파일 입니다. root-context.xml+context-servlet.xml(스프링빈실행) 파일과는 성격이 틀립니다.
+
+#### 20200108(금) 작업
+- 사용자단 html 소스를 jsp 로 변환하는 작업진행. views폴더안에 home폴더 생성 후 작업진행.
+- HomeController클래스 리퀘스트 매핑부분 추가/수정.
+- 사용자단 html(https://miniplugin.github.io/) 소스를 커스터마이징 후 jsp로 만들기.
+- 부트스트랩과 AdminLTE라이브러리 가져오기(board_view[write].html 상단에 추가:아래)
+
+```
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/resources/plugins/fontawesome-free/css/all.min.css">
+<!-- Bootstrap 4 -->
+<link rel="stylesheet" href="/resources/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<script src="/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLte -->
+<link rel="stylesheet" href="/resources/dist/css/adminlte.min.css">	
+<!-- write.html은 서머노트 웹에디터 부분 추가(아래) -->
+<link rel="stylesheet" href="/resources/plugins/summernote/summernote.css">
+<script src="/resources/plugins/summernote/summernote.js"></script>
+```
+- 기존 디자인 수정 2부분(home/css/main.css아래)
+
+```
+상단 body 부분에 !important 추가 후 바로 아래 1줄 추가
+a:hover {color: #fff !important;} <--여기도  임폴턴트 추가
+dl, ol, ul { margin-bottom:0 !important;}
+```
+- 게존 디자인 수정 1부분(home/css/board.css아래)
+- .app_list .tit_lbl { width: 20%; } 라벨 가로크기 기존 21% -> 20%변경
+
+- 인터셉터(가로채기-Interceptor)클래스를 이용해서, 예외처리를 공통 error.jsp 로 바인딩 처리.
+- 스프링시큐리티 로그인 구현 pom.xml 의존성 추가(회원가입시 패스워드 암호화 추가).
+
+#### 20200107(목) 작업
+- prepend, append, after J쿼리 기능.
+- 어제 작업한 댓글 리스트 btn_reply_list 버튼id에 부트스트랩(J쿼리기반의 프레임워크)의 토글기능을 넣어서
+- 하단 댓글리스트(페이징포함)를 나타나고, 숨기는 기능을 넣게되겠습니다.
+- 위 작업: 1. 액션버튼부분 : data-toggle="collapse" data-target="#div_reply"
+- 2. 대상 타켓 부분 <div id="div_reply">토글영역</div>
+- 댓글 jsp에서 Ajax,jQuery사용해서 CRUD처리 마무리.
+- 입사지원시 코딩테스트 할때 아래처럼 기초이론을 구현해보라는 요구사항 때문에 정리(아래)
+- Ps.싱글톤이 사용되는 이유참조: https://shxrecord.tistory.com/132
+- Ps.싱글톤 빈(스프링)에 대해서(1개의 빈은 1개의 빈객체만 생성해서 사용하겠다명시)
+- https://m.blog.naver.com/PostView.nhn?blogId=sksk3479&logNo=221175889439&proxyReferer=https:%2F%2Fwww.google.com%2F
+- Ps.싱글톤 클래스(자바)에 대해서(1개의 클래스는 1개의 인스턴스만 생성해서 사용하겠다명시)
+- 우리가 사용한 경우: 달력 인스턴스 생성. Calendar.getInstance() 참조정보(아래)
+- https://m.blog.naver.com/PostView.nhn?blogId=heartflow89&logNo=221001179016&proxyReferer=https:%2F%2Fwww.google.com%2F
+
+```
+class Singleton{
+	private static Singleton instance = new Singleton(); // 정적필드 / 인스턴스 생성 
+	private Singleton(){} // private 생성자
+	public static Singleton getInstance(){ // getInstance 메서드 정의
+		return instance; // instance 객체 리턴
+	}
+}
+public class SingletonEx {
+	public static void main(String[] args) {
+		Singleton st1 = Singleton.getInstance(); // 싱글톤 인스턴스 호출
+		Singleton st2 = Singleton.getInstance();
+//		Singleton st3 = new Singleton(); // 생성자 이용 인스턴스 생성 불가
+		if(st1 == st2){
+			System.out.println("동일 객체");
+		}else{
+			System.out.println("다른 객체");
+		}
+	}
+}
+```
+
+#### 20200106(수) 작업
+- 파스타는 2주 사용기간 제한 없어질때 까지 이용하는 것은 보류, 헤로쿠(Hsql데이터베이스)사용-스프링시큐리티(*로그인)적용 한 이후에 헤로쿠에 올리겠습니다.
+- 부메랑을 이용해서 댓글 CRUD 테스트 마무리OK.
+- 댓글 페이징처리(매퍼쿼리 ~ 컨트롤러까지 ) - 부메랑 reply_list/10(게시물번호)/1(페이지번호)테스트 OK.
+- jsp에서 Ajax+제이쿼리 화면처리 마무리.
+
+#### 20200105(화) 작업
+- 부메랑(크롬의 플러그인): JUnit(스프링-자바단위테스트=CRUD테스트)과 같은 역할. RestAPI의 단위테스트(CRUD테스트)를 할때 사용 한 이후 댓글 클래스 작업을 시작 합니다.
+- 댓글 DB -> VO -> 매퍼쿼리 -> DAO(Service) -> Controller -> JSP
+- 특이사항: RestAPI에서 Select는 GET이 기본.
+- 게시판에서 GET으로 전송하는 방식1(고전방식): url:"/reply/reply_list?bno=" + bno,
+- 댓글에서 GET으로 전송하는 방식2(시만텍웹방식): url:"/reply/reply_list/" + bno,
+- 시만텍웹방식으로 전송하는 목적은 구글검색에 노출되기 쉽게 해서 검색 순위를 올리기 위해서(검색광고와 관련)
+- 시만텍웹(의미있는 웹페이지, 주소를 만들자!): html5기술, url쿼리스트링에서 ?를 빼고, 값만 보내기. 
+- 관리자단 게시판의 뷰화면의 댓글 RestAPI프로그램작업 시작.
+- board_view.jsp에서 댓글 데이터 Json형식으로 가져오기부터 시작.
+- 이론: Ch9 스프링컨테이너 설정부터 시작.
+- 사용자화면 디자인 커스터마이징
+- 인터셉터(가로채기-Interceptor)클래스를 이용해서, 예외처리를 공통 error.jsp 로 바인딩 처리.
+- 스프링시큐리티 사용해서 로그인 구현...
+
+#### 20210104(월) 작업.
+- 이론: Ch9 스프링컨테이너 설정부터 시작.
+- 관리자단 게시판의 뷰화면의 댓글 RestAPI프로그램작업 시작.
+- Json데이터는 문자열기반이고, 구조가 Key:Value 형식으로 만들어져 있습니다.
+- 사용자화면 디자인 커스터마이징
+- 인터셉터(가로채기-Interceptor)클래스를 이용해서, 예외처리를 공통 error.jsp 로 바인딩 처리.
+- 스프링시큐리티 사용해서 로그인 구현...
+- 파스타 로그인 않되시는분: 
+- 시도1. 플레이파크 신규 신청.(황초희,양희망,이희탁,이현진,정동규,이규혁,김수연,이찬홍,이병현,신승만)
+- 시도2. 이미 신청되어있다고 나오고 않되시는 분: 박정수(파스타게시판에 해당문제 글등록-학생본인해결해 주시면 좋겠습니다.)
+- 작년에 작업한 첨부파일 업로드 부분 1개 파일만 에서 다중파일 업로드로 구현OK.(아래URL 에서확인).
+- 다중파일 업로드 구현내역 확인: https://github.com/miniplugin/kimilguk-spring5/commit/9a144dc4821714f4c4cfa3e228498ae1c3202129
+- 리스트 페이지의 게시글 번호 계산식 추가
+- ${boardVO.bno} 대신 카운트 계산식 적용(아래) ->
+- ${pageVO.totalCount-(pageVO.page*pageVO.queryPerPageNum)+pageVO.queryPerPageNum-status.index}
+- jstl반복문중 begin end 사용 해서 첨부파일 jsp부분 중복코드 처리 <c:forEach var="index" begin="0" end="1">
+- jstl반복에 대한 기술 참조: https://offbyone.tistory.com/368
+- 개별 첨부파일 삭제 기능 RestAPI컨트롤러 + Ajax로 구현(아래)
+
+```
+//REST-API서비스로 사용할때 @ResponseBody애노테이션으로 json|텍스트데이터를 반환함(아래)
+	//아래는 Rest-API백엔드단, Ajax(jsp)부분은 Rest-API의 프론트엔드단.
+	@RequestMapping(value="/delete_attach",method=RequestMethod.POST)
+	@ResponseBody
+	public String delete_attach(@RequestParam("save_file_name") String save_file_name) {
+		String result = "";//아이디 중복값을 체크하는 변수 초기값은 중복값 없음.
+		//Rest-API서비스에서는 스프링을 통해서 Ajax로 에러메세지를 받을수 없기 때문에 여기서 에러를 처리해야 합니다. 
+		try {
+			File target = new File(commonController.getUploadPath(), save_file_name);
+			if(target.exists()) {
+				target.delete();//폴더에서 기존첨부파일 지우기
+				//서비스클래스에는 첨부파일DB를 지우는 메서드가 없음. DAO를 접근해서 tbl_attach를 지웁니다.
+				boardDAO.deleteAttach(save_file_name);
+				result = "success";
+			}
+		} catch (Exception e) {
+			// 위 readMember메서드가 에러발생시
+			result = e.toString();
+		}
+		return result;//
+	}
+```
+```
+<script>
+$(document).ready(function() {
+	$(".btn_del_file").bind("click", function() {
+		//alert("여기까지" + $(this).val());//디버그용
+		var element = $(this);
+		var save_file_name = element.parent().find('input[name=save_file_name]').val();
+		//alert(save_file_name);return false;//디버그
+		$.ajax({
+			type:'post',
+			url:'/delete_attach?save_file_name='+save_file_name,
+			dataType:'text',
+			success:function(result){
+				//alert('디버그' + result);
+				if(result == 'success'){
+					alert('삭제에 성공하였습니다.');
+					element.parents('.div_delete_file').remove();
+				}else{
+					//에러메세지출력
+					//alert(result);//개발자용
+					alert('API서버에 문제가 발생했습니다' + result);
+				}
+			}
+		});
+	});
+});
+</script>
+```
+
+#### 20201231(목) 작업
+- 어떠한 프로젝트던지 관리자단 시작(CRUD내부로직 마무리) -> 사용자단(관리자단에서 작업했던내용중 CRUD일부만 화면으로 제공) 진행
+- HTTP전송 데이터: HEADER데이터 + body(jsp내용)
+- 첨부파일: 업로드 부분 OK.(학생들확인)
+- 첨부파일: 게시물상세보기 화면에 UUID파일명이 아닌 real_file_name나오게 하기OK.
+- 첨부파일: 다운로드 기능 추가.(한글내용, 한글파일명 깨지는 것 방지로직 추가)OK.
+- 첨부파일: 게시물 삭제시 첨부파일과 첨부테이블도 삭제처리 하기OK.
+- 첨부파일: 게시물 수정시 기존첨부파일 삭제 후 업로드 처리 하기.(미수정시는 해당없음 확인)OK.
+
+#### 20201230(수) 작업
+- 스프링 이론은 ch08까지 OK.
+- 관리자단 게시판 업로드 화면 구현.
+- 현재는 1개 업로드 되도록 구현이 되어있습니다.
+- 만약에 다중파일 업로드로 구현하실때 참조:https://ktko.tistory.com/entry/Spring-%EB%8B%A8%EC%9D%BC%ED%8C%8C%EC%9D%BC-%EB%8B%A4%EC%A4%91%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C%ED%95%98%EA%B8%B0
+- 저장할폴더지정: servlet-context.xml에서 지정(PC에저장위치설정, 헤로쿠/파스타에서 사용할 클라우드 저장위치는 별도로 지정예정)
+- 첨부파일저장 순서: jsp(file)->Controller(실제폴더에저장)->Service(게시판DB에저장->첨부파일DB에저장)
+- 스프링의 설정방식: 아래 2가지
+- 1. xml방식(메이븐빌드): 태그로 구성. 이클립스기반 스프링 웹프로젝트 개발시.(메인)
+- 2. Groovy방식(그래들빌드): 스크립트 구성. 안드로이드 스튜디오기반 앱개발시.(2주)
+- IoC: Inversion Of Control(제어의 역전) 프로그램제어를 개발자가 하지 않고, 스프링이 대신 처리 합니다.
+- IoC예: @Inject BoardService boardService; 개발자가 오브젝트를 생성 후 소멸(boardService.close())할 필요가 없습니다. 스프링이 소멸에 대한 제어를 대신 해 줍니다.
+- mvn compile(이클립스에서 run AS에서 maven build에서 compile run 과 동일
+- ~.java -> ~.class 로 컴파일된 결과파일이 생성됩니다.
+- BoardVO의 값이 boardVO다 라는게 이해가 않가시는 군요.
+- boardVO값이 있습니다.
+- int cnt = 0;
+- boardVO.toString();이러게 값을 확인 하실 수 있습니다.
+- 질문:
+- @뭔가 쓰면 DI콘테이너에 빈클래스로 생성된다는 말씀같은데 지난번에 제 기억이 확실하진 - 않는데 서블렛에서 빈을 등록한다고 말씀하시지 않았나요?
+- 답변:
+- 빈으로 등록되는 조건2가지
+- 1. 서블렛.xml파일에서 설정 component-scan 설정필요
+- 2. @Contrller,@Service,@Repository,@Component,@RestContrller 으로 클래스 지정
+- 위 @애노테이션 클래스를 명시해야지만, 자동으로 빈으로 등록 됩니다.
+- 초기에 스프링 MVC프로젝트 만들때, 생성된 순서대로 사용하는 것을 추천.
+- 읽어들이는 순서: root-context.xml -> servlet-context.xml -> 시큐리티설정
+- 관리자단 게시판 업로드 화면 구현.
+- 관리자단 댓글 처리 시작...
+- DI(의존성주입)컨테이너 영역안에 스프링빈이 들어갑니다.(@Contrller,@Service,@Repository,@Component,@RestContrller등)
+- MVC분리: Model, View, Controller = 3티어(3단계)
+- 서버/클라이언트분리: 2티어(네트워크 장비쪽)
+- DB/웹서버분리: 2티어(시스템프로그램)
+- 도메인(domain=VO,Value Object멤버변수)
+- 도메인(내용)을 알고 있는 개발자가 VO클래스를 만들수 있습니다.
+- 도메인 주도 개발(DDD): 해당분야 전문가가 개발해야지만, 제대로 개발된다.
+- 학사 도메인전문가: 대학교 학사업무(학적,성적,교직원,기숙사관리)
+- 개발말하는 도메인이란, 학생테이블(학번, 입학일, 수료일, 학점, 학생부, 학년, 주소, 연락처, 전공 등등 필드값을 도메인이라고 말합니다.)
+- 1월말, 2월초에 현재 스프링 프로젝트 버전 4.3.22에서 5.2.5버전 마이그레이션 합니다.
+
+#### 20201229(화) 작업
+- CK에디터 사용을 하려다가, 이클립스 내장브라우저에서 작동하지 않아서 섬머노트 에디터로 변경처리.
+- input type="file" name="file" 바로 DB테이블에 저장할 수 없습니다.
+- save_file_name, real_file_name 이런 테이블필드에 저장하기전에 전처리 과정이 필요합니다.
+- 첨부파일 등록시 전처리 과정: (아래)
+- 전처리 과정 1. 서버에 저장공간(폴더)에 save_file_name이름으로 .jpg, .hwp, .xls 저장되는 기능필요
+- 전처리 과정 2. 물리DB테이블에 save_file_name필드, real_file_name필드, bno게시물번호필드 에 저장되는 기능필요
+- 데이터흐름: 물리DB(필드명) - DAO - Service - Controller - JSP(input태그의 name속성)
+-          BoardVO(멤버변수명와 위 5군데 Get/Set 이 가능하려면, 이름이 동일해야함. 필수조건)
 - 관리자단 게시판 CRUD작업 중 어제 Read작업 확인(첨부파일 다운로드는 아래 insert작업 후 다시 확인)
 - C(insert)작업 시 첨부파일 업로드 구현
 - Update 작업 후 Delete작업으로 마무리.

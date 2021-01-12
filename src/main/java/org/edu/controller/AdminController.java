@@ -13,6 +13,7 @@ import org.edu.util.SecurityCode;
 import org.edu.vo.BoardVO;
 import org.edu.vo.MemberVO;
 import org.edu.vo.PageVO;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 //spring에서 사용 가능한 클래스를 bean이라 한다
 @Controller
+
 public class AdminController {
 	//@Inject 방식으로 외부 라이브러리=모듈=클래스=인스턴스 불러오기(아래)
 	@Inject
@@ -216,6 +218,12 @@ public class AdminController {
 	@RequestMapping(value="/admin/member/member_write", method=RequestMethod.POST)
 	public String member_write(MemberVO memberVO) throws Exception {
 		//아래 GET방식 폼 출력 화면에서 전송된 데이터를 처리하는 바인딩 영역(do)
+		//POST방식으로 넘어온 user_pw값을 BCryptPasswordEncoder클래스로 암호시킴
+		if(memberVO.getUser_pw() != null) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String userPwEncoder = passwordEncoder.encode(memberVO.getUser_pw());
+			memberVO.setUser_pw(userPwEncoder);
+		}
 		//redirect는 글쓰기 후 새로고침을 이용한 게시판 테러를 방지하는 목적
 		memberService.insertMember(memberVO);
 		return "redirect:/admin/member/member_list";
@@ -236,6 +244,12 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
 	public String member_update(PageVO pageVO, MemberVO memberVO) throws Exception {
+		// POST방식으로 넘어온 user_pw값을 BCryptPasswordEncoder class로 암호화
+		if(memberVO.getUser_pw() != null) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String userPwEncoder = passwordEncoder.encode(memberVO.getUser_pw());
+			memberVO.setUser_pw(userPwEncoder);
+		}
 		// POST방식으로 넘어온 값을 DB 수정 처리
 		memberService.updateMember(memberVO);
 		// redirect 역할: 새로고침했을 때, 위 updateMember method 재실행 방지
