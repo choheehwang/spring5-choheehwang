@@ -158,10 +158,10 @@ public class AdminController {
 		 * boardVO.setReply_count(0);
 		 */
 		BoardVO boardVO = boardService.readBoard(bno);
-		// secure cording 시작
+		// secure coding 시작
 		String xss_data = boardVO.getContent();
 		boardVO.setContent(securityCode.unscript(xss_data));
-		// secure cording 끝
+		// secure coding 끝
 		// 첨부파일 리스트 값을 가져와서, 세로데이터를 가로데이터로 변환
 		List<HashMap<String, Object>> files = boardService.readAttach(bno);
 		String[] save_file_names = new String[files.size()];

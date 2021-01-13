@@ -83,7 +83,7 @@
                       </td>
                       <!-- 아래 a 링크는 리스트가 늘어날수록 동적으로 bno값이 변하게 됨, 개발자가 jsp 처리 -->
                       <td><a href="/admin/board/board_view?page=${pageVO.page}&bno=${boardVO.bno}">
-                      <!-- c:out 사용하는 이유: 보안 때문에(secure cording) -->
+                      <!-- c:out 사용하는 이유: 보안 때문에(secure coding) -->
 					  <c:out value="${boardVO.title}"></c:out>[<c:out value="${boardVO.reply_count}"></c:out>]
 					  </a></td>
                       <td><c:out value="${boardVO.writer}"></c:out></td>

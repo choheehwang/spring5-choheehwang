@@ -70,7 +70,7 @@
 	                <!-- 이미지 파일인지 일반 파일인지 비교, result = true, false -->
 	                <c:choose> 
 	                	<c:when test="${fn:containsIgnoreCase(checkImgArray,extName)}">
-	                		<img style="width:100%;" src="/download?save_file_name=${boardVO.save_file_names[index]}&real_file_name=${boardVO.real_file_names[index]}">
+	                		<img style="width:100%;" src="/image_preview?save_file_name=${boardVO.save_file_names[index]}&real_file_name=${boardVO.real_file_names[index]}">
 	                	</c:when>
 	                	<c:otherwise>
 	                		<c:out value="${checkImgArray}" />
