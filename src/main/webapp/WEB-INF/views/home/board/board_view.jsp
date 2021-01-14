@@ -215,7 +215,7 @@ $(document).ready(function() {
 	$("#deleteReplyBtn").on("click", function() {
 		if("${session_enabled}" == "") {
 			alert("로그인이 필요합니다.");
-			location.href("/login");
+			location.href = "/login";
 			return false;
 		}
 		var rno = $("#rno").val();
@@ -248,7 +248,7 @@ $(document).ready(function() {
 	$("#updateReplyBtn").on("click", function() {
 		if("${session_enabled}" == "") {
 			alert("로그인이 필요합니다.");
-			location.href("/login");
+			location.href = "/login";
 			return false;
 		}
 		var reply_text = $("#replytext").val(); // get
@@ -288,7 +288,7 @@ $(document).ready(function() {
 	$("#insertReplyBtn").on("click", function() { // 댓글등록버튼을 클릭했을 때 구현내용(아래)
 	if("${session_enabled}" == "") { // 로그인 한 회원만 댓글 등록
 		alert("로그인이 필요합니다.");
-	location.href("/login");
+	location.href = "/login";
 	return false;
 	}
 	// alert("디버그");
