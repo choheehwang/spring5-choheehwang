@@ -1,20 +1,13 @@
-### 기본정보
+#### 기본정보
 - 스프링관리자 AdminLTE템플릿 샘플: 
 - https://adminlte.io/themes/v3/pages/forms/general.html
 - https://kimilguk-mysql.herokuapp.com/ (아이디/암호:admin/user02)
-
-### 수업에 대해서
-- 작업 내용의 복습시간은 이후 다른 코딩작업으로 대신하게 됩니다.
-- 예를 들면, 스프링프로젝트에서 관리자단 게시판을 만들면,
-- 나중에, 사용자단 게시판을 만들때 비슷한 과정을 한번 더 하게 됩니다. 이런방식으로 복습을 해서 기술을 익히게 됩니다.
-- 즉, 지금 이해가 안 되시는 부분도 코딩작업을 여러번 반복하시게 되면서 기술을 익히게 되는 과정이라고 보시면 됩니다.
-- 그리고, 강의 내용을 녹음 하셔도 괜찮습니다.(단, 대단한 내용은 아니지만, 본인만 보시고, 유통시키지 않았으면 합니다.)
 
 #### 톰캣 서버 강제 종료시키기
 - netstat -ano | findstr 8080 : 특정 포트로 검색
 - taskkill /F /PID 포트번호(위에서출력된 제일오른쪽번호 : PID를 통해 작동중인 프로그램 종료)
 
-### 스프링 작업순서
+#### 스프링 작업순서
 - 스프링 HelloWorld MVC 프로젝트 org.edu.controller 제작OK.
 - wamp(만세아이콘)으로 마리아DB(3306포트) 설치, 사용자암호 추가 및 한글처리OK.
 - 워크벤치 설치 및 ERD 작성연습, 샘플DB(edu)임포트 및 리버스 엔지니어링으로 ERD제작OK.
@@ -46,25 +39,85 @@
 - 실제 댓글 화면CRUD적용.(우리가 만들어서 제공 Rest-API백엔드단)OK.
 - 사용자단 html(https://miniplugin.github.io/) 소스를 커스터마이징 후 jsp로 만들기OK.
 - 인터셉터(가로채기-Interceptor)클래스를 이용해서, 예외처리를 공통 spring_error.jsp 로 바인딩 처리OK.
+- 스프링시큐리티 로그인 구현 pom.xml 의존성 추가OK.
+- web.xml에 스프링시큐리티 설정 추가OK.
+- security-context.xml OK.
+- 스프링빈클래스작업: 로그인 구현 + 관리자 회원등록시 패스워드 암호화 추가 OK.
 ---------------------- 작업중 ------------------------------
-- 스프링시큐리티 로그인 구현 pom.xml 의존성 추가(회원가입시 패스워드 암호화 추가).
-- web.xml에 스프링시큐리티 설정 추가.
+- 사용자단 CRUD 구현(RestAPI 댓글포함).
 --------------------------------------------------------------------
-- 사용자단 CRUD 구현.
 - 헤로쿠 클라우드로 배포(Hsql데이터베이스사용).
 - 웹프로젝트 소스를 스프링프레임워크 버전으로 5.2.5 마이그레이션(버전 업그레이드)
 - 오라클로 마이그레이션 작업.
 - 이후 유효성검사(객체검증), 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
+- 시간이 여유가 되면, eGovFrame메뉴에서 Start > New TemplateProject 심플홈 템플릿 만들어서 커스터 마이징 예정.
 
-#### 20210112(화) 작업예정
+#### 20210115(금) 작업
+- 서블렛자바+JSP(jstlX)프로그램 - 스트러츠웹프로그램만들기 - 스프링+jsp(jstl)웹프로그램만들기
+
+#### 20210114(목) 작업
+- 사용자단 , 댓글 CRUD 마무리OK.
+- HSQL: 간단한 웹프로그램 제작시 사용하는 DB.- 개발자들이 빨리 만들때, 프로토타입, 신규서비스전 간단하게 작업시 주로 이용.Hsql는 서비스용은 아니고, 개발전용 입니다.
+- 임베디드 DB(Hsql)=내장된 DB라이브러리모듈=메모리 DB 단점: 톰캣서버를 재실행하면, 메모리DB에 추가/수정내용이 사라짐
+- 실습은 embeded_hsql_file로 적용예정 입니다.=fileDB의 장점: 톰켓서버를 재 실행해도 Mysql처럼 내용이 보존됨.
+- 헤로쿠(URL)에 배포(HsqlDB로 배포, 메이븐 외부 라이브러리 추가필수 pom.xml수정)
+- 헤로쿠클라우드의 특징: 무료, 1달 사용450시간까지 무료로 접근이 가능.(트래픽시간을 초과했습니다 면서 URL접근이 X)
+- 헤로쿠의 단점: 30분 동안 URL에 접근하지 않으면, ZZZ 휴면상태로 진입 -> 활성화시키는데 20초 정도 필요.
+- 스프링기능중에 스케줄기능 -> 20분마다 1번씩 URL https://kimilguk.herukuapp.com 에 접근하도록 만들면 해결
+- 스프링의 스케즐 프로그램 제작OK.(회원에게 3개월동안 접속하지 않는 사용자들에게 일괄적으로 메세지를 보낼때)
+- ------------------------------------------------------------
+- 사용자단, 게시판 CRUD 마무리.
+- 사용자단, 유효성 검사 기능을 포함해서 마이페이지+회원가입 프로그램처리.
+- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
+
+#### 20210113(수) 작업
+- 이론은 ch13 시작 예정.
+- 사용자단, 게시판/RestApi댓글 CRUD처리.
+- 수업시작전 로그인 에러 자바스크립트 메세지 출력 추가 및 이미지파일미리보기 구형 버전에서 에러나는 문제 처리
+
+```
+login.jsp (아래)
+<script>
+if('${param.msg}' == "fail"){
+	alert('로그인에 실패했습니다.! 상세메세지 ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}');
+}
+</script>
+CommonController.java (아래)
+	/**
+	 * 게시물 첨부파일 이미지보기 메서드 구현(윈도7,윈도8 IE에서 지원가능)
+	 * 에러메시지 처리: getOutputStream() has already been called for this respons
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/image_preview", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	@ResponseBody
+	public byte[] getImageAsByteArray(@RequestParam("save_file_name") String save_file_name, HttpServletResponse response) throws IOException {
+		FileInputStream fis = null;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		fis = new FileInputStream(uploadPath + "/" + save_file_name);
+		int readCount = 0;
+		byte[] buffer = new byte[1024];
+		byte[] fileArray = null;
+	while((readCount = fis.read(buffer)) != -1){
+		baos.write(buffer,0,readCount);
+	}
+	fileArray = baos.toByteArray();
+	fis.close();
+	baos.close();
+	return fileArray;
+	}
+```
+
+#### 20210112(화) 작업
+- 스프링 시큐리티 복습 순서
+- 1). pom.xml 에서 의존성 모듈 확인
+- 2). security-context.xml 에서 설정 내용 확인(인증패턴과 권한 sql쿼리)
+- 3). LoginController클래스 확인(/login_success 매핑부분에서 세션변수처리)
+- 4). JSP영역 사용자단 세션사용 header.jsp/footer.jsp(로그아웃)확인(사용자 상단메뉴/로그아웃처리)
+- 5). AdminController에서 BCryptPasswordEncoder로 해시데이터 회원정보추가/수정 부분 확인
+- 6). JSP영역 관리자단 회원정보추가/수정 부분 검증 
 - 메이븐 업데이트 하신 분들 프로젝트 context-root경로 / 로 변경해 주세요^^
 - 스프링시큐리티 설정(security-context.xml)내용 추가
 - 로그인 페이지 및 로그인 클래스 구현(세션처리)
-- -----------------------------------------------------
-- 사용자단, 게시판/RestApi댓글 CRUD처리.
-- 사용자단, 유효성 검사 기능을 포함해서 마이페이지+회원가입 프로그램처리.
-- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
-- 헤로쿠(URL)에 배포(HsqlDB로 배포, 메이븐 외부 라이브러리 추가필수 pom.xml수정)
 
 #### 20210111(월) 작업
 - 이론은 ch12 시작 예정.
