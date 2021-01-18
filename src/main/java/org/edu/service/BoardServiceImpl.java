@@ -94,11 +94,12 @@ public class BoardServiceImpl implements IF_BoardService {
 		String real_file_name = "";
 		if(save_file_names == null) { return; }
 		for(String save_file_name:save_file_names) { // 첨부 파일 개수 만큼 반복
+			//System.out.println("디버그 : "+index+"번째 실행" + save_file_names[index]);
 			if(save_file_name != null) {
 				real_file_name = real_file_names[index];
 				boardDAO.updateAttach(save_file_name, real_file_name, bno);
-				index = index + 1;
 			}
+		index = index + 1;
 		}
 	}
 }
