@@ -1,6 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp" %>
+<style>
+div.txt{
+	max-height:100px;
+	overflow:hidden;
+	line-height: 17px;
+	margin-top:10px;
+}
+div.txt * { font-size: 14px !important;}
+.length_limit{
+	display: block;
+	padding-left: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+</style>
+<script>
+$(document).ready(function(){
+	$(".opacity_hover img").on("mouseover",function(){
+		$(this).css("opacity","1.0");
+	});
+	$(".opacity_hover img").on("mouseout",function(){
+		$(this).css("opacity","0.8");
+	});
+});
+</script>
 
 	<!-- 메인콘텐츠영역 -->
 	<div id="container">
@@ -46,7 +72,16 @@
             </div>
         </div>
         <!-- //모바일+PC 공통슬라이드영역 -->
-	
+		
+		<style>
+        	div.txt{
+        		height:100px;
+        		overflow:hidden;
+        		font-size: 12px !important;
+				line-height: 2.8em;
+        	}
+        </style>
+		
 		<!-- 갤러리최근게시물영역 -->
 		<div class="about_area">
 			<h2>갤러리 최근 게시물 <b>TOP 3</b></h2>
@@ -54,16 +89,24 @@
 				<ul class="place_list box_inner clear">
 					<c:forEach var="boardVO" items="${board_list}" varStatus="status">
 					<c:if test="${status.count<=3}">
-					<li><a href="/home/board/board_view?bno=${boardVO.bno}&page=1">
-							<img class="img_topplace" src="/resources/home/img/no_image.png" alt="OOOO OOOOO" />
-							<h3><c:out value="${boardVO.title}"></c:out></h3>
-							<p class="txt">
+					<li class="opacity_hover">
+						<a href="/home/board/board_view?bno=${boardVO.bno}&page=1">
+							<div style="height:270px;overflow:hidden">
+							<c:if test="${save_file_names[status.index] eq ''}">
+								<img class="img_topplace" src="/resources/home/img/no_image.png" alt="OOOO OOOOO" style="opacity:0.7;"/>
+							</c:if>
+							<c:if test="${save_file_names[status.index] ne '' }">
+								<img src="/image_preview?save_file_name=${save_file_names[status.index]}" style="opacity:0.8;" >
+							</c:if>
+							<h3 class="length_limit"><c:out value="${boardVO.title}"></c:out></h3>
+							<div class="txt">
 								${boardVO.content}
-							</p>
+							</div>
 							<span class="view">VIEW</span>
 						</a>
 					</li>
 					</c:if>
+					</div>
 				</c:forEach>
 				</ul>
 			</div>
