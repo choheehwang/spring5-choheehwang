@@ -2,20 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp" %>
 <style>
-div.txt{
-	max-height:100px;
-	overflow:hidden;
-	line-height: 17px;
-	margin-top:10px;
-}
-div.txt * { font-size: 14px !important;}
-.length_limit{
-	display: block;
-	padding-left: 14px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
+    div.txt{
+   		max-height:100px;
+   		overflow:hidden;
+		line-height: 17px;
+		margin-top:10px;
+	}
+  	div.txt * { font-size: 14px !important;}
+  	.length_limit{
+  	    display: block;
+	    padding-left: 14px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap; /* 줄바꿈 할 때, 공백는 포함 안 시키는 의미 */
+    }
 </style>
 <script>
 $(document).ready(function(){
@@ -27,7 +27,6 @@ $(document).ready(function(){
 	});
 });
 </script>
-
 	<!-- 메인콘텐츠영역 -->
 	<div id="container">
 		<!-- 모바일+PC 공통슬라이드영역 -->
@@ -72,22 +71,13 @@ $(document).ready(function(){
             </div>
         </div>
         <!-- //모바일+PC 공통슬라이드영역 -->
-		
-		<style>
-        	div.txt{
-        		height:100px;
-        		overflow:hidden;
-        		font-size: 12px !important;
-				line-height: 2.8em;
-        	}
-        </style>
-		
+        
 		<!-- 갤러리최근게시물영역 -->
 		<div class="about_area">
 			<h2>갤러리 최근 게시물 <b>TOP 3</b></h2>
 			<div class="about_box">
 				<ul class="place_list box_inner clear">
-					<c:forEach var="boardVO" items="${board_list}" varStatus="status">
+				<c:forEach var="boardVO" items="${board_list}" varStatus="status">
 					<c:if test="${status.count<=3}">
 					<li class="opacity_hover">
 						<a href="/home/board/board_view?bno=${boardVO.bno}&page=1">
@@ -98,6 +88,7 @@ $(document).ready(function(){
 							<c:if test="${save_file_names[status.index] ne '' }">
 								<img src="/image_preview?save_file_name=${save_file_names[status.index]}" style="opacity:0.8;" >
 							</c:if>
+							</div>
 							<h3 class="length_limit"><c:out value="${boardVO.title}"></c:out></h3>
 							<div class="txt">
 								${boardVO.content}
@@ -106,7 +97,6 @@ $(document).ready(function(){
 						</a>
 					</li>
 					</c:if>
-					</div>
 				</c:forEach>
 				</ul>
 			</div>
@@ -124,17 +114,18 @@ $(document).ready(function(){
 				<div class="bbs_line">
 					<h3><a href="/home/board/board_list">NOTICE</a></h3>
 					<ul class="notice_recent">
-						<c:forEach var="boardVO" items="${board_list}">
+					<c:forEach var="boardVO" items="${board_list}">
 						<li><a href="/home/board/board_view?bno=${boardVO.bno}&page=1">
 						<c:out value="${boardVO.title}"></c:out>
 						</a></li>
 					</c:forEach>
+						
 					</ul>
 				</div>
 			</div>
 		</div>
 		<!-- //카카오톡상담및최근공지사항영역 -->
 	</div>
-	<!-- //메인콘텐츠영역 -->
+	<!-- //메이콘텐츠영역 -->
 
-<%@ include file="include/footer.jsp" %>    
+<%@ include file="include/footer.jsp" %>
