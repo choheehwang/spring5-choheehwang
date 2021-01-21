@@ -73,10 +73,11 @@ public class DataSourceTest {
 	
 	@Test
 	public void updateMember() throws Exception {
-		//CRUD 중 Update test
-		//MemberVO memberVO = new MemberVO();
+		// CRUD 중 Update test
+		// MemberVO memberVO = new MemberVO();
 		memberVO.setUser_name("홍길동");
-		memberVO.setUser_pw(""); //암호를 수정하는 것을 원하지 않는 사람이라 가정
+		memberVO.setUser_pw(""); //이 셋을 적용하면, 공백값 memberVO.getUser_pw() == ""
+		// memberVO.setUser_pw(""); // 이 셋을 주석으로 적용하면, 아예보내지 않음 null값 memberVO.getUser_pw() == null
 		memberVO.setEmail("test@test.com");
 		memberVO.setPoint(100);
 		memberVO.setUser_id("admin");
