@@ -1,6 +1,7 @@
 package kr.or.mentoring;
 
 public class IfFunctionTest {
+
 	public static void main(String[] args) {
 		int score = 62;
 		
@@ -38,4 +39,5 @@ public class IfFunctionTest {
 			System.out.println("F");
 		}
 	}
+
 }

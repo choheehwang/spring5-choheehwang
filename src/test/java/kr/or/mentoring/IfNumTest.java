@@ -10,4 +10,5 @@ public class IfNumTest {
 			System.out.println("Bad!");
 		}
 	}
+
 }

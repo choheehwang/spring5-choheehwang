@@ -19,4 +19,5 @@ public class SwitchTest {
 				System.out.println("측정 불가능");
 		}
 	}
+
 }
