@@ -13,11 +13,13 @@ package org.edu.vo;
  *
  */
 public class PageVO {
-	//boolean과 boolean의 차이: boolean(일반형테이터형변수) / boolean(대문자로시작-클래스형변수-Null로 입력되었을때 처리하는 로직)
-	private int perPageNum; //페이징 목록 개수 변수
-	private int queryPerPageNum; //페이지 당 출력할 게시물 개수값의 변수
-	private Integer page; //jsp에서 사용자가 클릭한 페이지 번호값의 변수
-	private int queryStartNo; //쿼리에서 사용될 시작 번호값의 변수
+	//
+	private String board_type;
+	// boolean과 boolean의 차이: boolean(일반형테이터형변수) / boolean(대문자로시작-클래스형변수-Null로 입력되었을때 처리하는 로직)
+	private int perPageNum; // 페이징 목록 개수 변수
+	private int queryPerPageNum; // 페이지 당 출력할 게시물 개수값의 변수
+	private Integer page; // jsp에서 사용자가 클릭한 페이지 번호값의 변수
+	private int queryStartNo; // 쿼리에서 사용될 시작 번호값의 변수
 	private boolean prev; //페이징에서 이전 페이지가 있을 때 표시값의 변수
 	private boolean next; //페이징에서 이후 페이지가 있을 때 표시값의 변수
 	//위 프리뷰와 넥스트와 같은 변수의 존재 유무 확인 => 계산식 필요 => 계산식 내 변수 3개 필요(아래 변수 3개)
@@ -29,6 +31,15 @@ public class PageVO {
 	//검색에 필요한 변수 2개(search_type, search_keyword) 포함시켜 컨트롤러에서 매개변수 사용 축소
 	private String search_type; //검색 조건
 	private String search_keyword; //검색어
+	
+	public String getBoard_type() {
+		return board_type;
+	}
+
+	public void setBoard_type(String board_type) {
+		
+		this.board_type = board_type;
+	}
 	
 	//전체 클래스에서 [계산식] 4개 필요 => 개발자가 생성
 	private void calcPage() {

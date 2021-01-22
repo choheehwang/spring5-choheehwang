@@ -72,9 +72,13 @@ $(document).ready(function() {
 		//if( $(this).attr('href').includes(current_2) == true) {}
 		//위 includes function은 크롬에서만 작동되므로 아래 indexOf function으로 대체
 		if( $(this).attr('href').indexOf(current_2) != -1) {
-			$(this).addClass("active");
+			if(current_2 != 'board'){
+				$(this).addClass("active"); // 선택한 메뉴의 배경색상을 흰색으로 보이게 추가하는 처리.
+			}
 		} else {
-			$(this).removeClass("active");
+			if(current_2 != 'board'){
+				$(this).removeClass("active"); // 선택하지 않은 메뉴의 배경색상 흰색을 제거하는 처리.
+			}
 		}
 	});
 });

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.edu.dao.IF_BoardDAO;
 import org.edu.service.IF_BoardService;
@@ -233,8 +235,19 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/admin/board/board_list",method=RequestMethod.GET)
-	public String board_list(@ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
-		//테스트용 더미 게시판 데이터 만들기(아래)
+	public String board_list(HttpServletRequest request, @RequestParam(value="board_type",required=false) String board_type, @ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
+		// 게시판 타입을 세션변수로 저장(아래)
+		HttpSession session = request.getSession();
+		if(board_type != null) {
+			session.setAttribute("session_board_type", board_type);
+		}
+		/* PageVO와 BoardVO에서 세션변수로 get/set 하기 때문에
+		if(session.getAttribute("session_board_type") != null ) {
+			board_type = (String) session.getAttribute("session_board_type");
+			pageVO.setBoard_type(board_type);//다중게시판 쿼리때문에 추가
+		}
+		*/
+		// 테스트용 더미 게시판 데이터 만들기(아래)
 		/*
 		 * BoardVO input_board = new BoardVO(); input_board.setBno(1);
 		 * input_board.setTitle("첫번째 게시물 입니다.");
@@ -259,16 +272,16 @@ public class AdminController {
 		if(pageVO.getPage() == null) {//int 일때 null체크에러가 나와서 pageVO의 page변수형 Integer로벼경.
 			pageVO.setPage(1);
 		}
-		pageVO.setPerPageNum(8);//리스트하단에 보이는 페이징번호의 개수
-		pageVO.setQueryPerPageNum(10);//쿼리에서 1페이지당 보여줄 게시물수 10개로 입력 놓았습니다.
-		//검색된 전체 게시물수 구하기 서비스 호출
+		pageVO.setPerPageNum(8); // 리스트하단에 보이는 페이징번호의 개수
+		pageVO.setQueryPerPageNum(10); // 쿼리에서 1페이지당 보여줄 게시물수 10개로 입력 놓았습니다.
+		// 검색된 전체 게시물수 구하기 서비스 호출
 		int countBoard = 0;
 		countBoard = boardService.countBoard(pageVO);
-		pageVO.setTotalCount(countBoard);//11x개 전체 게시물 수를 구한 변수 값 매개변수로 입력하는 순간 calcPage()메서드실행.
+		pageVO.setTotalCount(countBoard); // 11x개 전체 게시물 수를 구한 변수 값 매개변수로 입력하는 순간 calcPage()메서드실행.
 		
 		List<BoardVO> board_list = boardService.selectBoard(pageVO);
 		model.addAttribute("board_list", board_list);
-		//model.addAttribute("pageVO", pageVO);//@ModelAttribute 애노테이션으로 대체
+		// model.addAttribute("pageVO", pageVO);//@ModelAttribute 애노테이션으로 대체
 		return "admin/board/board_list";
 	}
 	

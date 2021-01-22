@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
-
 <!-- 관리자단 헤더 시작 header.jsp -->
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +74,7 @@ if('${msg}' != '') { // EL표기법
           <img src="/resources/dist/img/default-150x150.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">관리자</a>
+          <a href="#" class="d-block">${session_username}</a>
         </div>
       </div>
 
@@ -122,11 +120,38 @@ if('${msg}' != '') { // EL표기법
                   <p>관리자 관리</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/admin/board/board_list" class="nav-link">
+             <li class="nav-item">
+                <a href="/admin/bod/bod_type_list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>게시물 관리</p>
+                  <p>게시판생성 관리</p>
                 </a>
+              </li>
+              <!-- 여기서부터 붙여넣기 시작 -->
+              <li class="nav-item menu-is-opening menu-open">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                                      게시물 관리
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: block;">
+                  <li class="nav-item">
+                    <a href="/admin/board/board_list?board_type=notice" class="nav-link <c:out value='${(session_board_type eq "notice")?"active":""}' /> ">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>공지사항</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/admin/board/board_list?board_type=gallery" class="nav-link <c:out value='${(session_board_type eq "gallery")?"active":""}' /> ">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>갤러리</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- 여기까지 붙여넣기 끝 -->
+
             </ul>
           </li>
 
