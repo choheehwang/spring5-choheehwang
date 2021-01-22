@@ -34,9 +34,9 @@ public class NaverLoginController {
 	private String CLIENT_SECRET;
 	@Value("${SnsCallbackUri}")
 	private String REDIRECT_URI; 
-	//private final static String CLIENT_ID = "";
-	//private final static String CLIENT_SECRET = "-";
-	//private final static String REDIRECT_URI = "";
+	// private final static String CLIENT_ID = "";
+	// private final static String CLIENT_SECRET = "-";
+	// private final static String REDIRECT_URI = "";
 	private final static String SESSION_STATE = "oauth_state";
 	/* 프로필 조회 API URL - 사용자이름+사용자이메일 */
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
