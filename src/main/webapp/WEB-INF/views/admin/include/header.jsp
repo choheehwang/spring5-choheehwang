@@ -7,8 +7,11 @@
 <html lang="en">
 <head>
 <script>
-if('${msg}' != '') { // EL표기법
-	alert("${msg} (을)를 처리하였습니다.");
+if('${msg}' != '') {//자바의 EL표기법 = 달라{변수명}
+	alert("${msg} 가(이) 성공하였습니다.");
+}
+if('${msg_fail}' != ''){
+	alert("${msg_fail} 가(이) 실패햐였습니다.");
 }
 </script>
   <meta charset="utf-8">

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../include/header.jsp" %>
 
   <!-- 대쉬보드 본문 Content Wrapper. Contains page content -->
@@ -73,7 +74,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                  
+                  <c:if test="${fn:length(board_list) == 0}">
+                  	<tr><td colspan="5" class="text-center">조회된 데이터가 없습니다.</td></tr>
+                  </c:if>
                   <c:forEach items="${board_list}" var="boardVO" varStatus="status">
                   <tr>
                       <td>
