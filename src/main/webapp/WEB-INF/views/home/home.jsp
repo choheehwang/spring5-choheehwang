@@ -126,6 +126,6 @@ $(document).ready(function(){
 		</div>
 		<!-- //카카오톡상담및최근공지사항영역 -->
 	</div>
-	<!-- //메이콘텐츠영역 -->
+	<!-- //메인콘텐츠영역 -->
 
 <%@ include file="include/footer.jsp" %>

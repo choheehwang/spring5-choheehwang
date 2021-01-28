@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/resources/dist/css/adminlte.min.css">
 
 <!-- 인터셉터로 가로챈 에러메시지 출력(아래) -->
+
 	<!-- 메인콘텐츠영역 -->
 	<div id="container">
 		<!-- 메인상단위치표시영역 -->
@@ -20,7 +21,7 @@
 				<h2 class="tit_page">스프링 <span class="in">in</span> 자바</h2>
 				<p class="location">에러페이지 <span class="path">/</span> ${exception.getMessage()}</p>
 				<ul class="page_menu clear">
-					<li><a href="#" class="on">${exception.getMessage()}</a></li>
+					<li style="color:#fff">${exception.getMessage()}</li>
 				</ul>
 			</div>
 		</div>	
@@ -41,5 +42,6 @@
 		<!-- //메인본문영역 -->
 	</div>
 	<!-- //메인콘텐츠영역 -->
+
 
 <%@ include file="./include/footer.jsp" %>
