@@ -103,7 +103,7 @@
          <div class="card-body">
            <div class="form-group">
 	           <label for="replyer">Replyer</label>
-	           <input type="text" class="form-control" name="replyer" id="replyer" placeholder="Enter the Writer" required>
+	           <input value="${session_username}" type="text" class="form-control" name="replyer" id="replyer" placeholder="Enter the Writer" required>
            </div>
            <div class="form-group">
 	           <label for="replytext">Reply Text</label>

@@ -54,7 +54,7 @@
                 
                 <div class="form-group">
                     <label for="writer">writer</label>
-                    <input type="text" class="form-control" name="writer" id="writer" placeholder="Enter the writer" required>
+                    <input value="${session_username}" type="text" class="form-control" name="writer" id="writer" placeholder="Enter the writer" required>
                 </div>
                 
                 <div class="form-group" style="margin-bottom:0px;">

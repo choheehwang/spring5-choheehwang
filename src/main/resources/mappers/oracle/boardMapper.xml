@@ -25,8 +25,8 @@
 예, 주민번호(PK)를 수정한다고 하는 것과 같은얘기로서 허용이 않됩니다. 그래서, 삭제후 insert태그를 사용합니다.
 -->
 <insert id="updateAttach">
-insert into tbl_attach (save_file_name,real_file_name,bno)
-values (#{save_file_name}, #{real_file_name}, #{bno})
+insert into tbl_attach (save_file_name,real_file_name,bno,reg_date)
+values (#{save_file_name}, #{real_file_name}, #{bno}, sysdate)
 </insert>
 <!-- 해당 게시물의 첨부파일 1개만 지우기(아래) PK프라이머리키=주키=기본키=>인덱스는 자동생성 -->
 <delete id="deleteAttach">
@@ -44,7 +44,7 @@ values (#{save_file_name}, #{real_file_name}, (select bno from tbl_board order b
 -->
 <!-- HSQL용(헤로쿠용) limit 사용 X -->
 <insert id="insertAttach">
-insert into tbl_attach (save_file_name, real_file_name, bno) 
+insert into tbl_attach (save_file_name, real_file_name, bno, reg_date) 
 values (#{save_file_name}, #{real_file_name},
 	(
 		SELECT TABLE_A.BNO FROM
@@ -52,7 +52,8 @@ values (#{save_file_name}, #{real_file_name},
 		SELECT BNO FROM TBL_BOARD ORDER BY BNO DESC
 		) TABLE_A
 		WHERE ROWNUM = 1
-	)
+	),
+sysdate
 )
 </insert>
 
@@ -67,9 +68,13 @@ where bno = #{bno}
 <delete id="deleteBoard">
 delete from tbl_board where bno = #{bno}
 </delete>
+<!-- 게시물등록시 bno가 자동증가가 안 되기 때문에 시퀸스를 사용한 값을 insert 쿼리 실행 전에 키값(PK) 지정 후 사용 -->
 <insert id="insertBoard">
-insert into tbl_board (board_type,title,content,writer,reg_date) 
-values(#{board_type},#{title},#{content},#{writer},sysdate)
+	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+		SELECT SEQ_BNO.nextval FROM DUAL
+	</selectKey>
+insert into tbl_board (bno,board_type,title,content,writer,reg_date) 
+values(#{bno},#{board_type},#{title},#{content},#{writer},sysdate)
 </insert>
 <select id="readAttach" resultType="org.edu.vo.AttachVO">
 select * from tbl_attach where bno = #{bno} order by reg_date desc
