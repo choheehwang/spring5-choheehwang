@@ -52,7 +52,7 @@ $(document).ready(function() {
 //회원탈퇴 처리 코딩(아래)
 $(document).ready(function(){
 	$("#btn_member_disabled").on("click",function(){
-		if(confirm("정말로 탈퇴 하시겠습니까? 탈퇴 후 다음부터 로그인이 않됩니다.")){
+		if(confirm("정말로 탈퇴 하시겠습니까? 탈퇴 시 로그인이 불가합니다.")){
 			$("form[name='mypage_form']").attr("action","/member/member_disabled");
 			$("input[name='enabled']").val('0');//enabled값이 0(false)셋 로그인 거부처리
 			$("form[name='mypage_form']").submit();
