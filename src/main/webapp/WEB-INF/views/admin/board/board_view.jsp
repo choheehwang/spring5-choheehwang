@@ -254,6 +254,7 @@ var replyList = function() {
 			//alert("디버그" + result);
 			if(typeof result=="undefinded" || result=="" || result==null) {
 				$("#div_reply").empty();
+				$("#div_reply").html('<div class="pagination justify-content-center"><ul class="pagination pageVO"></ul></div>');
 				alert('조회된 값이 없습니다.');
 			}else{
 			// 빵틀에 result data를 binding하여 출력

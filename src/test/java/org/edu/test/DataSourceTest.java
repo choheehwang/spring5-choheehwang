@@ -140,8 +140,8 @@ public class DataSourceTest {
 	@Test
 	public void selectMember() throws Exception {
 		PageVO pageVO = new PageVO();
-		pageVO.setSearch_type("user_name");
-		pageVO.setSearch_keyword("홍길동");
+		pageVO.setSearch_type("user_id");
+		pageVO.setSearch_keyword("admin");
 		
 		//초기 페이징 처리에 필요한 필수값(아래 3줄)
 		pageVO.setPage(1);

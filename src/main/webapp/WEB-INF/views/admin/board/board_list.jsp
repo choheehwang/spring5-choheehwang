@@ -90,7 +90,7 @@
 					  <c:out value="${boardVO.title}"></c:out>[<c:out value="${boardVO.reply_count}"></c:out>]
 					  </a></td>
                       <td><c:out value="${boardVO.writer}"></c:out></td>
-                      <td><fmt:formatDate pattern="yyy-MM-dd HH:mm" value="${boardVO.reg_date}"/></td>
+                      <td><fmt:formatDate pattern="yyy-MM-dd HH:mm:ss" value="${boardVO.reg_date}"/></td>
                       <td><span class="badge bg-danger">${boardVO.view_count}</span></td>
                       <!-- 조회수 = 부트스트랩 badge class 사용 -->
                     </tr>
