@@ -36,7 +36,7 @@
 	<security:logout logout-url="/logout" logout-success-url="/" invalidate-session="true" 
 	delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" />
 </security:http>
-<!-- 
+	<!-- 
 	쿠키에는 간단한 텍스트문자 정보가 저장되어 있습니다.(접속한 PC기기에 저장됩니다.)
 	세션은 간단한 테스트문자 정보가 저장되어 있습니다.(접속한 서버기기에 저장됩니다.)
 	홈컨트롤러에 로그인이 성공했으면 /login_success를 실행(세션을 만듭니다.)하도록 만들예정.
@@ -56,7 +56,7 @@
 				users-by-username-query="select user_id as no,user_pw as password, enabled from tbl_member where user_id = ?"
 				authorities-by-username-query="select user_id as no,levels as authority from tbl_member where user_id = ?"
 				/>
-				<security:password-encoder ref="passwordEncoder" />
+			<security:password-encoder ref="passwordEncoder" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 	<!-- 위 쿼리에서 사용할 패스워드 암호화 id passwordEncoder 빈 클래스를 생성(아래) -->
@@ -77,4 +77,4 @@
 	- 위처럼 'ID고유값"을 salt(소금)라고 얘기합니다.
 	- BCrypt패스워드 엔코더는 salt값이 필요없이, 동일한 user02 암호라도 해시값(60바이트문자)이 다 틀립니다.(장점) 
 	-->
-</beans>
+</beans>        

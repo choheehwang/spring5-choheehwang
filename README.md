@@ -13,6 +13,13 @@
 - https://adminlte.io/themes/v3/pages/forms/general.html
 - https://kimilguk-mysql.herokuapp.com/ (아이디/암호:admin/user02)
 
+### 수업에 대해서
+- 작업 내용의 복습시간은 이후 다른 코딩작업으로 대신하게 됩니다.
+- 예를 들면, 스프링프로젝트에서 관리자단 게시판을 만들면,
+- 나중에, 사용자단 게시판을 만들때 비슷한 과정을 한번 더 하게 됩니다. 이런방식으로 복습을 해서 기술을 익히게 됩니다.
+- 즉, 지금 이해가 않되시는 부분도 코딩작업을 여러번 반복하시게 되면서 기술을 익히게 되는 과정이라고 보시면 됩니다.
+- 그리고, 강의 내용을 녹음 하셔도 괜찮습니다.(단, 대단한 내용은 아니지만, 본인만 보시고, 유통시키지 않았으면 합니다.)
+
 #### 톰캣 서버 강제 종료시키기
 - netstat -ano | findstr 8080 : 특정 포트로 검색
 - taskkill /F /PID 포트번호(위에서출력된 제일오른쪽번호 : PID를 통해 작동중인 프로그램 종료)
@@ -57,14 +64,109 @@
 - 헤로쿠 클라우드로 배포(Hsql데이터베이스사용).
 - 이후 유효성검사(객체검증,마이페이지,회원가입-탈퇴), 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
 - 게시판분리(공지사항과 겔러리게시판): 부모테이블과 필드추가 를 이용해서 다중게시판 생성처리.
+- 오라클로 마이그레이션 작업OK.
+- 웹프로젝트 소스를 스프링프레임워크 버전으로 5.2.5 마이그레이션(버전 업그레이드) 헤로쿠배포OK.
 ---------------------- 작업중 ------------------------------
-- 오라클로 마이그레이션 작업.(책,2월3일에 시작하는 과목)
---------------------------------------------------------------------
-- 웹프로젝트 소스를 스프링프레임워크 버전으로 5.2.5 마이그레이션(버전 업그레이드)
+- 02월03일 부터 오라클 이론 단원06 진도 시작.
+----------------------------------------------------------
 - 시간이 여유가 되면, eGovFrame메뉴에서 Start > New TemplateProject 심플홈 템플릿 만들어서 커스터 마이징 예정.
-- 파스타클라우드 제일 마직막 달에 2주 기간중 배포(스스로 재배포가능할 정도수준-mysql을사용)
-- IoT(아두이노,라즈베리파이-C언어책3권) 2주
+- 파스타클라우드 제일 마직막 달에 2주 기간중 배포(클라우드용-mysql을사용)
+- IoT(아두이노,노드MCU보드로 실습-C언어책3권) 2주
 - 안드로이드앱(클라이언트)-통신-자바:스프링웹프로젝트(API서버) 2주
+
+#### 20210203(수) 작업예정
+- --------------------------------------------------------------------
+- 시작전: 이희탁씨(spring5깃허브+헤로쿠연동+네아로연동작업), 이용오씨(헤로쿠2단계인증문제) 확인, 다른분들은 과제물 작업.
+- 2교시때 UI구현 과제물 구글워드파일 제출(다음카페)
+- 02월03일 부터 오라클 이론 단원06 진도 시작.
+- C언어 기초: 출석수업시 바로 IoT실습에 들어가기 위해서 구름IDE에서 C언어 실습연습.
+- --------------------------------------------------------------------
+
+#### 20210202(화) 작업
+- scope(모듈이사용되는영역 provided-내장된다고 명시)1: 
+- provided-메모리를 기준: 톰캣이 실행시 jar모듈이 메모리에 로딩=인스턴스 생성.
+- scope(모듈이사용되는영역 runtime이라고 명시)2:
+- runtime-메모리를 기준: 톰캣 실행시 메모리에 로딩X, 해당 기능이 실행시runtime시 메모리에 로딩=인스턴스 생성.
+- scope(모듈이사용되는영역이 test라고 명시)3:
+- test-메모리를 기준: 톰캣 실행시 메모리에 로딩X, 웹프로그램기능에서 실행X, @TEST시에만 메모리에 리딩=인스턴스 생성.
+- 사전작업: JUnit에서 더미데이터 입력시 시간 초단위로 입력 부분 처리예정. - 문제없었음. 쿼리에서 sysdate로 박혀 있어서 그랬음.
+- 그래도, JUnit으로 더미 데이터를 입력하려면, 쿼리를 바꾸던가, 아니면, 인서트호출 후 Thread.sleep(1000);입력하면 해결됨.OK.
+- 사전작업: spring5-프로젝트명 신규레포지토리 git과 연동작업OK.
+- --------------------------------------------------------------------
+- 스프링MVC프로젝트 스프링버전 5.2.5 마이그레이션(버전 업그레이드)OK.
+- 위 스프링버전 마이그레이션이 필요한이유: 자바버전 2.x 보편화 되었을때, 톰캣버전 9.x 보편화 되었을때, 등등 이유가 있음(필수)
+- kimilguk프로젝트를 그대로 두고, spring5-kimilguk이름으로 폴더를 복사해서 프로젝트 생성됨
+- kimilguk.herokuapp.com(스프링4.x), spring5-kimilguk.herokuapp.com(스프링5.x)
+
+#### 20210201(월) 작업
+- 시작전1:replyMapper 마무리: 댓글 1개등록 후 삭제 후 다시등록시 페이징이 사라지는 문제 처리OK.
+- board_view.jsp의 삭제부분 $("#div_reply").empty(); 아래 코드로 수정.
+- $("#div_reply").find("div").not(".pagination").empty(); ->대신에 아래처럼 해도됨
+
+```
+- $("#div_reply").html('<div class="pagination justify-content-center"><ul class="pagination pageVO"></ul></div>');
+```
+- 시작전2:조회수 카운트도 필드값 null 때문에 증가가 않되는 부분 처리OK(NVL추가 아래).
+- 오라클 전용 수정할 쿼리: set view_count = NVL(view_count,0) + 1
+- 쿼리널체크: Mysql=ifnull(v1,v2),MSsql+Hsql=isnull(v1,v2)
+- 쿼리널체크: Oracle=nvl(v1,v2), NVL(Null VaLue)체크 함수.
+- 시작전3:멤버 페이지 페이징 쿼리부분에서 ORDER BY 부분제거 취소 후 더미데이터의 reg_date 수정.
+- 시작전4:게시판,댓글 페이징 부분은 정렬방식을 REG_DATE에서 BNO로 변경 취소.
+- 위3,4번 처리하는 대신 더미데이터만드는 프로시저에서 reg_date 현재시간기준 1초씩 증가하도록 처리 order by 가 제대로 작동하도록 처리OK.
+- 시작전: 더미데이터 만드는 프로시저에 REG_DATE항목을 1초 단위로 증가될 수 있도록 수정한 후 다시 더미데이터 생성한다.
+
+```
+create or replace PROCEDURE      "PROC_MEMBER_INSERT" 
+(
+  P_COUNT IN NUMBER 
+) AS 
+BEGIN
+  -- TRUNCATE table TBL_MEMBER; 삭제시 자동커밋
+  -- 실행방법: CALL PROC_MEMBER_INSERT(100);
+  FOR i IN 1..P_COUNT LOOP
+       IF(i=P_COUNT) THEN
+            INSERT INTO TBL_MEMBER
+            (user_id,user_pw,user_name,enabled,levels,reg_date,update_date)
+            VALUES
+            ('admin','$2a$10$kIqR/PTloYan/MRNiEsy6uYO6OCHVmAKR4kflVKQkJ345nqTiuGeO'
+            ,'관리자',1,'ROLE_ADMIN',sysdate + (1/24/60/60)*i,sysdate + (1/24/60/60)*i);
+        ELSE
+            INSERT INTO TBL_MEMBER
+            (user_id,user_pw,user_name,enabled,levels,reg_date,update_date)
+            VALUES
+            (concat('user',i) ,'$2a$10$kIqR/PTloYan/MRNiEsy6uYO6OCHVmAKR4kflVKQkJ345nqTiuGeO'
+            ,'사용자',1,'ROLE_USER',sysdate + (1/24/60/60)*i,sysdate + (1/24/60/60)*i);
+        END IF;
+      END LOOP;
+  commit;
+END PROC_MEMBER_INSERT;
+
+create or replace PROCEDURE      "PROC_BOARD_INSERT" 
+(
+  P_BOARD_TYPE IN VARCHAR2 
+, P_COUNT IN NUMBER 
+) AS 
+BEGIN
+  -- TRUNCATE table TBL_REPLY; 삭제시 자동커밋
+  -- TRUNCATE table TBL_ATTACH; 삭제시 자동커밋
+  -- DELETE FROM TBL_BOARD WHERE 1 = 1; 삭제시 커밋 필요 + 시퀸스 초기화 필요(초기값만 1로 바꾸면됨)
+  -- 실행방법;쿼리에디터에서 CALL PROC_BOARD_INSERT('notice',50);
+  FOR i IN 1..P_COUNT LOOP
+        INSERT INTO TBL_BOARD
+        (bno,board_type,title,content,writer,reg_date,update_date) 
+        VALUES
+        (SEQ_BNO.nextval,P_BOARD_TYPE,'게시물테스트','게시물내용테스트','관리자',SYSDATE + (1/24/60/60)*i,SYSDATE + (1/24/60/60)*i);
+      END LOOP;
+commit;
+END PROC_BOARD_INSERT;
+```
+- oracle폴더의 memberMapper, replyMapper, boardTypeMapper 3개파일 마이그레이션 OK.
+- 수정1: now() -> sysdate (현재일시구하기)
+- 수정2: limit 사용된 페이징 쿼리 -> 제거 후 기능변경(ROWNUM 키워드 사용, concat() -> ||연결문자사용)
+- 수정3: limit 사용된 조회시 최근게시물 1개 뽑아낼때 -> 제거 후 기능변경(ROWNUM 예약어 사용)
+- 수정4: < 부등호가 들어가 있는 쿼리는 <![CDATA[ 부등호가 있는 쿼리 ]]> 이렇게 CDATA로 처리.
+- 수정5: Insert의 AI(자동증가)부분 처리:마이바티스의 selectKey태그를 이용해서 시퀸스처리
+- 오늘 종료전 2월3일(수2교시) 다음카페에 제출하실 포트폴리오 구글 워드 문서 배포OK.
 
 #### 20210129(금) 작업
 - 이론 단원 05단원 까지 진도OK.
@@ -86,18 +188,13 @@
 - 테이블 정보(메타데이터=데이터딕셔너리=정보의정보)와  테이블 내용(데이터-예,게시판데이터) 차이 확인.
 - SQL*PLUS는 CLI(명령어라인인터페이스)와 SQL디벨러퍼는 GUI(그래픽유저인터페이스)
 - 아래 매퍼내용 수정1~5 참조해서 reply, member 쿼리 확인 후 수정조치.
-- 수정5: Insert의 AI(자동증가)부분 처리 : boardMapper.xml처리예정.
-- 오라클에서 첨부파일 신규등록 확인(필수)
+- 오라클에서 첨부파일 신규등록 확인(필수)OK.
 - 매퍼쿼리는 commit;하지 않아도 스프링이 자동 커밋해 줍니다.
 
 #### 20210128(목) 작업
 - 테스트절차: 게시물신규등록, 게시물신규등록시 첨부파일도 신규등록.
 - 이론 단원04까지 진도.
 - 매퍼(마이바티스)쿼리에서 오라클전용일때 수정할 부분요약: boardMapper.xml만 처리중.
-- 수정1: now() -> sysdata (현재일시구하기)
-- 수정2: limit 사용된 페이징 쿼리 -> 제거 후 기능변경(ROWNUM 키워드 사용)
-- 수정3: limit 사용된 조회시 최근게시물 1개 뽑아낼때 -> 제거 후 기능변경(ROWNUM 예약어 사용)
-- 수정4: < 부등호가 들어가 있는 쿼리는 <![CDATA[ 부등호가 있는 쿼리 ]]> 이렇게 CDATA로 처리.
 - 참고: Hsql용 최근게시물 ㅂ1개 뽑아낼떄: select top 1 bno from tbl_board order by bno desc
 - DELETE와 TRUNCATE 차이점: 둘다 테이블내용을 삭제하는 것은 동일.
 - DELETE: 100개의 레코드를 지우면, 내용은 지워지지만, 100개의 공간은 남아있음.

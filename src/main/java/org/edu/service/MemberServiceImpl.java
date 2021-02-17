@@ -12,7 +12,7 @@ import org.edu.vo.PageVO;
 import org.springframework.stereotype.Service;
 
 /**
- * MemberServiceImpl: DAO method 호출 구현
+ * MemberServiceImpl는 DAO메서드 호출을 구현
  * @author 황초희
  *
  */
@@ -20,42 +20,41 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements IF_MemberService {
 
 	@Inject
-	IF_MemberDAO memberDAO;
-	//IF_MemberDAO interface를 inject해서 memberDAO라는 오브젝트 생성
+	IF_MemberDAO memberDAO;//IF_MemberDAO 주입받아서 memberDAO오브젝트생성.
 	
 	@Override
 	public List<MemberVO> selectMember(PageVO pageVO) throws Exception {
-		// 회원정보 조회 DAO class의 method 호출(아래)
+		// 회원정보 조회 DAO클래스의 메서드호출(아래)
 		return memberDAO.selectMember(pageVO);
 	}
 
 	@Override
 	public int countMember(PageVO pageVO) throws Exception {
-		// 검색된 회원의 전체 멤버수 쿼리
+		// 검색된 회원의 전체 명수 구하기
 		return memberDAO.countMember(pageVO);
 	}
 
 	@Override
 	public MemberVO readMember(String user_id) throws Exception {
-		// 선택한 회원 상세정보 쿼리
+		// 선택한 회원의 상세 정보 구하기
 		return memberDAO.readMember(user_id);
 	}
 
 	@Override
 	public void deleteMember(String user_id) throws Exception {
-		// 선택한 회원 삭제 쿼리
+		// 선택한 회원정보를 삭제 하기
 		memberDAO.deleteMember(user_id);
 	}
 
 	@Override
 	public void updateMember(MemberVO memberVO) throws Exception {
-		// 선택한 회원 정보 수정 쿼리
+		// 선택한 회원정보 수정하기
 		memberDAO.updateMember(memberVO);
 	}
 
 	@Override
 	public void insertMember(MemberVO memberVO) throws Exception {
-		// jsp 폼에서 입력한 회원정보 등록 쿼리
+		// jsp폼에서 입력한 회원정보 등록하기
 		memberDAO.insertMember(memberVO);
 	}
 
@@ -74,4 +73,16 @@ public class MemberServiceImpl implements IF_MemberService {
 			System.out.println("헤로쿠 앱이 비활성화 상태 입니다.");
 		}
 	}
+
+	@Override
+	public void testJob() throws Exception {
+		// DAO 호출하여 반환값으로 회원번호 수신(아래)
+		List<MemberVO> memberList = memberDAO.testJob();
+		System.out.println("6개월동안 회원정보 수정이 없는 회원 정보는");
+		for(MemberVO memberVO:memberList) {
+			System.out.println(memberVO.getUser_id()+": "+memberVO.getEmail());
+			
+		}
+	}
+
 }
